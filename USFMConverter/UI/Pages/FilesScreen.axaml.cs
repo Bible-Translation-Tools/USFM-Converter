@@ -11,8 +11,8 @@ namespace USFMConverter.UI.Pages
     {
         public string TestText { get; set; } = "hello world";
 
-        public static readonly StyledProperty<List<string>> ItemsProperty = AvaloniaProperty.Register<FilesScreen, List<string>>(nameof(Items));
-        public static readonly RoutedEvent<RoutedEventArgs> FormatPageEvent = RoutedEvent.Register<FilesScreen, RoutedEventArgs>(nameof(FormatPage), RoutingStrategies.Bubble);
+        private static readonly StyledProperty<List<string>> ItemsProperty = AvaloniaProperty.Register<FilesScreen, List<string>>(nameof(Items));
+        private static readonly RoutedEvent<RoutedEventArgs> FormatPageEvent = RoutedEvent.Register<FilesScreen, RoutedEventArgs>(nameof(FormatPage), RoutingStrategies.Bubble);
         public List<string> Items
         {
             get => GetValue(ItemsProperty);
@@ -25,14 +25,8 @@ namespace USFMConverter.UI.Pages
         
         public event EventHandler<RoutedEventArgs> FormatPage
         {
-            add
-            {
-                AddHandler(FormatPageEvent, value);
-            }
-            remove
-            {
-                AddHandler(FormatPageEvent, value);
-            }
+            add => AddHandler(FormatPageEvent, value); 
+            remove => AddHandler(FormatPageEvent, value);
         }
 
         public FilesScreen()
