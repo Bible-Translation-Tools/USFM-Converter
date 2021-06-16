@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="USFMConverter.Pages.FilesScreen">
+             x:Class="USFMConverter.UI.Pages.FilesScreen">
   <UserControl.Styles>
     <Style Selector="DockPanel.TopPanel">
       <Setter Property="Background" Value="#003389"/>
@@ -32,7 +32,7 @@
         <Button>Delete selected files</Button>
       </StackPanel>
       <StackPanel Orientation="Horizontal" Spacing="5">
-        <Image Source="/Assets/small_file.png"/>
+        <Image Source="/UI/Assets/small_file.png"/>
         <TextBlock VerticalAlignment="Center">Files</TextBlock>
       </StackPanel>
       <ScrollViewer Height="500" x:Name="ScrollView" VerticalScrollBarVisibility="Visible" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">

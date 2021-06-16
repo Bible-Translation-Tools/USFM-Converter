@@ -3,22 +3,26 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
+    <ApplicationIcon>UI\Assets\converter_logo_inverted_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="Assets\converter_logo_inverted_icon.ico" />
-    <None Remove="Assets\small_file.png" />
-    <None Remove="Assets\start_screen.bmp" />
-    <None Remove="Assets\start_screen.png" />
+    <None Remove="UI\Assets\converter_logo_inverted_icon.ico" />
+    <None Remove="UI\Assets\small_file.png" />
+    <None Remove="UI\Assets\start_screen.bmp" />
+    <None Remove="UI\Assets\start_screen.png" />
   </ItemGroup>
   <ItemGroup>
-    <AvaloniaResource Include="Assets\converter_logo_inverted_icon.ico" />
-    <AvaloniaResource Include="Assets\small_file.png" />
-    <AvaloniaResource Include="Assets\start_screen.bmp" />
-    <AvaloniaResource Include="Assets\start_screen.png" />
+    <AvaloniaResource Include="UI\Assets\converter_logo_inverted_icon.ico" />
+    <AvaloniaResource Include="UI\Assets\small_file.png" />
+    <AvaloniaResource Include="UI\Assets\start_screen.bmp" />
+    <AvaloniaResource Include="UI\Assets\start_screen.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.10.3" />
     <PackageReference Include="Avalonia.Desktop" Version="0.10.3" />
     <PackageReference Include="Avalonia.Diagnostics" Version="0.10.3" />
    </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Domain\" />
+  </ItemGroup>
 </Project>

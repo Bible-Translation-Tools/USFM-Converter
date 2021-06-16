@@ -4,17 +4,19 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using System;
 
-namespace USFMConverter.Pages
+namespace USFMConverter.UI.Pages
 {
     public partial class HomeScreen : UserControl
     {
         private string _folder = "";
-        public string Folder => _folder;
+        private StackPanel panel;
 
         public HomeScreen()
         {
             InitializeComponent();
         }
+        
+        public string Folder => _folder;
 
         public static readonly RoutedEvent<RoutedEventArgs> FolderSelectedEvent = RoutedEvent.Register<HomeScreen, RoutedEventArgs>(nameof(FolderSelected), RoutingStrategies.Bubble);
 

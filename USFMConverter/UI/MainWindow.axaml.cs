@@ -4,7 +4,7 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using System.Collections.Generic;
 using System.IO;
-using USFMConverter.Pages;
+using USFMConverter.UI.Pages;
 
 namespace USFMConverter
 {

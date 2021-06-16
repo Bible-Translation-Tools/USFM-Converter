@@ -3,7 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using System.Collections.Generic;
 
-namespace USFMConverter.Pages
+namespace USFMConverter.UI.Pages
 {
     public partial class FilesScreen : UserControl
     {

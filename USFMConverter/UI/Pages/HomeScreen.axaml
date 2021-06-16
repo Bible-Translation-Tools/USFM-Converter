@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="USFMConverter.Pages.HomeScreen">
+             x:Class="USFMConverter.UI.Pages.HomeScreen">
   <UserControl.Styles>
     <Style Selector="TextBlock.DragText">
       <Setter Property="FontSize" Value="20"/>
@@ -19,8 +19,8 @@
       <Setter Property="Background" Value="Blue"/>
     </Style>
   </UserControl.Styles>
-  <StackPanel Spacing="20">
-    <Image Source="/Assets/start_screen.png" MaxHeight="500"/>
+  <StackPanel Name="DragDropArea" Spacing="20">
+    <Image Source="/UI/Assets/start_screen.png" MaxHeight="500"/>
     <TextBlock HorizontalAlignment="Center" Classes="DragText">Drag and Drop a USFM folder to get started.</TextBlock>
     <Button HorizontalAlignment="Center" Click="BrowseFiles_Click" Name="BrowseFiles">
       Browse Files
