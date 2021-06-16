@@ -11,7 +11,8 @@ namespace USFMConverter
     public partial class MainWindow : Window
     {
         HomeScreen HomeScreen;
-        FilesScreen filesScreen;
+        FilesScreen FilesScreen;
+        FormatScreen FormatScreen;
         Dictionary<string, IControl> Screens = new Dictionary<string, IControl>();
         public MainWindow()
         {
@@ -30,17 +31,25 @@ namespace USFMConverter
         public void HomeScreen_FolderSelected(object sender, RoutedEventArgs e)
         {
             HomeScreen HomeScreen = (HomeScreen)sender;
-            filesScreen.Items = LoadFolder(HomeScreen.Folder);
+            FilesScreen.Items = LoadFolder(HomeScreen.Folder);
             SetCurrentScreen("FilesScreen");
+        }
+
+        public void FileScreen_FormatPage(object sender, RoutedEventArgs e)
+        {
+            FilesScreen filesScreen = (FilesScreen) sender;
+            SetCurrentScreen("FormatScreen");
         }
 
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
             this.HomeScreen = this.FindControl<HomeScreen>("HomeScreen");
-            this.filesScreen = this.FindControl<FilesScreen>("FilesScreen");
+            this.FilesScreen = this.FindControl<FilesScreen>("FilesScreen");
+            this.FormatScreen = this.FindControl<FormatScreen>("FormatScreen");
             this.Screens.Add("HomeScreen", this.HomeScreen);
-            this.Screens.Add("FilesScreen", this.filesScreen);
+            this.Screens.Add("FilesScreen", this.FilesScreen);
+            this.Screens.Add("FormatScreen", this.FormatScreen);
         }
 
         private List<string> LoadFolder(string folderName)

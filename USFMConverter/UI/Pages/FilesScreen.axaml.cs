@@ -1,7 +1,9 @@
+using System;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using System.Collections.Generic;
+using Avalonia.Interactivity;
 
 namespace USFMConverter.UI.Pages
 {
@@ -10,6 +12,7 @@ namespace USFMConverter.UI.Pages
         public string TestText { get; set; } = "hello world";
 
         public static readonly StyledProperty<List<string>> ItemsProperty = AvaloniaProperty.Register<FilesScreen, List<string>>(nameof(Items));
+        public static readonly RoutedEvent<RoutedEventArgs> FormatPageEvent = RoutedEvent.Register<FilesScreen, RoutedEventArgs>(nameof(FormatPage), RoutingStrategies.Bubble);
         public List<string> Items
         {
             get => GetValue(ItemsProperty);
@@ -19,6 +22,19 @@ namespace USFMConverter.UI.Pages
                 this.DataContext = new RandomViewModel() { Files = value };
             }
         }
+        
+        public event EventHandler<RoutedEventArgs> FormatPage
+        {
+            add
+            {
+                AddHandler(FormatPageEvent, value);
+            }
+            remove
+            {
+                AddHandler(FormatPageEvent, value);
+            }
+        }
+
         public FilesScreen()
         {
             InitializeComponent();
@@ -26,6 +42,13 @@ namespace USFMConverter.UI.Pages
             {
                 Files = this.Items
             };
+        }
+
+        public void FormatPage_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("HIIIIIIIIIIIIIII");
+            var format_event = new RoutedEventArgs(FormatPageEvent);
+            RaiseEvent(format_event);
         }
 
         private void InitializeComponent()

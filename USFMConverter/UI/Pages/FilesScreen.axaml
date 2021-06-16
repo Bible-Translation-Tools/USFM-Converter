@@ -22,7 +22,7 @@
   <StackPanel>
     <DockPanel Classes="TopPanel" Width="{Binding $parent.Width}">
       <TextBlock HorizontalAlignment="Left" DockPanel.Dock="Left">Project</TextBlock>
-      <Button DockPanel.Dock="Right" Height="40" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right">Next: Format</Button>
+      <Button DockPanel.Dock="Right" Height="40" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Click="FormatPage_Click">Next: Format</Button>
     </DockPanel>
     <StackPanel Orientation="Vertical" Spacing="5" Margin="20">
       <TextBlock>Project Name</TextBlock>
