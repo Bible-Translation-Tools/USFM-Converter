@@ -2,11 +2,11 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace QuickUSFMConverter.Screens
+namespace USFMConverter.Pages
 {
-    public class FormatOptionsScreen : UserControl
+    public partial class FormatScreen : UserControl
     {
-        public FormatOptionsScreen()
+        public FormatScreen()
         {
             InitializeComponent();
         }
