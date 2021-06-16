@@ -1,0 +1,43 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="USFMConverter.Pages.FilesScreen">
+  <UserControl.Styles>
+    <Style Selector="DockPanel.TopPanel">
+      <Setter Property="Background" Value="#003389"/>
+    </Style>
+    <Style Selector="DockPanel.TopPanel > TextBlock">
+      <Setter Property="Foreground" Value="White"/>
+      <Setter Property="FontSize" Value="40"/>
+      <Setter Property="Margin" Value="20,10,0,10"/>
+    </Style>
+    <Style Selector="DockPanel.TopPanel > Button">
+      <Setter Property="Foreground" Value="#003389"/>
+      <Setter Property="Background" Value="White"/>
+      <Setter Property="Margin" Value="20,0"/>
+    </Style>
+  </UserControl.Styles>
+  <StackPanel>
+    <DockPanel Classes="TopPanel" Width="{Binding $parent.Width}">
+      <TextBlock HorizontalAlignment="Left" DockPanel.Dock="Left">Project</TextBlock>
+      <Button DockPanel.Dock="Right" Height="40" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right">Next: Format</Button>
+    </DockPanel>
+    <StackPanel Orientation="Vertical" Spacing="5" Margin="20">
+      <TextBlock>Project Name</TextBlock>
+      <StackPanel Orientation="Horizontal" Spacing="40">
+        <TextBox MinWidth="200"></TextBox>
+        <Button>+ Add files</Button>
+        <Button>Delete selected files</Button>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" Spacing="5">
+        <Image Source="/Assets/small_file.png"/>
+        <TextBlock VerticalAlignment="Center">Files</TextBlock>
+      </StackPanel>
+      <ScrollViewer Height="500" x:Name="ScrollView" VerticalScrollBarVisibility="Visible" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <ListBox Items="{Binding Files}"/>
+      </ScrollViewer>
+    </StackPanel>
+  </StackPanel>
+</UserControl>
