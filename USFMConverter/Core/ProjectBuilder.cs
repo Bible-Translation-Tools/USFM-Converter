@@ -4,7 +4,7 @@ using System.Linq;
 using USFMConverter.Core.ConstantValue;
 using USFMConverter.Core.Data;
 
-namespace USFMConverter.Core.Converter
+namespace USFMConverter.Core
 {
     public class ProjectBuilder
     {
