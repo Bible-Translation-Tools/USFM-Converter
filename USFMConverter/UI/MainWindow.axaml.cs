@@ -14,6 +14,7 @@ namespace USFMConverter
         FilesScreen FilesScreen;
         FormatScreen FormatScreen;
         Dictionary<string, IControl> Screens = new Dictionary<string, IControl>();
+        
         public MainWindow()
         {
             InitializeComponent();
