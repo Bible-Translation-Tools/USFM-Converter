@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace USFMConverter.Core.Data
+namespace USFMConverter.Core.ConstantValue
 {
     public enum TextAlignment
     {

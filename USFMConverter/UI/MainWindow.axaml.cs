@@ -13,6 +13,7 @@ namespace USFMConverter
         HomeScreen HomeScreen;
         FilesScreen filesScreen;
         Dictionary<string, IControl> Screens = new Dictionary<string, IControl>();
+        
         public MainWindow()
         {
             InitializeComponent();
