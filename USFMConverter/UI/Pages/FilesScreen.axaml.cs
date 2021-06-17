@@ -40,7 +40,6 @@ namespace USFMConverter.UI.Pages
 
         public void FormatPage_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("HIIIIIIIIIIIIIII");
             var format_event = new RoutedEventArgs(FormatPageEvent);
             RaiseEvent(format_event);
         }

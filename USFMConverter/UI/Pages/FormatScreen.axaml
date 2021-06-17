@@ -18,13 +18,62 @@
       <Setter Property="Background" Value="White"/>
       <Setter Property="Margin" Value="20,0"/>
     </Style>
+    
+    <Style Selector="StackPanel.LeftPanel > TextBlock">
+      <Setter Property="FontSize" Value="50"/>
+    </Style>
+    
   </UserControl.Styles>
+  
   <StackPanel>
     <DockPanel Classes="TopPanel" Width="{Binding $parent.Width}">
       <TextBlock HorizontalAlignment="Left" DockPanel.Dock="Left">Format Options</TextBlock>
       <Button DockPanel.Dock="Right" Height="40" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right">Convert</Button>
     </DockPanel>
-    <StackPanel Orientation="Vertical" Spacing="5" Margin="20">
-    </StackPanel>
+    
+    <Grid Width="{Binding $parent.Width}">
+      
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
+      
+      <StackPanel Grid.Column="0">
+        
+        <StackPanel Grid.Column="0" HorizontalAlignment="Left" Spacing="5" Margin="30">
+          <TextBlock>Line Spacing</TextBlock>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+          <ToggleButton>Single Space</ToggleButton>
+          <ToggleButton>Double Space</ToggleButton>
+        </StackPanel>
+        
+        <StackPanel Grid.Column="0" HorizontalAlignment="Left" Spacing="5" Margin="30">
+          <TextBlock>Columns</TextBlock>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+          <ToggleButton>One Column</ToggleButton>
+          <ToggleButton>Two Columns</ToggleButton>
+        </StackPanel>
+        
+        <StackPanel Grid.Column="0" HorizontalAlignment="Left" Spacing="5" Margin="30">
+          <TextBlock>Text Direction</TextBlock>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+          <ToggleButton>Left to Right</ToggleButton>
+          <ToggleButton>Right to Left</ToggleButton>
+        </StackPanel>
+      </StackPanel>
+      
+          
+
+        <StackPanel Grid.Column="1" Width="{Binding $parent.Width}" HorizontalAlignment="Center" Spacing="5" Margin="30">
+          <Button>Right</Button>
+          <ToggleButton>On</ToggleButton>
+          <ToggleButton>Off</ToggleButton>
+          <Slider></Slider>
+        </StackPanel>
+    </Grid>
+    
   </StackPanel>
 </UserControl>
