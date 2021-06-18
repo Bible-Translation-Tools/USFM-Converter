@@ -1,7 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using USFMConverter.Core.Converter;
+using USFMConverter.Core;
 
 namespace USFMConverter
 {
