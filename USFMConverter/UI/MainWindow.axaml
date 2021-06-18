@@ -9,8 +9,6 @@
         Background="AliceBlue">
   <StackPanel>
     <screen:HomeScreen Name="HomeScreen" FolderSelected="HomeScreen_FolderSelected"/>
-    <screen:FilesScreen Name="FilesScreen" IsVisible="False" FormatPage="FileScreen_FormatPage"/>
-    <screen:FormatScreen Name="FormatScreen" IsVisible="False"/>
     <screen:ProjectDetailScreen Name="ProjectDetailScreen" IsVisible="False"/>
   </StackPanel>
 </Window>
