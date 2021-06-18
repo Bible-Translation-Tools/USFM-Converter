@@ -7,8 +7,7 @@ namespace USFMConverter.UI.Pages
 {
   public partial class ProjectDetailScreen : UserControl
   {
-    
-    private static readonly StyledProperty<List<string>> ItemsProperty = AvaloniaProperty.Register<FilesScreen, List<string>>(nameof(Items));
+    private static readonly StyledProperty<List<string>> ItemsProperty = AvaloniaProperty.Register<ProjectDetailScreen, List<string>>(nameof(Items));
 
     public List<string> Items
     {
