@@ -27,9 +27,12 @@
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontWeight" Value="Bold"/>
         </Style>
-        <Style Selector="Button.ButtonUnderline">
-            <Setter Property="FontStyle" Value="Oblique"/>
-            <Setter Property="Foreground" Value="#003389"/>
+        <Style Selector="TextBlock.SelectedText">
+            <Setter Property="FontWeight" Value="Medium"></Setter>
+            <Setter Property="Background" Value="White"/>
+        </Style>
+        <Style Selector="Button.RemoveButton">
+            <Setter Property="Foreground" Value="#dd4c46"/>
             <Setter Property="Background" Value="White"/>
         </Style>
     </UserControl.Styles>
@@ -37,64 +40,95 @@
     <StackPanel Background="White">
         <DockPanel Classes="TopPanel" Width="{Binding $parent.Width}">
             <TextBlock HorizontalAlignment="Left" DockPanel.Dock="Left">USFM Converter</TextBlock>
-            <Button DockPanel.Dock="Right" Height="40" Width="150" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" >Convert</Button>
+            <Button DockPanel.Dock="Right" 
+                    Height="40" Width="150" 
+                    HorizontalContentAlignment="Center" 
+                    VerticalContentAlignment="Center" 
+                    HorizontalAlignment="Right">Convert</Button>
         </DockPanel>
-        
-        <StackPanel>
-            <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal">
+            
+            <StackPanel Spacing="5" Margin="20" Width="750">
+                <TextBlock Classes="Title" Margin="0 0 0 20">Project Files</TextBlock>
                 
-                <StackPanel Spacing="5" Margin="20">
-                    <TextBlock Classes="Title" Margin="0 0 0 20">Project Detail</TextBlock>
-                    <TextBlock Classes="SubTitle">Project Name</TextBlock>
-                    <StackPanel Orientation="Horizontal" Spacing="40">
-                        <TextBox MinWidth="600"></TextBox>
-                        <Button Classes="ButtonUnderline" BorderThickness="1" BorderBrush="#003389" HorizontalContentAlignment="Center" Width="110">+ Add files</Button>
-                    </StackPanel>
-
-                    <Button Classes="ButtonUnderline" Margin="0 20 0 0" Background="White" BorderThickness="0" HorizontalAlignment="Right">- Remove Files</Button>
-                
-                    <StackPanel Orientation="Horizontal" Spacing="5">
-                        <Image Source="/UI/Assets/small_file.png"/>
-                        <TextBlock Classes="SubTitle" VerticalAlignment="Center">Files</TextBlock>
-                    </StackPanel>
-                    <ScrollViewer Height="370" x:Name="ScrollView" VerticalScrollBarVisibility="Visible" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                        <ListBox SelectionMode="Multiple" Items="{Binding Files}"/>
-                    </ScrollViewer>
+                <StackPanel>
+                    <Border Background="#edf1fa" BorderBrush="#edf1fa" 
+                            BorderThickness="1" CornerRadius="10"
+                            HorizontalAlignment="Stretch">
+                        <StackPanel Margin="10 20 10 20">
+                            <TextBlock VerticalAlignment="Center" 
+                                       Margin="10" Foreground="#244f9d">Add Files</TextBlock>
+                            <TextBlock VerticalAlignment="Center" Margin="10 0 10 10">
+                                You may browse your computer for files or drag and drop them directly to the screen to import.
+                            </TextBlock>
+                            
+                            <Border Margin="10" HorizontalAlignment="Left" CornerRadius="5" BorderThickness="2" BorderBrush="#737f8f" MaxWidth="150">
+                                <Button Foreground="#244f9d" Background="#edf1fa" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    Browse Files
+                                </Button>
+                            </Border>
+                        </StackPanel>
+                    </Border>
                 </StackPanel>
                 
-                <Border Background="#edf1fa">
+                <Grid>
+                    <TextBlock Classes="SelectedText" Margin="0 20 0 0" 
+                            Background="White" VerticalAlignment="Center" 
+                            HorizontalAlignment="Left">0 Selected</TextBlock>
+                
+                    <Button Classes="RemoveButton" Margin="0 20 0 0" 
+                            Background="White" BorderThickness="0" 
+                            HorizontalAlignment="Right">- Remove Files</Button>
+                </Grid>
+            
+                <ScrollViewer Height="370" x:Name="ScrollView" 
+                              VerticalScrollBarVisibility="Visible" 
+                              HorizontalContentAlignment="Center"
+                              VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <ListBox Padding="20" SelectionMode="Multiple" Items="{Binding Files}"/>
+                </ScrollViewer>
+            </StackPanel>
+            
+            <StackPanel>
+                <Border Background="#d4dbe5">
                     
-                    <ScrollViewer Height="600" x:Name="ScrollViewer2" VerticalScrollBarVisibility="Visible" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                    <ScrollViewer Height="600" x:Name="ScrollViewer2" 
+                                  VerticalScrollBarVisibility="Visible" 
+                                  VerticalAlignment="Top" HorizontalAlignment="Stretch">
 
-                    <StackPanel Background="#edf1fa" Spacing="5" Margin="20">
-                        <TextBlock Classes="Title" Margin="0 0 0 20">Settings</TextBlock>
+                    <StackPanel Background="#d4dbe5" Spacing="5" Margin="20">
+                        <TextBlock Classes="Title" Margin="0 0 0 20">Project Settings</TextBlock>
  
                         <TextBlock Classes="SubTitle">Options</TextBlock>
                             
                         <StackPanel>
-                            <Border Background="White" BorderBrush="#edf1fa" BorderThickness="10">
-                                <StackPanel Orientation="Horizontal">
-                                    <Grid MinWidth="400">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock VerticalAlignment="Center" Margin="10" Grid.Column="0">Note Taking</TextBlock>
-                                        <ToggleSwitch OnContent="" OffContent="" HorizontalAlignment="Right" Grid.Column="1"></ToggleSwitch>
-                                    </Grid>
-                                </StackPanel>
-                            </Border>
-                            
-                            <Border Background="White" BorderBrush="#edf1fa" BorderThickness="10">
-                                <StackPanel Orientation="Horizontal">
-                                    <Grid MinWidth="400">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock VerticalAlignment="Center" Margin="10" Grid.Column="0">Table of Contents</TextBlock>
-                                        <ToggleSwitch OnContent="" OffContent="" HorizontalAlignment="Right" Grid.Column="1"></ToggleSwitch>
-                                    </Grid>
+                            <Border CornerRadius="15" Background="White" BorderBrush="#d4dbe5" BorderThickness="10">
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Grid MinWidth="400">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock VerticalAlignment="Center" 
+                                                       Margin="10" Grid.Column="0">Note Taking</TextBlock>
+                                            <ToggleSwitch OnContent="" OffContent="" 
+                                                          HorizontalAlignment="Right" Grid.Column="1"></ToggleSwitch>
+                                        </Grid>
+                                    </StackPanel>
+                                    
+                                    <StackPanel Orientation="Horizontal">
+                                        <Grid MinWidth="400">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock VerticalAlignment="Center" 
+                                                       Margin="10" Grid.Column="0">Table of Contents</TextBlock>
+                                            <ToggleSwitch OnContent="" OffContent="" 
+                                                          HorizontalAlignment="Right" Grid.Column="1"></ToggleSwitch>
+                                        </Grid>
+                                    </StackPanel>
                                 </StackPanel>
                             </Border>
                         </StackPanel>
@@ -102,123 +136,125 @@
                         <TextBlock Classes="SubTitle">Content</TextBlock>
                         
                         <StackPanel>
-                            <Border Background="White" BorderBrush="#edf1fa" BorderThickness="10">
-                                <StackPanel Orientation="Horizontal">
-                                    <Grid MinWidth="400">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock VerticalAlignment="Center" Margin="10" Grid.Column="0">Font Size</TextBlock>
-                                        <ComboBox HorizontalAlignment="Right" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Grid.Column="1">
-                                            <ComboBoxItem>Small</ComboBoxItem>
-                                            <ComboBoxItem>Normal</ComboBoxItem>
-                                            <ComboBoxItem>Large</ComboBoxItem>
-                                        </ComboBox>
-                                    </Grid>
+                            <Border CornerRadius="15" Background="White" BorderBrush="#d4dbe5" BorderThickness="10">
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Grid MinWidth="400">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock VerticalAlignment="Center" 
+                                                       Margin="10" Grid.Column="0">Font Size</TextBlock>
+                                            <ComboBox HorizontalAlignment="Right" VerticalAlignment="Center" 
+                                                      VerticalContentAlignment="Center" BorderThickness="0" Grid.Column="1">
+                                                <ComboBoxItem>Small</ComboBoxItem>
+                                                <ComboBoxItem>Normal</ComboBoxItem>
+                                                <ComboBoxItem>Large</ComboBoxItem>
+                                            </ComboBox>
+                                        </Grid>
+                                    </StackPanel>
+                                    
+                                    <StackPanel Orientation="Horizontal">
+                                        <Grid MinWidth="400">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock VerticalAlignment="Center" 
+                                                       Margin="10" Grid.Column="0">Text Direction</TextBlock>
+                                            <ComboBox HorizontalAlignment="Right" VerticalAlignment="Center" 
+                                                      VerticalContentAlignment="Center" BorderThickness="0" Grid.Column="1">
+                                                <ComboBoxItem>Left to Right</ComboBoxItem>
+                                                <ComboBoxItem>Right to Left</ComboBoxItem>
+                                            </ComboBox>
+                                        </Grid>
+                                    </StackPanel>
+                                    
+                                    <StackPanel Orientation="Horizontal">
+                                        <Grid MinWidth="400">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock VerticalAlignment="Center" 
+                                                       Margin="10" Grid.Column="0">Line Spacing</TextBlock>
+                                            <ComboBox HorizontalAlignment="Right" VerticalAlignment="Center" 
+                                                      VerticalContentAlignment="Center" BorderThickness="0" Grid.Column="1">
+                                                <ComboBoxItem>Single Space</ComboBoxItem>
+                                                <ComboBoxItem>Double Space</ComboBoxItem>
+                                            </ComboBox>
+                                        </Grid>
+                                    </StackPanel>
+                                    
+                                    <StackPanel Orientation="Horizontal">
+                                        <Grid MinWidth="400">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock VerticalAlignment="Center" 
+                                                       Margin="10" Grid.Column="0">Columns</TextBlock>
+                                            <ComboBox HorizontalAlignment="Right" VerticalAlignment="Center" 
+                                                      VerticalContentAlignment="Center" BorderThickness="0" Grid.Column="1">
+                                                <ComboBoxItem>One Column</ComboBoxItem>
+                                                <ComboBoxItem>Two Column</ComboBoxItem>
+                                            </ComboBox>
+                                        </Grid>
+                                    </StackPanel>
+                                    
+                                    <StackPanel Orientation="Horizontal">
+                                        <Grid MinWidth="400">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock VerticalAlignment="Center" 
+                                                       Margin="10" Grid.Column="0">Justify Text</TextBlock>
+                                            <ToggleSwitch OnContent="" OffContent="" 
+                                                          HorizontalAlignment="Right" Grid.Column="1"></ToggleSwitch>
+                                        </Grid>
+                                    </StackPanel>
                                 </StackPanel>
-                            </Border>
-                            
-                            <Border Background="White" BorderBrush="#edf1fa" BorderThickness="10">
-                                <StackPanel Orientation="Horizontal">
-                                    <Grid MinWidth="400">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock VerticalAlignment="Center" Margin="10" Grid.Column="0">Text Alignment</TextBlock>
-                                        <ComboBox HorizontalAlignment="Right" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Grid.Column="1">
-                                            <ComboBoxItem>Left Aligned</ComboBoxItem>
-                                            <ComboBoxItem>Justified</ComboBoxItem>
-                                        </ComboBox>
-                                    </Grid>
-                                </StackPanel>
-                            </Border>
-                            
-                            <Border Background="White" BorderBrush="#edf1fa" BorderThickness="10">
-                                <StackPanel Orientation="Horizontal">
-                                    <Grid MinWidth="400">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock VerticalAlignment="Center" Margin="10" Grid.Column="0">Text Direction</TextBlock>
-                                        <ComboBox HorizontalAlignment="Right" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Grid.Column="1">
-                                            <ComboBoxItem>Left to Right</ComboBoxItem>
-                                            <ComboBoxItem>Right to Left</ComboBoxItem>
-                                        </ComboBox>
-                                    </Grid>
-                                </StackPanel>
-                            </Border>
-                            
-                            <Border Background="White" BorderBrush="#edf1fa" BorderThickness="10">
-                                <StackPanel Orientation="Horizontal">
-                                    <Grid MinWidth="400">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock VerticalAlignment="Center" Margin="10" Grid.Column="0">Line Spacing</TextBlock>
-                                        <ComboBox HorizontalAlignment="Right" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Grid.Column="1">
-                                            <ComboBoxItem>Single Space</ComboBoxItem>
-                                            <ComboBoxItem>Double Space</ComboBoxItem>
-                                        </ComboBox>
-                                    </Grid>
-                                </StackPanel>
-                            </Border>
-                            
-                            <Border Background="White" BorderBrush="#edf1fa" BorderThickness="10">
-                                <StackPanel Orientation="Horizontal">
-                                    <Grid MinWidth="400">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock VerticalAlignment="Center" Margin="10" Grid.Column="0">Columns</TextBlock>
-                                        <ComboBox HorizontalAlignment="Right" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Grid.Column="1">
-                                            <ComboBoxItem>One Column</ComboBoxItem>
-                                            <ComboBoxItem>Two Column</ComboBoxItem>
-                                        </ComboBox>
-                                    </Grid>
-                                </StackPanel>
-                            </Border>
+                           </Border>
                         </StackPanel>
-                        
                         
                         <TextBlock Classes="SubTitle">Structure</TextBlock>
                         
                         <StackPanel>
-                            <Border Background="White" BorderBrush="#edf1fa" BorderThickness="10">
-                                <StackPanel Orientation="Horizontal">
-                                    <Grid MinWidth="400">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock VerticalAlignment="Center" Margin="10" Grid.Column="0">Chapter Break</TextBlock>
-                                        <ToggleSwitch OnContent="" OffContent="" HorizontalAlignment="Right" Grid.Column="1"></ToggleSwitch>
-                                    </Grid>
-                                </StackPanel>
-                            </Border>
-                            
-                            <Border Background="White" BorderBrush="#edf1fa" BorderThickness="10">
-                                <StackPanel Orientation="Horizontal">
-                                    <Grid MinWidth="400">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock VerticalAlignment="Center" Margin="10" Grid.Column="0">Verse Break</TextBlock>
-                                        <ToggleSwitch OnContent="" OffContent="" HorizontalAlignment="Right" Grid.Column="1"></ToggleSwitch>
-                                    </Grid>
+                            <Border CornerRadius="15" Background="White" BorderBrush="#d4dbe5" BorderThickness="10">
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Grid MinWidth="400">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock VerticalAlignment="Center" 
+                                                       Margin="10" Grid.Column="0">Chapter Break</TextBlock>
+                                            <ToggleSwitch OnContent="" OffContent="" 
+                                                          HorizontalAlignment="Right" Grid.Column="1"></ToggleSwitch>
+                                        </Grid>
+                                    </StackPanel>
+                                    
+                                    <StackPanel Orientation="Horizontal">
+                                        <Grid MinWidth="400">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock VerticalAlignment="Center" 
+                                                       Margin="10" Grid.Column="0">Verse Break</TextBlock>
+                                            <ToggleSwitch OnContent="" OffContent="" 
+                                                          HorizontalAlignment="Right" Grid.Column="1"></ToggleSwitch>
+                                        </Grid>
+                                    </StackPanel>
                                 </StackPanel>
                             </Border>
                         </StackPanel>
-                        
                     </StackPanel>
                     </ScrollViewer>
                 </Border>
-                
             </StackPanel>
         </StackPanel>
     </StackPanel>

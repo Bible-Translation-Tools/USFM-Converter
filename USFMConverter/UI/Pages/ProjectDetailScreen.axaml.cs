@@ -1,7 +1,9 @@
+using System;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using System.Collections.Generic;
+using Avalonia.Interactivity;
 
 namespace USFMConverter.UI.Pages
 {
@@ -33,7 +35,7 @@ namespace USFMConverter.UI.Pages
     {
       AvaloniaXamlLoader.Load(this);
     }
-    
+
     public class RandomViewModel
     { 
       public List<string> Files { get; set; } = new() { "1", "2", "3" };
