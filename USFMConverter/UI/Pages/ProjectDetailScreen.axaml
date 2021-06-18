@@ -23,7 +23,7 @@
             <Setter Property="FontSize" Value="20"/>
             <Setter Property="FontWeight" Value="Bold"/>
         </Style>
-        <Style Selector="TextBlock.SutTitle">
+        <Style Selector="TextBlock.SubTitle">
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontWeight" Value="Bold"/>
         </Style>
@@ -45,7 +45,7 @@
                 
                 <StackPanel Spacing="5" Margin="20">
                     <TextBlock Classes="Title" Margin="0 0 0 20">Project Detail</TextBlock>
-                    <TextBlock Classes="SutTitle">Project Name</TextBlock>
+                    <TextBlock Classes="SubTitle">Project Name</TextBlock>
                     <StackPanel Orientation="Horizontal" Spacing="40">
                         <TextBox MinWidth="600"></TextBox>
                         <Button Classes="ButtonUnderline" BorderThickness="1" BorderBrush="#003389" HorizontalContentAlignment="Center" Width="110">+ Add files</Button>
@@ -55,21 +55,21 @@
                 
                     <StackPanel Orientation="Horizontal" Spacing="5">
                         <Image Source="/UI/Assets/small_file.png"/>
-                        <TextBlock Classes="SutTitle" VerticalAlignment="Center">Files</TextBlock>
+                        <TextBlock Classes="SubTitle" VerticalAlignment="Center">Files</TextBlock>
                     </StackPanel>
-                    <ScrollViewer Height="400" x:Name="ScrollView" VerticalScrollBarVisibility="Visible" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                        <ListBox Items="{Binding Files}"/>
+                    <ScrollViewer Height="370" x:Name="ScrollView" VerticalScrollBarVisibility="Visible" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                        <ListBox SelectionMode="Multiple" Items="{Binding Files}"/>
                     </ScrollViewer>
                 </StackPanel>
                 
                 <Border Background="#edf1fa">
                     
-                    <ScrollViewer Height="550" x:Name="ScrollViewer2" VerticalScrollBarVisibility="Visible" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                    <ScrollViewer Height="600" x:Name="ScrollViewer2" VerticalScrollBarVisibility="Visible" VerticalAlignment="Top" HorizontalAlignment="Stretch">
 
                     <StackPanel Background="#edf1fa" Spacing="5" Margin="20">
                         <TextBlock Classes="Title" Margin="0 0 0 20">Settings</TextBlock>
  
-                        <TextBlock Classes="SutTitle">Options</TextBlock>
+                        <TextBlock Classes="SubTitle">Options</TextBlock>
                             
                         <StackPanel>
                             <Border Background="White" BorderBrush="#edf1fa" BorderThickness="10">
@@ -98,10 +98,8 @@
                                 </StackPanel>
                             </Border>
                         </StackPanel>
-
                         
-                        
-                        <TextBlock Classes="SutTitle">Content</TextBlock>
+                        <TextBlock Classes="SubTitle">Content</TextBlock>
                         
                         <StackPanel>
                             <Border Background="White" BorderBrush="#edf1fa" BorderThickness="10">
@@ -187,7 +185,7 @@
                         </StackPanel>
                         
                         
-                        <TextBlock Classes="SutTitle">Structure</TextBlock>
+                        <TextBlock Classes="SubTitle">Structure</TextBlock>
                         
                         <StackPanel>
                             <Border Background="White" BorderBrush="#edf1fa" BorderThickness="10">

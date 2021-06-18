@@ -7,6 +7,7 @@ namespace USFMConverter.UI.Pages
 {
   public partial class ProjectDetailScreen : UserControl
   {
+    
     private static readonly StyledProperty<List<string>> ItemsProperty = AvaloniaProperty.Register<ProjectDetailScreen, List<string>>(nameof(Items));
 
     public List<string> Items
@@ -34,8 +35,7 @@ namespace USFMConverter.UI.Pages
     }
     
     public class RandomViewModel
-    {
-      public string TestText { get; set; } = "Hello world";
+    { 
       public List<string> Files { get; set; } = new() { "1", "2", "3" };
     }
   }
