@@ -13,6 +13,7 @@ namespace USFMConverter
         HomeScreen HomeScreen;
         FilesScreen FilesScreen;
         FormatScreen FormatScreen;
+        ProjectDetailScreen ProjectDetailScreen;
         Dictionary<string, IControl> Screens = new Dictionary<string, IControl>();
         
         public MainWindow()
@@ -32,8 +33,9 @@ namespace USFMConverter
         public void HomeScreen_FolderSelected(object sender, RoutedEventArgs e)
         {
             HomeScreen HomeScreen = (HomeScreen)sender;
-            FilesScreen.Items = LoadFolder(HomeScreen.Folder);
-            SetCurrentScreen("FilesScreen");
+            //FilesScreen.Items = LoadFolder(HomeScreen.Folder);
+            //SetCurrentScreen("FilesScreen");
+            SetCurrentScreen("ProjectDetailScreen");
         }
 
         public void FileScreen_FormatPage(object sender, RoutedEventArgs e)
@@ -48,9 +50,11 @@ namespace USFMConverter
             this.HomeScreen = this.FindControl<HomeScreen>("HomeScreen");
             this.FilesScreen = this.FindControl<FilesScreen>("FilesScreen");
             this.FormatScreen = this.FindControl<FormatScreen>("FormatScreen");
+            this.ProjectDetailScreen = this.FindControl<ProjectDetailScreen>("ProjectDetailScreen");
             this.Screens.Add("HomeScreen", this.HomeScreen);
             this.Screens.Add("FilesScreen", this.FilesScreen);
             this.Screens.Add("FormatScreen", this.FormatScreen);
+            this.Screens.Add("ProjectDetailScreen", this.ProjectDetailScreen);
         }
 
         private List<string> LoadFolder(string folderName)
