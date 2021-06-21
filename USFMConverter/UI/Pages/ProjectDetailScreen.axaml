@@ -54,11 +54,12 @@
                 <StackPanel>
                     <Border Background="#edf1fa" BorderBrush="#edf1fa" 
                             BorderThickness="1" CornerRadius="10"
-                            HorizontalAlignment="Stretch">
+                            HorizontalAlignment="Stretch"
+                            Name="DragDropArea" DragDrop.AllowDrop="True">
                         <StackPanel Margin="10 20 10 20">
                             <TextBlock VerticalAlignment="Center" 
                                        Margin="10" Foreground="#244f9d">Add Files</TextBlock>
-                            <TextBlock VerticalAlignment="Center" Margin="10 0 10 10">
+                            <TextBlock VerticalAlignment="Center" Margin="10 0 10 10" Name="DragDropText">
                                 You may browse your computer for files or drag and drop them directly to the screen to import.
                             </TextBlock>
                             
@@ -85,7 +86,8 @@
                               VerticalScrollBarVisibility="Visible" 
                               HorizontalContentAlignment="Center"
                               VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                    <ListBox Padding="20" SelectionMode="Multiple" Items="{Binding Files}"/>
+                    <ListBox Padding="20" Name="FilesListBox"
+                             SelectionMode="Multiple" Items="{Binding Files, Mode=TwoWay}"/>
                 </ScrollViewer>
             </StackPanel>
             
