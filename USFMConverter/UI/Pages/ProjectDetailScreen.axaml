@@ -5,6 +5,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="USFMConverter.UI.Pages.ProjectDetailScreen">
     
+    <!-- Styles of the elements in this entire file -->
     <UserControl.Styles>
         <Style Selector="DockPanel.TopPanel">
             <Setter Property="Background" Value="#003389"/>
@@ -37,8 +38,9 @@
         </Style>
     </UserControl.Styles>
     
-    <StackPanel Background="White">
-        <DockPanel Classes="TopPanel" Width="{Binding $parent.Width}">
+    <!-- Outermost stackpanel -->
+    <StackPanel Background="White" MinWidth="1000">
+        <DockPanel Classes="TopPanel">
             <TextBlock HorizontalAlignment="Left" DockPanel.Dock="Left">USFM Converter</TextBlock>
             <Button DockPanel.Dock="Right"
                     Height="40" Width="150"
@@ -46,7 +48,10 @@
                     VerticalContentAlignment="Center"
                     HorizontalAlignment="Right">Convert</Button>
         </DockPanel>
+        
+        <!-- Grid view for Project Details & Project Options layout -->
         <Grid>
+            <!-- 7* means 70%, 3* means 30% -->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="7*"/>
                 <ColumnDefinition Width="3*"/>
@@ -62,7 +67,7 @@
                             <TextBlock VerticalAlignment="Center" 
                                        Margin="10" Foreground="#244f9d">Add Files</TextBlock>
                             <TextBlock VerticalAlignment="Center" Margin="10 0 10 10">
-                                <!-- You may browse your computer for files or drag and drop them directly to the screen to import. -->
+                                You may browse your computer for files or drag and drop them directly to the screen to import.
                             </TextBlock>
                             
                             <Border Margin="10" HorizontalAlignment="Left" CornerRadius="5" BorderThickness="2" BorderBrush="#737f8f">
