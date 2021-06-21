@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using USFMConverter.Core.ConstantValue;
 using USFMConverter.UI;
@@ -8,6 +9,10 @@ namespace USFMConverter.Core
     public class CoreConverter
     {
         private ProjectBuilder projectBuilder;
+
+        public static ICollection<string> supportedExtensions = new List<string> { 
+            ".usfm", ".txt", ".sfm" 
+        };
 
         public CoreConverter()
         {
