@@ -93,5 +93,15 @@ namespace USFMConverter.Core
         {
             renderFormat.FontSize = pointSize;
         }
+
+        public void EnableNoteTaking(bool enabled)
+        {
+            renderFormat.NoteTaking = enabled;
+        }
+
+        public void EnableTableOfContents(bool enabled)
+        {
+            renderFormat.TableOfContents = enabled;
+        }
     }
 }
