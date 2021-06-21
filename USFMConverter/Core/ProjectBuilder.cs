@@ -10,7 +10,6 @@ namespace USFMConverter.Core
     {
         private Project project;
         private RenderFormat renderFormat;
-        private List<string> supportedExtensions = new List<string> { ".usfm", ".txt", ".sfm" };
 
         public ProjectBuilder()
         {
@@ -32,17 +31,6 @@ namespace USFMConverter.Core
         public void AddFiles(ICollection<FileInfo> files)
         {
             project.Files.AddRange(files);
-        }
-
-        public void LoadFolder(FileInfo folder)
-        {
-            var dirinfo = new DirectoryInfo(folder.FullName);
-            var filesInFolder = dirinfo.GetFiles("*", SearchOption.AllDirectories);
-
-            var files = filesInFolder
-                .Where(f => supportedExtensions.Contains(f.Extension));
-
-            this.AddFiles(files.ToList());
         }
 
         public void SetProjectName(string name)
