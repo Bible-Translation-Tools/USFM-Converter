@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
+using Avalonia.Platform;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -34,6 +35,8 @@ namespace USFMConverter.UI.Pages
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+
+            SetLinuxText();
 
             Items = new List<string>();
             filesContainer = this.Find<ListBox>("FilesListBox");
@@ -79,6 +82,16 @@ namespace USFMConverter.UI.Pages
                 Items = newList;
 
                 filesContainer.Items = newList; // changes to the UI will bind to DataContext
+            }
+        }
+
+        private void SetLinuxText()
+        {
+            var platform = AvaloniaLocator.Current.GetService<IRuntimePlatform>().GetRuntimeInfo().OperatingSystem;
+            if (platform == OperatingSystemType.Linux)
+            {
+                TextBlock dndText = this.Find<TextBlock>("DragAndDropText");
+                dndText.Text = "Browse for folder that contains .usfm files";
             }
         }
     }
