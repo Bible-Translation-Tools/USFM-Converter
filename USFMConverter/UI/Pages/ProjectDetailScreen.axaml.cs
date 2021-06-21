@@ -90,7 +90,7 @@ namespace USFMConverter.UI.Pages
             var platform = AvaloniaLocator.Current.GetService<IRuntimePlatform>().GetRuntimeInfo().OperatingSystem;
             if (platform == OperatingSystemType.Linux)
             {
-                TextBlock dndText = this.Find<TextBlock>("DragAndDropText");
+                TextBlock dndText = this.Find<TextBlock>("DragDropText");
                 dndText.Text = "Browse for folder that contains .usfm files";
             }
         }
