@@ -1,11 +1,12 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
-using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
-using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using USFMConverter.Core;
+using USFMConverter.Core.Util;
 
 namespace USFMConverter.UI.Pages
 {
@@ -54,15 +55,31 @@ namespace USFMConverter.UI.Pages
         {
             if (e.Data.Contains(DataFormats.FileNames))
             {
-                var newList = Items.Concat(e.Data.GetFileNames()).ToList();
+                var filesToAdd = new List<string>();
+                var selectedFiles = e.Data.GetFileNames()
+                        .Select(name => new FileInfo(name));
+
+                foreach (var file in selectedFiles)
+                {
+                    if (file.Attributes.HasFlag(FileAttributes.Directory))
+                    {
+                        var filesInDir = FileSystem.GetFilesInDir(
+                            file, CoreConverter.supportedExtensions
+                        ).Select(f => f.FullName);
+
+                        filesToAdd.AddRange(filesInDir);
+                    }
+                    else if (CoreConverter.supportedExtensions.Contains(file.Extension))
+                    {
+                        filesToAdd.Add(file.FullName);
+                    }
+                }
+
+                var newList = Items.Concat(filesToAdd).ToList();
                 Items = newList;
 
-                //var viewData = (ViewData)DataContext;
-                //viewData.Files = this.Items;
-
-                filesContainer.Items = newList;
+                filesContainer.Items = newList; // changes to the UI will bind to DataContext
             }
         }
-
     }
 }
