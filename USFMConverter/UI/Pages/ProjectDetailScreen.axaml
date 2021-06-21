@@ -81,12 +81,9 @@
                             HorizontalAlignment="Right">- Remove Files</Button>
                 </Grid>
             
-                <ScrollViewer Height="370" x:Name="ScrollView" 
-                              VerticalScrollBarVisibility="Visible" 
-                              HorizontalContentAlignment="Center"
-                              VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                    <ListBox Padding="20" SelectionMode="Multiple" Items="{Binding Files}"/>
-                </ScrollViewer>
+                <ListBox Padding="20" Name="FilesListBox" Height="310"
+                         ScrollViewer.VerticalScrollBarVisibility="Visible"
+                         SelectionMode="Multiple" Items="{Binding Files, Mode=TwoWay}"/>
             </StackPanel>
             
             <StackPanel>
