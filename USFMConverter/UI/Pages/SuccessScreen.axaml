@@ -5,6 +5,9 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="USFMConverter.UI.Pages.SuccessScreen">
   
-  
+  <StackPanel>
+    <!-- <Image Source="../Assets/check.png" Width="100" Height="100" Stretch="None"/> -->
+    
+  </StackPanel>
   
 </UserControl>

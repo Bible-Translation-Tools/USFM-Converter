@@ -10,7 +10,6 @@ namespace USFMConverter
 {
     public partial class MainWindow : Window
     {
-        // HomeScreen HomeScreen;
         ProjectDetailScreen ProjectDetailScreen;
         Dictionary<string, IControl> Screens = new Dictionary<string, IControl>();
         
@@ -31,17 +30,13 @@ namespace USFMConverter
         }
         public void HomeScreen_FolderSelected(object sender, RoutedEventArgs e)
         {
-            HomeScreen HomeScreen = (HomeScreen)sender;
-            ProjectDetailScreen.Items = LoadFolder(HomeScreen.Folder);
             SetCurrentScreen("ProjectDetailScreen");
         }
 
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
-            // this.HomeScreen = this.FindControl<HomeScreen>("HomeScreen");
             this.ProjectDetailScreen = this.FindControl<ProjectDetailScreen>("ProjectDetailScreen");
-            // this.Screens.Add("HomeScreen", this.HomeScreen);
             this.Screens.Add("ProjectDetailScreen", this.ProjectDetailScreen);
         }
 

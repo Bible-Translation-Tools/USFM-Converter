@@ -8,7 +8,6 @@
         Title="USFMConverter"
         Background="AliceBlue">
   <StackPanel>
-    <!-- <screen:HomeScreen Name="HomeScreen" FolderSelected="HomeScreen_FolderSelected"/> -->
     <screen:ProjectDetailScreen Name="ProjectDetailScreen" IsVisible="False"/>
   </StackPanel>
 </Window>

@@ -127,11 +127,12 @@
                                 <DockPanel>
                                     <TextBlock VerticalAlignment="Center" Margin="10" >Font Size</TextBlock>
                                     <ComboBox HorizontalAlignment="Right" VerticalAlignment="Center" 
-                                              VerticalContentAlignment="Center" BorderThickness="0">
+                                              VerticalContentAlignment="Center" BorderThickness="0"
+                                              SelectedItem="{Binding FontSize, Mode=TwoWay}">
                                         <ComboBoxItem>Small</ComboBoxItem>
                                         <ComboBoxItem>Normal</ComboBoxItem>
                                         <ComboBoxItem>Large</ComboBoxItem>
-                                    </ComboBox>
+                                    </ComboBox>                         
                                 </DockPanel>
 
                                 <DockPanel>

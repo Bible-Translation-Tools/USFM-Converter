@@ -1,3 +1,4 @@
+using System;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -9,14 +10,12 @@ namespace USFMConverter.UI.Pages
 
     public partial class ProjectDetailScreen : UserControl
     {
+        private readonly ComboBox _combo = new ComboBox();
         private static readonly StyledProperty<List<string>> ItemsProperty = AvaloniaProperty.Register<ProjectDetailScreen, List<string>>(nameof(Items));
         public List<string> Items
         {
             get => GetValue(ItemsProperty);
-            set
-            {
-                SetValue(ItemsProperty, value);
-            }
+            set => SetValue(ItemsProperty, value);
         }
 
         public ProjectDetailScreen()
@@ -27,5 +26,6 @@ namespace USFMConverter.UI.Pages
         {
             AvaloniaXamlLoader.Load(this);
         }
+
     }
 }
