@@ -23,23 +23,7 @@
 
         <StackPanel Background="#d4dbe5" Spacing="5" Margin="20">
             <TextBlock Classes="Title" Margin="0 0 0 20">Project Settings</TextBlock>
-
-            <TextBlock Classes="SubTitle">Options</TextBlock>
-                
-            <Border CornerRadius="15" Background="White" BorderBrush="#d4dbe5" BorderThickness="10">
-                <StackPanel>
-                    <DockPanel>
-                        <TextBlock VerticalAlignment="Center" Margin="10">Note Taking</TextBlock>
-                        <ToggleSwitch OnContent="" OffContent="" HorizontalAlignment="Right"></ToggleSwitch>
-                    </DockPanel>
-                    
-                    <DockPanel>
-                        <TextBlock VerticalAlignment="Center" Margin="10">Table of Contents</TextBlock>
-                        <ToggleSwitch OnContent="" OffContent="" HorizontalAlignment="Right"></ToggleSwitch>
-                    </DockPanel>
-                </StackPanel>
-            </Border>
-        
+            
             <TextBlock Classes="SubTitle">Content</TextBlock>
             
             <Border CornerRadius="15" Background="White" BorderBrush="#d4dbe5" BorderThickness="10">
@@ -100,6 +84,22 @@
                     
                     <DockPanel>
                         <TextBlock VerticalAlignment="Center" Margin="10">Verse Break</TextBlock>
+                        <ToggleSwitch OnContent="" OffContent="" HorizontalAlignment="Right"></ToggleSwitch>
+                    </DockPanel>
+                </StackPanel>
+            </Border>
+            
+            <TextBlock Classes="SubTitle">Options</TextBlock>
+                
+            <Border CornerRadius="15" Background="White" BorderBrush="#d4dbe5" BorderThickness="10">
+                <StackPanel>
+                    <DockPanel>
+                        <TextBlock VerticalAlignment="Center" Margin="10">Note Taking</TextBlock>
+                        <ToggleSwitch OnContent="" OffContent="" HorizontalAlignment="Right"></ToggleSwitch>
+                    </DockPanel>
+                    
+                    <DockPanel>
+                        <TextBlock VerticalAlignment="Center" Margin="10">Table of Contents</TextBlock>
                         <ToggleSwitch OnContent="" OffContent="" HorizontalAlignment="Right"></ToggleSwitch>
                     </DockPanel>
                 </StackPanel>
