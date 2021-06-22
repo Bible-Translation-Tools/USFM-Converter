@@ -23,7 +23,7 @@ namespace USFMConverter.Core
         {
             var files = viewData.Files.Select(f => new FileInfo(f));
             projectBuilder.AddFiles(files.ToList());
-            projectBuilder.SetFontSize(viewData.FontSize);
+            projectBuilder.SetFontSize(viewData.TextSize);
             projectBuilder.SetTextAlignment(viewData.TextAlignment);
             projectBuilder.SetTextDirection(viewData.LeftToRight);
             projectBuilder.SetLineSpacing(viewData.LineSpacing);
