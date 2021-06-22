@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using USFMConverter.Core.ConstantValue;
+using USFMConverter.Core.Render;
 using USFMConverter.UI;
 
 namespace USFMConverter.Core
@@ -34,6 +35,20 @@ namespace USFMConverter.Core
             projectBuilder.EnableTableOfContents(viewData.TableOfContents);
 
             var project = projectBuilder.Build();
+            RenderDocument renderer;
+            switch (FileFormat.DOCX)
+            {
+                case FileFormat.DOCX:
+                    renderer = new RenderDocx();
+                    break;
+                case FileFormat.HTML:
+                    renderer = new RenderHTML();
+                    break;
+                default:
+                    break;
+            }
+
+
         }
     }
 }
