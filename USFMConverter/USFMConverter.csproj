@@ -16,6 +16,33 @@
     <AvaloniaResource Include="UI\Assets\small_file.png" />
     <AvaloniaResource Include="UI\Assets\start_screen.bmp" />
     <AvaloniaResource Include="UI\Assets\start_screen.png" />
+    <None Remove="UI\Assets\settings_inverted.png" />
+    <AvaloniaResource Include="UI\Assets\settings_inverted.png" />
+    <None Remove="UI\Assets\settings.png" />
+    <AvaloniaResource Include="UI\Assets\settings.png" />
+    <None Remove="UI\Assets\check.png" />
+    <AvaloniaResource Include="UI\Assets\check.png" />
+    <None Remove="UI\Assets\cancel.png" />
+    <AvaloniaResource Include="UI\Assets\close.png" />
+    <None Remove="UI\Assets\chapter1.png" />
+    <AvaloniaResource Include="UI\Assets\chapter.png" />
+    <None Remove="UI\Assets\font.png" />
+    <AvaloniaResource Include="UI\Assets\font.png" />
+    <None Remove="UI\Assets\table_of_content.png" />
+    <AvaloniaResource Include="UI\Assets\table_of_content.png" />
+    <None Remove="UI\Assets\verse.png" />
+    <AvaloniaResource Include="UI\Assets\verse.png" />
+    <None Remove="UI\Assets\paragraph.png" />
+    <AvaloniaResource Include="UI\Assets\paragraph.png" />
+    <None Remove="UI\Assets\note.png" />
+    <AvaloniaResource Include="UI\Assets\note.png" />
+    <None Remove="UI\Assets\line_space.png" />
+    <AvaloniaResource Include="UI\Assets\line_space.png" />
+    <None Remove="UI\Assets\justify.png" />
+    <AvaloniaResource Include="UI\Assets\justify.png" />
+    <None Remove="UI\Assets\column.png" />
+    <None Remove="UI\Assets\column1.png" />
+    <AvaloniaResource Include="UI\Assets\column.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.10.4" />

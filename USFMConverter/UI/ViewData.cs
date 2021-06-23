@@ -9,7 +9,7 @@ namespace USFMConverter.UI
 {
     public class ViewData
     {
-        public List<string> Files { get; set; } = new();
+        public List<string> Files { get; set; } = new() {"default.usfm"};
         public int FontSize { get; set; } = 12;
         public double LineSpacing { get; set; } = 1.0;
         public bool LeftToRight { get; set; } = true;
