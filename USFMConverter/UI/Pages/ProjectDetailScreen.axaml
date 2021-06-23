@@ -3,8 +3,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:view="clr-namespace:USFMConverter.UI.Pages"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="USFMConverter.UI.Pages.ProjectDetailScreen">
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+             x:Class="USFMConverter.UI.Pages.ProjectDetailScreen"
+             Name="ProjectDetailScreen">
     
     <!-- Styles of the elements in this entire file -->
     <UserControl.Styles>
@@ -21,30 +22,62 @@
             <Setter Property="Background" Value="White"/>
             <Setter Property="Margin" Value="20,0"/>
         </Style>
+        
+        <Style Selector="DockPanel.MiddlePanel">
+            <Setter Property="Background" Value="#edf1fa"/>
+            <Setter Property="Margin" Value="20,10,0,10"/>
+        </Style>
+        <Style Selector="DockPanel.MiddlePanel > TextBlock">
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+        
+        <Style Selector="Button.Settings">
+            <Setter Property="Background" Value="#003389"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style Selector="Button.Convert">
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
     </UserControl.Styles>
     
-    <!-- Outermost stackpanel -->
-    <StackPanel Background="White" MinWidth="1000">
-        <DockPanel Classes="TopPanel">
-            <TextBlock HorizontalAlignment="Left" DockPanel.Dock="Left">USFM Converter</TextBlock>
-            <Button DockPanel.Dock="Right"
-                    Height="40" Width="150"
-                    HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    HorizontalAlignment="Right">Convert</Button>
-        </DockPanel>
+    <Grid>
+        <StackPanel Background="White">
+            <DockPanel Classes="TopPanel">
+                <TextBlock HorizontalAlignment="Left" DockPanel.Dock="Left">USFM Converter</TextBlock>
+                
+                <StackPanel Orientation="Horizontal" Margin="0 0 10 0" HorizontalAlignment="Right" DockPanel.Dock="Right">
+                    <Button Name="OptionBtn" Classes="Settings">
+                        <Border BorderThickness="1" BorderBrush="White" CornerRadius="5" Padding="5">
+                            <StackPanel Orientation="Horizontal">
+                            <Image Width="40" Height="40" Source="../Assets/settings_inverted.png"/>
+                            <TextBlock Margin="10" Foreground="White" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">Settings</TextBlock>
+                            </StackPanel>
+                        </Border>
+                    </Button>
+                </StackPanel>
+
+            </DockPanel>
+            
+            <Border Background="#edf1fa" BorderBrush="Gray" BorderThickness="0 0 0 3">
+                <DockPanel Classes="MiddlePanel">
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" FontSize="25" Margin="10">Project Ready!</TextBlock>
+                        <TextBlock Margin="10 5 10 5">Your project is ready to be converted.</TextBlock>
+                        <Button BorderBrush="Black" BorderThickness="0.5" Margin="15" Padding="15" Background="#335cff" Foreground="White">Convert Project</Button>
+                    </StackPanel>
+                </DockPanel>
+            </Border>
+            
+            <view:FileView/>
+            
+        </StackPanel>
         
-        <!-- Grid view for Project Details & Project Options layout -->
-        <Grid>
-            <!-- 7* means 70%, 3* means 30% -->
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="7*"/>
-                <ColumnDefinition Width="3*"/>
-            </Grid.ColumnDefinitions>
-            
-            <view:FileView Grid.Column="0"/>
-            <view:OptionView Grid.Column="1"/>
-            
-        </Grid>
-    </StackPanel>
+        <view:OptionView IsVisible="False"/>
+    </Grid>
 </UserControl>

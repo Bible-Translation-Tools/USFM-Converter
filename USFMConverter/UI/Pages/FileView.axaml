@@ -2,8 +2,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="USFMConverter.UI.Pages.FileView">
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+             x:Class="USFMConverter.UI.Pages.FileView"
+             Name="FileView">
   
     <UserControl.Styles>
         <Style Selector="TextBlock.Title">
@@ -20,14 +21,14 @@
         </Style>
     </UserControl.Styles>
     
-    <StackPanel Spacing="5" Margin="20" Grid.Column="0">
+    <StackPanel Spacing="5" Margin="20" Grid.Column="0" >
         <TextBlock Classes="Title" Margin="0 0 0 20">Project Files</TextBlock>
         
         <StackPanel>
             <Border Background="#edf1fa" BorderBrush="#edf1fa"
                     BorderThickness="1" CornerRadius="10">
                 <StackPanel Margin="10 20 10 20">
-                    <TextBlock VerticalAlignment="Center" 
+                    <TextBlock VerticalAlignment="Center" FontWeight="Bold"
                                Margin="10" Foreground="#244f9d">Add Files</TextBlock>
                     <TextBlock VerticalAlignment="Center" Margin="10 0 10 10">
                         You may browse your computer for files or drag and drop them directly to the screen to import.
@@ -52,7 +53,7 @@
                     HorizontalAlignment="Right">- Remove Files</Button>
         </Grid>
 
-        <ListBox Padding="20" Name="FilesListBox" Height="310"
+        <ListBox Padding="20" Name="FilesListBox" Height="300"
                  ScrollViewer.VerticalScrollBarVisibility="Visible"
                  SelectionMode="Multiple" Items="{Binding Files, Mode=TwoWay}"/>
     </StackPanel>

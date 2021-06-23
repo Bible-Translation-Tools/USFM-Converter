@@ -10,7 +10,7 @@ namespace USFMConverter
 {
     public partial class MainWindow : Window
     {
-        ProjectDetailScreen ProjectDetailScreen;
+        private ProjectDetailScreen ProjectDetailScreen;
         Dictionary<string, IControl> Screens = new Dictionary<string, IControl>();
         
         public MainWindow()
