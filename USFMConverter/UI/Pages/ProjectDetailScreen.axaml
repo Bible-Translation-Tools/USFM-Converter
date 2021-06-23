@@ -57,8 +57,8 @@
                         
                         <Border BorderThickness="1" BorderBrush="White" CornerRadius="5" Padding="5">
                             <StackPanel Orientation="Horizontal">
-                                <Image Width="20" Height="20" Source="../Assets/settings_inverted.png" />
-                                <TextBlock Margin="5" Foreground="White" FontSize="14" HorizontalAlignment="Center"
+                                <Image Width="40" Height="40" Source="/UI/Assets/settings_inverted.png" />
+                                <TextBlock Margin="10" Foreground="White" FontSize="20" HorizontalAlignment="Center"
                                            VerticalAlignment="Center">
                                     Settings
                                 </TextBlock>

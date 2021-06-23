@@ -24,6 +24,8 @@ namespace USFMConverter.UI.Pages
 
         public ProjectDetailScreen()
         {
+            
+            
             InitializeComponent();
         }
 

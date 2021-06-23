@@ -12,6 +12,7 @@ namespace USFMConverter.UI.Pages
         private UserControl optionView;
 
         public OptionView()
+        
         {
             InitializeComponent();
         }
