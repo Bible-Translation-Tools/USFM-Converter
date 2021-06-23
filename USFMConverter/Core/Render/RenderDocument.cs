@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using USFMConverter.Core.Data;
 using USFMToolsSharp;
 using USFMToolsSharp.Models.Markers;
@@ -24,6 +26,11 @@ namespace USFMConverter.Core.Render
             return usfmDoc;
         }
 
-        public abstract void Render(Project project);
+        public void Render(Project project)
+        {
+            Render(project, LoadUSFM(project.Files));
+        }
+
+        public abstract void Render(Project project, USFMDocument usfmDoc);
     }
 }

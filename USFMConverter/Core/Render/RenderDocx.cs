@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using USFMConverter.Core.Data;
+using USFMToolsSharp.Models.Markers;
 using USFMToolsSharp.Renderers.Docx;
 
 namespace USFMConverter.Core.Render
@@ -16,11 +17,9 @@ namespace USFMConverter.Core.Render
             return new();
         }
 
-        public override void Render(Project project)
+        public override void Render(Project project, USFMDocument usfm)
         {
             var config = BuildDocxConfig(project.FormatOptions);
-            var usfm = LoadUSFM(project.Files);
-
             var renderer = new DocxRenderer(config);
             var document = renderer.Render(usfm);
 

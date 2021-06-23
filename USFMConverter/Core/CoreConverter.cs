@@ -48,7 +48,7 @@ namespace USFMConverter.Core
                     break;
             }
 
-
+            renderer.Render(project);
         }
     }
 }

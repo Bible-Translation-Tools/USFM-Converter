@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using USFMConverter.Core.Data;
+using USFMToolsSharp.Models.Markers;
 using USFMToolsSharp.Renderers.HTML;
 
 namespace USFMConverter.Core.Render
@@ -17,17 +18,15 @@ namespace USFMConverter.Core.Render
             return new();
         }
 
-        public override void Render(Project project)
+        public override void Render(Project project, USFMDocument usfmDoc)
         {
             var config = BuildHTMLConfig(project.FormatOptions);
-            var usfm = LoadUSFM(project.Files);
-
             var renderer = new HtmlRenderer(config);
 
             renderer.FrontMatterHTML = GetLicenseInfo();
             renderer.InsertedFooter = GetFooterInfo();
 
-            var htmlString = renderer.Render(usfm);
+            var htmlString = renderer.Render(usfmDoc);
 
             File.WriteAllText(project.OutputFile.FullName, htmlString);
 
