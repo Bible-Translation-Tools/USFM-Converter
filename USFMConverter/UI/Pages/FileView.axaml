@@ -39,7 +39,8 @@
                 </StackPanel>
                 
                 
-                <Border Grid.Column="1" Background="#edf1fa" BorderBrush="#edf1fa"
+                <Border Name="DragDropArea" DragDrop.AllowDrop="True" Grid.Column="1" 
+                        Background="#edf1fa" BorderBrush="#edf1fa"
                         BorderThickness="1" CornerRadius="10">
                     
 
