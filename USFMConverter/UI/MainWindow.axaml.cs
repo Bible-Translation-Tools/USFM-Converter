@@ -2,6 +2,8 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+
+
 using System.Collections.Generic;
 using System.IO;
 using USFMConverter.UI.Pages;
@@ -10,10 +12,9 @@ namespace USFMConverter
 {
     public partial class MainWindow : Window
     {
-        // HomeScreen HomeScreen;
-        ProjectDetailScreen ProjectDetailScreen;
+        private ProjectDetailScreen ProjectDetailScreen;
         Dictionary<string, IControl> Screens = new Dictionary<string, IControl>();
-        
+
         public MainWindow()
         {
             InitializeComponent();
@@ -22,6 +23,7 @@ namespace USFMConverter
             this.AttachDevTools();
 #endif
         }
+
         private void SetCurrentScreen(string screen)
         {
             foreach (var i in this.Screens)

@@ -47,9 +47,9 @@ namespace USFMConverter.Core
             }
         }
 
-        public void SetLineSpacing(double spacing)
+        public void SetLineSpacing(LineSpacing lineSpacing)
         {
-            renderFormat.LineSpacing = spacing;
+            renderFormat.LineSpacing = lineSpacing;
         }
 
         public void SetTextAlignment(TextAlignment alignment)
@@ -77,9 +77,9 @@ namespace USFMConverter.Core
             renderFormat.VerseBreak = breakVerse;
         }
 
-        public void SetFontSize(int pointSize)
+        public void SetFontSize(TextSize size)
         {
-            renderFormat.FontSize = pointSize;
+            renderFormat.TextSize = size;
         }
 
         public void EnableNoteTaking(bool enabled)
