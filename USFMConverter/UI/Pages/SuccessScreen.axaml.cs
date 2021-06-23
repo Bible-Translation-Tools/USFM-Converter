@@ -4,16 +4,16 @@ using Avalonia.Markup.Xaml;
 
 namespace USFMConverter.UI.Pages
 {
-  public class SuccessScreen : UserControl
-  {
-    public SuccessScreen()
+    public class SuccessScreen : UserControl
     {
-      InitializeComponent();
-    }
+        public SuccessScreen()
+        {
+            InitializeComponent();
+        }
 
-    private void InitializeComponent()
-    {
-      AvaloniaXamlLoader.Load(this);
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
+        }
     }
-  }
 }

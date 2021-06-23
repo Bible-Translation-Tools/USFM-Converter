@@ -7,14 +7,15 @@ using System.Collections.Generic;
 
 namespace USFMConverter.UI.Pages
 {
-
     public partial class ProjectDetailScreen : UserControl
     {
         private readonly ComboBox _combo = new ComboBox();
         // private Button optionBtn;
         // private UserControl optionView;
-        
-        private static readonly StyledProperty<List<string>> ItemsProperty = AvaloniaProperty.Register<ProjectDetailScreen, List<string>>(nameof(Items));
+
+        private static readonly StyledProperty<List<string>> ItemsProperty =
+            AvaloniaProperty.Register<ProjectDetailScreen, List<string>>(nameof(Items));
+
         public List<string> Items
         {
             get => GetValue(ItemsProperty);
@@ -25,6 +26,7 @@ namespace USFMConverter.UI.Pages
         {
             InitializeComponent();
         }
+
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);

@@ -12,7 +12,7 @@ namespace USFMConverter
     {
         private ProjectDetailScreen ProjectDetailScreen;
         Dictionary<string, IControl> Screens = new Dictionary<string, IControl>();
-        
+
         public MainWindow()
         {
             InitializeComponent();
@@ -21,6 +21,7 @@ namespace USFMConverter
             this.AttachDevTools();
 #endif
         }
+
         private void SetCurrentScreen(string screen)
         {
             foreach (var i in this.Screens)
@@ -28,6 +29,7 @@ namespace USFMConverter
                 i.Value.IsVisible = i.Key == screen;
             }
         }
+
         public void HomeScreen_FolderSelected(object sender, RoutedEventArgs e)
         {
             SetCurrentScreen("ProjectDetailScreen");
@@ -43,7 +45,7 @@ namespace USFMConverter
         private List<string> LoadFolder(string folderName)
         {
             List<string> output = new();
-            List<string> supportedExtensions = new List<string> { ".usfm", ".txt", ".sfm" };
+            List<string> supportedExtensions = new List<string> {".usfm", ".txt", ".sfm"};
             var dirinfo = new DirectoryInfo(folderName);
             var allFiles = dirinfo.GetFiles("*", SearchOption.AllDirectories);
             foreach (FileInfo fileInfo in allFiles)
@@ -53,6 +55,7 @@ namespace USFMConverter
                     output.Add(fileInfo.FullName);
                 }
             }
+
             return output;
         }
     }

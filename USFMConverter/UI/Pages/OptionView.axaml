@@ -5,75 +5,75 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
              x:Class="USFMConverter.UI.Pages.OptionView"
              Name="OptionView">
-    
+
     <UserControl.Styles>
         <Style Selector="TextBlock.Title">
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontWeight" Value="Bold" />
         </Style>
         <Style Selector="TextBlock.SubTitle">
-            <Setter Property="Padding" Value="0 20 0 0"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="0 20 0 0" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="Bold" />
         </Style>
         <Style Selector="Image.Icon">
-            <Setter Property="Width" Value="18"></Setter>
-            <Setter Property="Height" Value="18"></Setter>
+            <Setter Property="Width" Value="18" />
+            <Setter Property="Height" Value="18" />
         </Style>
         <Style Selector="Button.Cancel">
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="HorizontalAlignment" Value="Right"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Background" Value="White" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Top" />
         </Style>
 
     </UserControl.Styles>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="7*"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="7*" />
+            <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
-        
-        <TextBlock Grid.Column="0" Background="#000000" Opacity="0.6"/>
-        
+
+        <TextBlock Grid.Column="0" Background="#000000" Opacity="0.6" />
+
         <Border Grid.Column="1" Background="White">
-        
-            <ScrollViewer Height="600" x:Name="ScrollViewer2" 
-                          VerticalScrollBarVisibility="Visible" 
+
+            <ScrollViewer Height="600" x:Name="ScrollViewer2"
+                          VerticalScrollBarVisibility="Visible"
                           VerticalAlignment="Top" HorizontalAlignment="Stretch">
 
                 <StackPanel Background="White" Margin="20">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="9*"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="9*" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        
+
                         <TextBlock Grid.Column="0" Classes="Title">Project Settings</TextBlock>
                         <Border Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" CornerRadius="5">
                             <Button Name="CloseBtn" Classes="Cancel" Padding="10 5">
-                                <Image Width="16" Height="16" Source="../Assets/close.png"/>
+                                <Image Width="16" Height="16" Source="/UI/Assets/close.png" />
                             </Button>
                         </Border>
                     </Grid>
-                    
+
                     <TextBlock Classes="SubTitle">Content</TextBlock>
-                    
+
                     <StackPanel>
                         <DockPanel Margin="15 0 0 0">
-                            <Image Classes="Icon" Source="../Assets/font.png" />
+                            <Image Classes="Icon" Source="/UI/Assets/font.png" />
                             <TextBlock VerticalAlignment="Center" Margin="10 20">Font Size</TextBlock>
                             <ComboBox HorizontalAlignment="Right" VerticalAlignment="Center" BorderBrush="LightGray"
                                       Margin="10 20" Width="150" VerticalContentAlignment="Center" BorderThickness="1">
                                 <ComboBoxItem>Small</ComboBoxItem>
                                 <ComboBoxItem>Normal</ComboBoxItem>
                                 <ComboBoxItem>Large</ComboBoxItem>
-                            </ComboBox>                         
+                            </ComboBox>
                         </DockPanel>
-                        
+
                         <DockPanel Margin="15 0 0 0">
-                            <Image Classes="Icon" Source="../Assets/paragraph.png"></Image>
+                            <Image Classes="Icon" Source="/UI/Assets/paragraph.png" />
                             <TextBlock VerticalAlignment="Center" Margin="10 20">Text Direction</TextBlock>
                             <ComboBox HorizontalAlignment="Right" VerticalAlignment="Center" BorderBrush="LightGray"
                                       Margin="10 20" Width="150" VerticalContentAlignment="Center" BorderThickness="1">
@@ -83,17 +83,17 @@
                         </DockPanel>
 
                         <DockPanel Margin="15 0 0 0">
-                            <Image Classes="Icon" Source="../Assets/line_space.png"/>
-                            <TextBlock VerticalAlignment="Center" Margin="10 20" >Line Spacing</TextBlock>
+                            <Image Classes="Icon" Source="/UI/Assets/line_space.png" />
+                            <TextBlock VerticalAlignment="Center" Margin="10 20">Line Spacing</TextBlock>
                             <ComboBox HorizontalAlignment="Right" VerticalAlignment="Center" BorderBrush="LightGray"
                                       Margin="10 20" Width="150" VerticalContentAlignment="Center" BorderThickness="1">
                                 <ComboBoxItem>Single Space</ComboBoxItem>
                                 <ComboBoxItem>Double Space</ComboBoxItem>
                             </ComboBox>
                         </DockPanel>
-                        
+
                         <DockPanel Margin="15 0 0 0">
-                            <Image Classes="Icon" Source="../Assets/column.png"/>
+                            <Image Classes="Icon" Source="/UI/Assets/column.png" />
                             <TextBlock VerticalAlignment="Center" Margin="10 20">Columns</TextBlock>
                             <ComboBox HorizontalAlignment="Right" VerticalAlignment="Center" BorderBrush="LightGray"
                                       Margin="10 20" Width="150" VerticalContentAlignment="Center" BorderThickness="1">
@@ -101,44 +101,44 @@
                                 <ComboBoxItem>Two Column</ComboBoxItem>
                             </ComboBox>
                         </DockPanel>
-                        
+
                         <DockPanel Margin="15 0 0 0">
-                            <Image Classes="Icon" Source="../Assets/justify.png"/>
+                            <Image Classes="Icon" Source="/UI/Assets/justify.png" />
                             <TextBlock VerticalAlignment="Center" Margin="10 20">Justify Text</TextBlock>
-                            <ToggleSwitch OnContent="" OffContent="" HorizontalAlignment="Right"></ToggleSwitch>
+                            <ToggleSwitch OnContent="" OffContent="" HorizontalAlignment="Right" />
                         </DockPanel>
                     </StackPanel>
-                    
+
                     <TextBlock Classes="SubTitle">Structure</TextBlock>
 
                     <StackPanel>
 
                         <DockPanel Margin="15 0 0 0">
-                            <Image Classes="Icon" Source="../Assets/chapter.png"/>
+                            <Image Classes="Icon" Source="/UI/Assets/chapter.png" />
                             <TextBlock VerticalAlignment="Center" Margin="10 20">Chapter Break</TextBlock>
-                            <ToggleSwitch OnContent="" OffContent="" HorizontalAlignment="Right"></ToggleSwitch>
+                            <ToggleSwitch OnContent="" OffContent="" HorizontalAlignment="Right" />
                         </DockPanel>
-                        
+
                         <DockPanel Margin="15 0 0 0">
-                            <Image Classes="Icon" Source="../Assets/verse.png"/>
+                            <Image Classes="Icon" Source="/UI/Assets/verse.png" />
                             <TextBlock VerticalAlignment="Center" Margin="10 20">Verse Break</TextBlock>
-                            <ToggleSwitch OnContent="" OffContent="" HorizontalAlignment="Right"></ToggleSwitch>
+                            <ToggleSwitch OnContent="" OffContent="" HorizontalAlignment="Right" />
                         </DockPanel>
                     </StackPanel>
-                    
+
                     <TextBlock Classes="SubTitle">Options</TextBlock>
-                        
+
                     <StackPanel>
                         <DockPanel Margin="15 0 0 0">
-                            <Image Classes="Icon" Source="../Assets/note.png"/>
+                            <Image Classes="Icon" Source="/UI/Assets/note.png" />
                             <TextBlock VerticalAlignment="Center" Margin="10 20">Note Taking</TextBlock>
-                            <ToggleSwitch OnContent="" OffContent="" HorizontalAlignment="Right"></ToggleSwitch>
+                            <ToggleSwitch OnContent="" OffContent="" HorizontalAlignment="Right" />
                         </DockPanel>
-                        
+
                         <DockPanel Margin="15 0 0 0">
-                            <Image Classes="Icon" Source="../Assets/table_of_content.png"/>
+                            <Image Classes="Icon" Source="/UI/Assets/table_of_content.png" />
                             <TextBlock VerticalAlignment="Center" Margin="10 20">Table of Contents</TextBlock>
-                            <ToggleSwitch OnContent="" OffContent="" HorizontalAlignment="Right"></ToggleSwitch>
+                            <ToggleSwitch OnContent="" OffContent="" HorizontalAlignment="Right" />
                         </DockPanel>
                     </StackPanel>
                 </StackPanel>
