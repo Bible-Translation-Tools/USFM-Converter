@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Avalonia.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,24 +11,20 @@ namespace USFMConverter.UI
     public class ViewData
     {
         public List<string> Files { get; set; } = new();
-        
-        public int TextSizeIndex { get; set; } = 0;
-        public TextSize TextSize => (TextSize)TextSizeIndex;
 
-        public int TextAlignmentIndex { get; set; } = 0;
-        public TextAlignment TextAlignment => (TextAlignment)TextAlignmentIndex;
+        public ComboBoxItem OutputFileFormat { get; set; }
 
-        public int LineSpacingIndex { get; set; } = 0;
-        public LineSpacing LineSpacing => (LineSpacing)LineSpacingIndex;
+        public ComboBoxItem TextSize { get; set; }
+
+        public ComboBoxItem LineSpacing { get; set; }
 
         public int ColumnCount { get; set; } = 1;
 
+        public bool Justified { get; set; } = false;
         public bool LeftToRight { get; set; } = true;
         public bool ChapterBreak { get; set; } = false;
         public bool VerseBreak { get; set; } = false;
         public bool NoteTaking { get; set; } = false;
         public bool TableOfContents { get; set; } = false;
-        
-        public string OutputLocation { get; set; } = "";
     }
 }

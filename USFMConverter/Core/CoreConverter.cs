@@ -22,16 +22,16 @@ namespace USFMConverter.Core
         public void Convert(ViewData viewData)
         {
             var files = viewData.Files.Select(f => new FileInfo(f));
-            projectBuilder.AddFiles(files.ToList());
-            projectBuilder.SetFontSize(viewData.TextSize);
-            projectBuilder.SetTextAlignment(viewData.TextAlignment);
-            projectBuilder.SetTextDirection(viewData.LeftToRight);
-            projectBuilder.SetLineSpacing(viewData.LineSpacing);
-            projectBuilder.SetColumns(viewData.ColumnCount);
-            projectBuilder.SetChapterBreak(viewData.ChapterBreak);
-            projectBuilder.SetVerseBreak(viewData.VerseBreak);
-            projectBuilder.EnableNoteTaking(viewData.NoteTaking);
-            projectBuilder.EnableTableOfContents(viewData.TableOfContents);
+            //projectBuilder.AddFiles(files.ToList());
+            //projectBuilder.SetFontSize(viewData.TextSize);
+            //projectBuilder.SetTextAlignment(viewData.TextAlignment);
+            //projectBuilder.SetTextDirection(viewData.LeftToRight);
+            //projectBuilder.SetLineSpacing(viewData.LineSpacing);
+            //projectBuilder.SetColumns(viewData.ColumnCount);
+            //projectBuilder.SetChapterBreak(viewData.ChapterBreak);
+            //projectBuilder.SetVerseBreak(viewData.VerseBreak);
+            //projectBuilder.EnableNoteTaking(viewData.NoteTaking);
+            //projectBuilder.EnableTableOfContents(viewData.TableOfContents);
 
             var project = projectBuilder.Build();
         }
