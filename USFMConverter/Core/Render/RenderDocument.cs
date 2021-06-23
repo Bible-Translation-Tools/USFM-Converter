@@ -10,17 +10,34 @@ namespace USFMConverter.Core.Render
 {
     public abstract class RenderDocument
     {
-        public USFMDocument LoadUSFM(IEnumerable<FileInfo> files)
+        private Action<double> UpdateProgress;
+
+        public RenderDocument()
+        {
+            UpdateProgress = new Action<double>((value) => { return; });
+        }
+
+        public RenderDocument(Action<double> updateProgress)
+        {
+            UpdateProgress = updateProgress;
+        }
+
+        protected USFMDocument LoadUSFM(IEnumerable<FileInfo> files)
         {
             var usfmDoc = new USFMDocument();
-            var parser = new USFMParser(new List<string> { "s5" });
+            List<FileInfo> fileList = files.ToList();
 
-            foreach (var file in files)
+            var parser = new USFMParser(new List<string> { "s5" });
+            int totalFiles = fileList.Count;
+
+            for (int i = 0; i < totalFiles; i++)
             {
-                var text = File.ReadAllText(file.FullName);
+                var text = File.ReadAllText(fileList[i].FullName);
 
                 usfmDoc.Insert(parser.ParseFromString(text));
-                // increase progress bar
+                // update progress bar
+                var percent = (double)i / totalFiles * 100;
+                UpdateProgress(percent);
             }
 
             return usfmDoc;
