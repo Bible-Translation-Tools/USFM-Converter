@@ -52,13 +52,17 @@
                             You may browse your computer for files or drag and drop them directly to the screen to import.
                         </TextBlock>
 
-                        <Border Margin="10" HorizontalAlignment="Left" CornerRadius="5" BorderThickness="2"
-                                BorderBrush="#737f8f">
-                            <Button Foreground="#244f9d" Background="#edf1fa" HorizontalAlignment="Center"
-                                    VerticalAlignment="Center">
-                                Browse Files
-                            </Button>
-                        </Border>
+                        <Grid>
+                            <Border Margin="10" HorizontalAlignment="Left" CornerRadius="5" BorderThickness="2"
+                                    BorderBrush="#737f8f" Height="45">
+                                <Button Foreground="#244f9d" Background="#edf1fa" HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Name="BrowseBtn">
+                                    Browse Files
+                                </Button>
+                            </Border>
+                            <Image Stretch="Fill" Width="80" Height="80" Source="/UI/Assets/drag_drop.png" />
+                        </Grid>
                     </StackPanel>
                 </Border>
                 
