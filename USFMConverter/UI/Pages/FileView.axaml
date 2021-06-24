@@ -2,7 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="USFMConverter.UI.Pages.FileView"
              Name="FileView">
 
@@ -21,7 +21,7 @@
         </Style>
     </UserControl.Styles>
 
-    <StackPanel Spacing="5" Margin="20" Grid.Column="0">
+    <StackPanel Spacing="5" Margin="20">
         <StackPanel>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -37,7 +37,6 @@
                         Convert Project
                     </Button>
                 </StackPanel>
-                
                 
                 <Border Name="DragDropArea" DragDrop.AllowDrop="True" Grid.Column="1" 
                         Background="#edf1fa" BorderBrush="#edf1fa"
@@ -83,9 +82,11 @@
             </Button>
         </Grid>
 
-        <ListBox Padding="20" Name="FilesListBox" Height="300"
+        <ListBox Padding="20" Name="FilesListBox" MinHeight="300"
+                 Height="{Binding $parent[6].Height}"
                  ScrollViewer.VerticalScrollBarVisibility="Visible"
                  SelectionMode="Multiple" Items="{Binding Files, Mode=TwoWay}" />
+        
     </StackPanel>
 
 </UserControl>
