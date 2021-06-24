@@ -88,7 +88,8 @@
 
         <ListBox Padding="20" Name="FilesListBox" Height="300"
                  ScrollViewer.VerticalScrollBarVisibility="Visible"
-                 SelectionMode="Multiple" Items="{Binding Files, Mode=TwoWay}" />
+                 SelectionMode="Multiple" DragDrop.AllowDrop="True"
+                 Items="{Binding Files, Mode=TwoWay}" />
     </StackPanel>
 
 </UserControl>

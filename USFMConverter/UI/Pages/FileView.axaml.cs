@@ -50,6 +50,8 @@ namespace USFMConverter.UI.Pages
 
             filesContainer = this.Find<ListBox>("FilesListBox");
             filesContainer.AddHandler(ListBox.SelectionChangedEvent, OnFileSelect);
+            filesContainer.AddHandler(DragDrop.DragOverEvent, OnDragOver);
+            filesContainer.AddHandler(DragDrop.DropEvent, OnDrop);
 
             dragDropArea = this.Find<Border>("DragDropArea");
             dragDropArea.AddHandler(DragDrop.DragOverEvent, OnDragOver);
