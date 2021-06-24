@@ -56,7 +56,8 @@
                         <Border Margin="10" HorizontalAlignment="Left" CornerRadius="5" BorderThickness="2"
                                 BorderBrush="#737f8f">
                             <Button Foreground="#244f9d" Background="#edf1fa" HorizontalAlignment="Center"
-                                    VerticalAlignment="Center">
+                                    VerticalAlignment="Center"
+                                    Name="BrowseBtn">
                                 Browse Files
                             </Button>
                         </Border>
@@ -72,20 +73,23 @@
         <Grid>
             <TextBlock Classes="SelectedText" Margin="0 10 0 0"
                        Background="White" VerticalAlignment="Center"
-                       HorizontalAlignment="Left">
+                       HorizontalAlignment="Left"
+                       Name="SelectedCount">
                 0 Selected
             </TextBlock>
 
             <Button Classes="RemoveButton" Margin="0 10 0 0"
                     Background="White" BorderThickness="0"
-                    HorizontalAlignment="Right">
+                    HorizontalAlignment="Right"
+                    Name="RemoveFileBtn">
                 - Remove Files
             </Button>
         </Grid>
 
         <ListBox Padding="20" Name="FilesListBox" Height="300"
                  ScrollViewer.VerticalScrollBarVisibility="Visible"
-                 SelectionMode="Multiple" Items="{Binding Files, Mode=TwoWay}" />
+                 SelectionMode="Multiple" DragDrop.AllowDrop="True"
+                 Items="{Binding Files, Mode=TwoWay}" />
     </StackPanel>
 
 </UserControl>
