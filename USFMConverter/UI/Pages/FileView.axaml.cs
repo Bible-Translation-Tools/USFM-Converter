@@ -17,7 +17,9 @@ namespace USFMConverter.UI.Pages
     {
         private Border dragDropArea;
         private ListBox filesContainer;
+        private TextBlock selectedCount;
         private Button browseBtn;
+        private Button removeFileBtn;
 
         private static readonly StyledProperty<List<string>> ItemsProperty = AvaloniaProperty.Register<ProjectDetailScreen, List<string>>(nameof(Items));
         
@@ -39,14 +41,21 @@ namespace USFMConverter.UI.Pages
             SetLinuxText();
 
             Items = new List<string>();
-            filesContainer = this.Find<ListBox>("FilesListBox");
 
             browseBtn = this.Find<Button>("BrowseBtn");
             browseBtn.AddHandler(Button.ClickEvent, OnBrowseClick);
 
+            removeFileBtn = this.Find<Button>("RemoveFileBtn");
+            removeFileBtn.AddHandler(Button.ClickEvent, OnRemoveClick);
+
+            filesContainer = this.Find<ListBox>("FilesListBox");
+            filesContainer.AddHandler(ListBox.SelectionChangedEvent, OnFileSelect);
+
             dragDropArea = this.Find<Border>("DragDropArea");
             dragDropArea.AddHandler(DragDrop.DragOverEvent, OnDragOver);
             dragDropArea.AddHandler(DragDrop.DropEvent, OnDrop);
+
+            selectedCount = this.Find<TextBlock>("SelectedCount");
         }
 
         private async void OnBrowseClick(object? sender, RoutedEventArgs e)
@@ -65,6 +74,26 @@ namespace USFMConverter.UI.Pages
 
                 filesContainer.Items = newList; // changes to the UI will bind to DataContext
             }
+        }
+
+        private void OnRemoveClick(object? sender, RoutedEventArgs e)
+        {
+            var list = filesContainer.Items.Cast<string>().ToList();
+            
+            foreach(var item in filesContainer.SelectedItems)
+            {
+                list.Remove(item.ToString());
+            }
+
+            Items = list;
+            filesContainer.Items = list;
+
+            UpdateCount();
+        }
+
+        private void OnFileSelect(object? sender, SelectionChangedEventArgs e)
+        {
+            UpdateCount();
         }
 
         private void OnDragOver(object? sender, DragEventArgs e)
@@ -114,6 +143,11 @@ namespace USFMConverter.UI.Pages
                 TextBlock dndText = this.Find<TextBlock>("DragDropText");
                 dndText.Text = "Browse for folder that contains .usfm files";
             }
+        }
+
+        private void UpdateCount()
+        {
+            selectedCount.Text = filesContainer.SelectedItems.Count + " Selected";
         }
     }
 }
