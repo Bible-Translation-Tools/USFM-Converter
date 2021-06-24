@@ -90,12 +90,12 @@ namespace USFMConverter.UI.Pages
             Items = list;
             filesContainer.Items = list;
 
-            UpdateCount();
+            UpdateCounter();
         }
 
         private void OnFileSelect(object? sender, SelectionChangedEventArgs e)
         {
-            UpdateCount();
+            UpdateCounter();
         }
 
         private void OnDragOver(object? sender, DragEventArgs e)
@@ -147,7 +147,7 @@ namespace USFMConverter.UI.Pages
             }
         }
 
-        private void UpdateCount()
+        private void UpdateCounter()
         {
             selectedCount.Text = filesContainer.SelectedItems.Count + " Selected";
         }
