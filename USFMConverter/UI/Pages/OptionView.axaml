@@ -26,7 +26,28 @@
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="VerticalAlignment" Value="Top" />
         </Style>
-
+        <Style Selector="ComboBox">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="LightGray"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Margin" Value="10 20"/>
+            <Setter Property="Width" Value="150"/>
+        </Style>
+        <Style Selector="NumericUpDown">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="10 20"/>
+            <Setter Property="Width" Value="150"/>
+        </Style>
+        
+        <Style Selector="ToggleSwitch">
+            <Setter Property="OnContent" Value=""/>
+            <Setter Property="OffContent" Value=""/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+        </Style>
     </UserControl.Styles>
 
     <Grid>
@@ -35,7 +56,7 @@
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Column="0" Background="#000000" Opacity="0.6" />
+        <TextBlock Name="BlurredArea" Grid.Column="0" Background="#000000" Opacity="0.6" />
 
         <Border Grid.Column="1" Background="White">
 
@@ -64,19 +85,17 @@
                         <DockPanel Margin="15 0 0 0">
                             <Image Classes="Icon" Source="/UI/Assets/font.png" />
                             <TextBlock VerticalAlignment="Center" Margin="10 20">Font Size</TextBlock>
-                            <ComboBox HorizontalAlignment="Right" VerticalAlignment="Center" BorderBrush="LightGray"
-                                      Margin="10 20" Width="150" VerticalContentAlignment="Center" BorderThickness="1">
-                                <ComboBoxItem>Small</ComboBoxItem>
-                                <ComboBoxItem>Normal</ComboBoxItem>
-                                <ComboBoxItem>Large</ComboBoxItem>
+                            <ComboBox SelectedIndex="0" SelectedItem="{Binding TextSize, Mode=OneWayToSource}">
+                                <ComboBoxItem Tag="SMALL">Small</ComboBoxItem>
+                                <ComboBoxItem Tag="NORMAL">Normal</ComboBoxItem>
+                                <ComboBoxItem Tag="LARGE">Large</ComboBoxItem>
                             </ComboBox>
                         </DockPanel>
 
                         <DockPanel Margin="15 0 0 0">
                             <Image Classes="Icon" Source="/UI/Assets/paragraph.png" />
                             <TextBlock VerticalAlignment="Center" Margin="10 20">Text Direction</TextBlock>
-                            <ComboBox HorizontalAlignment="Right" VerticalAlignment="Center" BorderBrush="LightGray"
-                                      Margin="10 20" Width="150" VerticalContentAlignment="Center" BorderThickness="1">
+                            <ComboBox SelectedIndex="{Binding !LeftToRight, Mode=TwoWay}">
                                 <ComboBoxItem>Left to Right</ComboBoxItem>
                                 <ComboBoxItem>Right to Left</ComboBoxItem>
                             </ComboBox>
@@ -85,27 +104,22 @@
                         <DockPanel Margin="15 0 0 0">
                             <Image Classes="Icon" Source="/UI/Assets/line_space.png" />
                             <TextBlock VerticalAlignment="Center" Margin="10 20">Line Spacing</TextBlock>
-                            <ComboBox HorizontalAlignment="Right" VerticalAlignment="Center" BorderBrush="LightGray"
-                                      Margin="10 20" Width="150" VerticalContentAlignment="Center" BorderThickness="1">
-                                <ComboBoxItem>Single Space</ComboBoxItem>
-                                <ComboBoxItem>Double Space</ComboBoxItem>
+                            <ComboBox SelectedIndex="0" SelectedItem="{Binding LineSpacing, Mode=OneWayToSource}">
+                                <ComboBoxItem Tag="SINGLE">Single Space</ComboBoxItem>
+                                <ComboBoxItem Tag="DOUBLE">Double Space</ComboBoxItem>
                             </ComboBox>
                         </DockPanel>
 
                         <DockPanel Margin="15 0 0 0">
                             <Image Classes="Icon" Source="/UI/Assets/column.png" />
                             <TextBlock VerticalAlignment="Center" Margin="10 20">Columns</TextBlock>
-                            <ComboBox HorizontalAlignment="Right" VerticalAlignment="Center" BorderBrush="LightGray"
-                                      Margin="10 20" Width="150" VerticalContentAlignment="Center" BorderThickness="1">
-                                <ComboBoxItem>One Column</ComboBoxItem>
-                                <ComboBoxItem>Two Column</ComboBoxItem>
-                            </ComboBox>
+                            <NumericUpDown Minimum="1" Maximum="2" Increment="1" Value="{Binding ColumnCount, Mode=TwoWay}"/>
                         </DockPanel>
 
                         <DockPanel Margin="15 0 0 0">
                             <Image Classes="Icon" Source="/UI/Assets/justify.png" />
                             <TextBlock VerticalAlignment="Center" Margin="10 20">Justify Text</TextBlock>
-                            <ToggleSwitch OnContent="" OffContent="" HorizontalAlignment="Right" />
+                            <ToggleSwitch IsChecked="{Binding Justified, Mode=TwoWay}"/>
                         </DockPanel>
                     </StackPanel>
 
@@ -116,13 +130,13 @@
                         <DockPanel Margin="15 0 0 0">
                             <Image Classes="Icon" Source="/UI/Assets/chapter.png" />
                             <TextBlock VerticalAlignment="Center" Margin="10 20">Chapter Break</TextBlock>
-                            <ToggleSwitch OnContent="" OffContent="" HorizontalAlignment="Right" />
+                            <ToggleSwitch IsChecked="{Binding ChapterBreak, Mode=TwoWay}"/>
                         </DockPanel>
 
                         <DockPanel Margin="15 0 0 0">
                             <Image Classes="Icon" Source="/UI/Assets/verse.png" />
                             <TextBlock VerticalAlignment="Center" Margin="10 20">Verse Break</TextBlock>
-                            <ToggleSwitch OnContent="" OffContent="" HorizontalAlignment="Right" />
+                            <ToggleSwitch IsChecked="{Binding VerseBreak, Mode=TwoWay}"/>
                         </DockPanel>
                     </StackPanel>
 
@@ -132,13 +146,13 @@
                         <DockPanel Margin="15 0 0 0">
                             <Image Classes="Icon" Source="/UI/Assets/note.png" />
                             <TextBlock VerticalAlignment="Center" Margin="10 20">Note Taking</TextBlock>
-                            <ToggleSwitch OnContent="" OffContent="" HorizontalAlignment="Right" />
+                            <ToggleSwitch IsChecked="{Binding NoteTaking, Mode=TwoWay}"/>
                         </DockPanel>
 
                         <DockPanel Margin="15 0 0 0">
                             <Image Classes="Icon" Source="/UI/Assets/table_of_content.png" />
                             <TextBlock VerticalAlignment="Center" Margin="10 20">Table of Contents</TextBlock>
-                            <ToggleSwitch OnContent="" OffContent="" HorizontalAlignment="Right" />
+                            <ToggleSwitch IsChecked="{Binding TableOfContents, Mode=TwoWay}"/>
                         </DockPanel>
                     </StackPanel>
                 </StackPanel>
