@@ -49,7 +49,7 @@
                                    Margin="10" Foreground="#244f9d">
                             Add Files
                         </TextBlock>
-                        <TextBlock VerticalAlignment="Center" Margin="10 0 10 10">
+                        <TextBlock Name="DragDropText" VerticalAlignment="Center" Margin="10 0 10 10">
                             You may browse your computer for files or drag and drop them directly to the screen to import.
                         </TextBlock>
 
