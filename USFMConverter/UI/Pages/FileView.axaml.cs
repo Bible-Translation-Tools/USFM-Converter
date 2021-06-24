@@ -1,3 +1,4 @@
+using System;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
@@ -6,6 +7,7 @@ using Avalonia.Platform;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Avalonia.Interactivity;
 using USFMConverter.Core;
 using USFMConverter.Core.Util;
 
@@ -15,9 +17,12 @@ namespace USFMConverter.UI.Pages
     {
         private Border dragDropArea;
         private ListBox filesContainer;
+        private TextBlock selectedCount;
+        private Button browseBtn;
+        private Button removeFileBtn;
 
         private static readonly StyledProperty<List<string>> ItemsProperty = AvaloniaProperty.Register<ProjectDetailScreen, List<string>>(nameof(Items));
-
+        
         public List<string> Items
         {
             get => GetValue(ItemsProperty);
@@ -36,14 +41,64 @@ namespace USFMConverter.UI.Pages
             SetLinuxText();
 
             Items = new List<string>();
+
+            browseBtn = this.Find<Button>("BrowseBtn");
+            browseBtn.AddHandler(Button.ClickEvent, OnBrowseClick);
+
+            removeFileBtn = this.Find<Button>("RemoveFileBtn");
+            removeFileBtn.AddHandler(Button.ClickEvent, OnRemoveClick);
+
             filesContainer = this.Find<ListBox>("FilesListBox");
+            filesContainer.AddHandler(ListBox.SelectionChangedEvent, OnFileSelect);
+            filesContainer.AddHandler(DragDrop.DragOverEvent, OnDragOver);
+            filesContainer.AddHandler(DragDrop.DropEvent, OnDrop);
 
             dragDropArea = this.Find<Border>("DragDropArea");
             dragDropArea.AddHandler(DragDrop.DragOverEvent, OnDragOver);
             dragDropArea.AddHandler(DragDrop.DropEvent, OnDrop);
+
+            selectedCount = this.Find<TextBlock>("SelectedCount");
         }
 
-        private void OnDragOver(object sender, DragEventArgs e)
+        private async void OnBrowseClick(object? sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFolderDialog();
+            var result = await dialog.ShowAsync((Window)this.VisualRoot);
+            if (!string.IsNullOrEmpty(result))
+            {
+                var dir = new FileInfo(result);
+                var filesInDir = FileSystem.GetFilesInDir(
+                    dir, CoreConverter.supportedExtensions
+                ).Select(f => f.FullName);
+                
+                var newList = Items.Concat(filesInDir).ToList();
+                Items = newList;
+
+                filesContainer.Items = newList; // changes to the UI will bind to DataContext
+            }
+        }
+
+        private void OnRemoveClick(object? sender, RoutedEventArgs e)
+        {
+            var list = filesContainer.Items.Cast<string>().ToList();
+            
+            foreach(var item in filesContainer.SelectedItems)
+            {
+                list.Remove(item.ToString());
+            }
+
+            Items = list;
+            filesContainer.Items = list;
+
+            UpdateCounter();
+        }
+
+        private void OnFileSelect(object? sender, SelectionChangedEventArgs e)
+        {
+            UpdateCounter();
+        }
+
+        private void OnDragOver(object? sender, DragEventArgs e)
         {
             if (e.Data.Contains(DataFormats.FileNames))
             {
@@ -51,7 +106,7 @@ namespace USFMConverter.UI.Pages
             }
         }
 
-        private void OnDrop(object sender, DragEventArgs e)
+        private void OnDrop(object? sender, DragEventArgs e)
         {
             if (e.Data.Contains(DataFormats.FileNames))
             {
@@ -90,6 +145,11 @@ namespace USFMConverter.UI.Pages
                 TextBlock dndText = this.Find<TextBlock>("DragDropText");
                 dndText.Text = "Browse for folder that contains .usfm files";
             }
+        }
+
+        private void UpdateCounter()
+        {
+            selectedCount.Text = filesContainer.SelectedItems.Count + " Selected";
         }
     }
 }
