@@ -67,7 +67,7 @@ namespace USFMConverter.UI.Pages
             }
         }
 
-        private void OnDragOver(object sender, DragEventArgs e)
+        private void OnDragOver(object? sender, DragEventArgs e)
         {
             if (e.Data.Contains(DataFormats.FileNames))
             {
@@ -75,7 +75,7 @@ namespace USFMConverter.UI.Pages
             }
         }
 
-        private void OnDrop(object sender, DragEventArgs e)
+        private void OnDrop(object? sender, DragEventArgs e)
         {
             if (e.Data.Contains(DataFormats.FileNames))
             {
