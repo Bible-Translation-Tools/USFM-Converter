@@ -9,6 +9,7 @@ namespace USFMConverter.UI.Pages
     public class OptionView : UserControl
     {
         private Button closeBtn;
+        private TextBlock blurredArea;
         private UserControl optionView;
 
         public OptionView()
@@ -24,6 +25,9 @@ namespace USFMConverter.UI.Pages
             closeBtn = this.Find<Button>("CloseBtn");
             closeBtn.AddHandler(Button.ClickEvent, OnCloseClick);
 
+            blurredArea = this.Find<TextBlock>("BlurredArea");
+            blurredArea.AddHandler(TextBlock.PointerPressedEvent, OnCloseClick);
+            
             optionView = this.Find<UserControl>("OptionView");
         }
 

@@ -43,6 +43,11 @@
             <Setter Property="Width" Value="150"/>
         </Style>
         
+        <Style Selector="ToggleSwitch">
+            <Setter Property="OnContent" Value=""/>
+            <Setter Property="OffContent" Value=""/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+        </Style>
     </UserControl.Styles>
 
     <Grid>
@@ -51,7 +56,7 @@
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Column="0" Background="#000000" Opacity="0.6" />
+        <TextBlock Name="BlurredArea" Grid.Column="0" Background="#000000" Opacity="0.6" />
 
         <Border Grid.Column="1" Background="White">
 
@@ -114,7 +119,7 @@
                         <DockPanel Margin="15 0 0 0">
                             <Image Classes="Icon" Source="/UI/Assets/justify.png" />
                             <TextBlock VerticalAlignment="Center" Margin="10 20">Justify Text</TextBlock>
-                            <ToggleSwitch IsChecked="{Binding Justified, Mode=TwoWay}" OnContent="" OffContent="" HorizontalAlignment="Right" />
+                            <ToggleSwitch IsChecked="{Binding Justified, Mode=TwoWay}"/>
                         </DockPanel>
                     </StackPanel>
 
@@ -125,13 +130,13 @@
                         <DockPanel Margin="15 0 0 0">
                             <Image Classes="Icon" Source="/UI/Assets/chapter.png" />
                             <TextBlock VerticalAlignment="Center" Margin="10 20">Chapter Break</TextBlock>
-                            <ToggleSwitch IsChecked="{Binding ChapterBreak, Mode=TwoWay}" OnContent="" OffContent="" HorizontalAlignment="Right" />
+                            <ToggleSwitch IsChecked="{Binding ChapterBreak, Mode=TwoWay}"/>
                         </DockPanel>
 
                         <DockPanel Margin="15 0 0 0">
                             <Image Classes="Icon" Source="/UI/Assets/verse.png" />
                             <TextBlock VerticalAlignment="Center" Margin="10 20">Verse Break</TextBlock>
-                            <ToggleSwitch IsChecked="{Binding VerseBreak, Mode=TwoWay}" OnContent="" OffContent="" HorizontalAlignment="Right" />
+                            <ToggleSwitch IsChecked="{Binding VerseBreak, Mode=TwoWay}"/>
                         </DockPanel>
                     </StackPanel>
 
@@ -141,13 +146,13 @@
                         <DockPanel Margin="15 0 0 0">
                             <Image Classes="Icon" Source="/UI/Assets/note.png" />
                             <TextBlock VerticalAlignment="Center" Margin="10 20">Note Taking</TextBlock>
-                            <ToggleSwitch IsChecked="{Binding NoteTaking, Mode=TwoWay}" OnContent="" OffContent="" HorizontalAlignment="Right" />
+                            <ToggleSwitch IsChecked="{Binding NoteTaking, Mode=TwoWay}"/>
                         </DockPanel>
 
                         <DockPanel Margin="15 0 0 0">
                             <Image Classes="Icon" Source="/UI/Assets/table_of_content.png" />
                             <TextBlock VerticalAlignment="Center" Margin="10 20">Table of Contents</TextBlock>
-                            <ToggleSwitch IsChecked="{Binding TableOfContents, Mode=TwoWay}" OnContent="" OffContent="" HorizontalAlignment="Right" />
+                            <ToggleSwitch IsChecked="{Binding TableOfContents, Mode=TwoWay}"/>
                         </DockPanel>
                     </StackPanel>
                 </StackPanel>
