@@ -17,6 +17,7 @@ namespace USFMConverter.UI.Pages
     {
         private Border dragDropArea;
         private ListBox filesContainer;
+        private Button browseBtn;
 
         private static readonly StyledProperty<List<string>> ItemsProperty = AvaloniaProperty.Register<ProjectDetailScreen, List<string>>(nameof(Items));
         
@@ -40,9 +41,30 @@ namespace USFMConverter.UI.Pages
             Items = new List<string>();
             filesContainer = this.Find<ListBox>("FilesListBox");
 
+            browseBtn = this.Find<Button>("BrowseBtn");
+            browseBtn.AddHandler(Button.ClickEvent, OnBrowseClick);
+
             dragDropArea = this.Find<Border>("DragDropArea");
             dragDropArea.AddHandler(DragDrop.DragOverEvent, OnDragOver);
             dragDropArea.AddHandler(DragDrop.DropEvent, OnDrop);
+        }
+
+        private async void OnBrowseClick(object? sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFolderDialog();
+            var result = await dialog.ShowAsync((Window)this.VisualRoot);
+            if (!string.IsNullOrEmpty(result))
+            {
+                var dir = new FileInfo(result);
+                var filesInDir = FileSystem.GetFilesInDir(
+                    dir, CoreConverter.supportedExtensions
+                ).Select(f => f.FullName);
+                
+                var newList = Items.Concat(filesInDir).ToList();
+                Items = newList;
+
+                filesContainer.Items = newList; // changes to the UI will bind to DataContext
+            }
         }
 
         private void OnDragOver(object sender, DragEventArgs e)

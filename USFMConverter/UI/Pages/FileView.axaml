@@ -56,7 +56,8 @@
                         <Border Margin="10" HorizontalAlignment="Left" CornerRadius="5" BorderThickness="2"
                                 BorderBrush="#737f8f">
                             <Button Foreground="#244f9d" Background="#edf1fa" HorizontalAlignment="Center"
-                                    VerticalAlignment="Center">
+                                    VerticalAlignment="Center"
+                                    Name="BrowseBtn">
                                 Browse Files
                             </Button>
                         </Border>
