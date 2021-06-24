@@ -1,3 +1,4 @@
+using System;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -12,7 +13,8 @@ namespace USFMConverter
 {
     public partial class MainWindow : Window
     {
-        private ProjectDetailScreen ProjectDetailScreen;
+        private ProjectDetailScreen projectDetailScreen;
+        
         Dictionary<string, IControl> Screens = new Dictionary<string, IControl>();
 
         public MainWindow()
@@ -35,8 +37,8 @@ namespace USFMConverter
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
-            this.ProjectDetailScreen = this.FindControl<ProjectDetailScreen>("ProjectDetailScreen");
-            this.Screens.Add(nameof(ProjectDetailScreen), this.ProjectDetailScreen);
+            this.projectDetailScreen = this.FindControl<ProjectDetailScreen>("ProjectDetailScreen");
+            this.Screens.Add(nameof(ProjectDetailScreen), this.projectDetailScreen);
         }
     }
 }
