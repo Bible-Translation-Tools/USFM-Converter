@@ -14,7 +14,6 @@ namespace USFMConverter
     public partial class MainWindow : Window
     {
         private ProjectDetailScreen projectDetailScreen;
-        private OptionView optionView;
         
         Dictionary<string, IControl> Screens = new Dictionary<string, IControl>();
 
@@ -34,17 +33,11 @@ namespace USFMConverter
                 i.Value.IsVisible = i.Key == screen;
             }
         }
-        
-        public void OptionButtonClicked(object sender, RoutedEventArgs e)
-        {
-            this.optionView.IsVisible = true;
-        }
 
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
             this.projectDetailScreen = this.FindControl<ProjectDetailScreen>("ProjectDetailScreen");
-            this.optionView =  this.projectDetailScreen.FindControl<OptionView>("OptionView");
             this.Screens.Add(nameof(ProjectDetailScreen), this.projectDetailScreen);
         }
     }

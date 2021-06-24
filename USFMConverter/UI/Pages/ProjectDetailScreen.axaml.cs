@@ -9,16 +9,8 @@ namespace USFMConverter.UI.Pages
     {
         
         private Button openOptionBtn;
-
-        public static readonly RoutedEvent<RoutedEventArgs> OptionOpenEvent =
-            RoutedEvent.Register<FileView, RoutedEventArgs>(nameof(OptionOpen), RoutingStrategies.Bubble);
-
-        public event EventHandler<RoutedEventArgs> OptionOpen
-        {
-            add => AddHandler(OptionOpenEvent, value);
-            remove => AddHandler(OptionOpenEvent, value);
-        }
-
+        private OptionView optionView;
+        
         public ProjectDetailScreen()
         {
             InitializeComponent();
@@ -28,13 +20,16 @@ namespace USFMConverter.UI.Pages
         {
             AvaloniaXamlLoader.Load(this);
 
+            this.optionView = this.FindControl<OptionView>("OptionView");
+            
             openOptionBtn = this.Find<Button>("OptionBtn");
             openOptionBtn.AddHandler(Button.ClickEvent, OnOpenOptionClick);
         }
+        
 
         private void OnOpenOptionClick(object? sender, RoutedEventArgs e)
         {
-            RaiseEvent(new RoutedEventArgs(OptionOpenEvent));
+            this.optionView.IsVisible = true;
         }
     }
 }

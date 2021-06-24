@@ -8,6 +8,6 @@
         Title="USFMConverter"
         Background="AliceBlue">
     <StackPanel>
-        <screen:ProjectDetailScreen Name="ProjectDetailScreen" OptionOpen="OptionButtonClicked" ZIndex="0"/>
+        <screen:ProjectDetailScreen Name="ProjectDetailScreen" ZIndex="0"/>
     </StackPanel>
 </Window>
