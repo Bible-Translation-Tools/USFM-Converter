@@ -1,6 +1,7 @@
 using System;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 
@@ -26,7 +27,7 @@ namespace USFMConverter.UI.Pages
             closeBtn.AddHandler(Button.ClickEvent, OnCloseClick);
 
             blurredArea = this.Find<TextBlock>("BlurredArea");
-            blurredArea.AddHandler(TextBlock.PointerPressedEvent, OnCloseClick);
+            blurredArea.AddHandler(PointerPressedEvent, OnCloseClick);
             
             optionView = this.Find<UserControl>("OptionView");
         }
