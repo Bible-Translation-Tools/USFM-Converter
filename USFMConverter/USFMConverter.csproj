@@ -48,5 +48,7 @@
     <PackageReference Include="Avalonia" Version="0.10.4" />
     <PackageReference Include="Avalonia.Desktop" Version="0.10.4" />
     <PackageReference Include="Avalonia.Diagnostics" Version="0.10.4" />
+    <PackageReference Include="USFMToolsSharp.Renderers.Docx" Version="0.8.0" />
+    <PackageReference Include="USFMToolsSharp.Renderers.HTML" Version="0.2.1" />
   </ItemGroup>
 </Project>
