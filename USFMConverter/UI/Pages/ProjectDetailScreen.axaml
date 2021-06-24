@@ -68,16 +68,11 @@
                 </StackPanel>
 
             </DockPanel>
-
-            <!-- <Border Background="#edf1fa" BorderBrush="Gray" BorderThickness="0 0 0 3"> -->
-            <!--     <DockPanel Classes="MiddlePanel"> -->
-            <!--     </DockPanel> -->
-            <!-- </Border> -->
-
-            <view:FileView />
+            
+            <view:FileView Name="FileView" ZIndex="1"/>
 
         </StackPanel>
 
-        <view:OptionView IsVisible="True" />
+        <view:OptionView Name="OptionView" ZIndex="2"/>
     </Grid>
 </UserControl>

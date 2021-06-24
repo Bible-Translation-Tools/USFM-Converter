@@ -1,3 +1,4 @@
+using System;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
@@ -6,6 +7,7 @@ using Avalonia.Platform;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Avalonia.Interactivity;
 using USFMConverter.Core;
 using USFMConverter.Core.Util;
 
@@ -17,7 +19,7 @@ namespace USFMConverter.UI.Pages
         private ListBox filesContainer;
 
         private static readonly StyledProperty<List<string>> ItemsProperty = AvaloniaProperty.Register<ProjectDetailScreen, List<string>>(nameof(Items));
-
+        
         public List<string> Items
         {
             get => GetValue(ItemsProperty);
