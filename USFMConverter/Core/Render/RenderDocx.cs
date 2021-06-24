@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using USFMConverter.Core.Data;
 using USFMToolsSharp.Models.Markers;
 using USFMToolsSharp.Renderers.Docx;
@@ -10,6 +11,12 @@ namespace USFMConverter.Core.Render
         public RenderDocx()
         {
 
+        }
+
+        public RenderDocx(Action<double> updateProgress)
+            : base(updateProgress)
+        {
+            
         }
 
         private DocxConfig BuildDocxConfig(RenderFormat format)

@@ -14,6 +14,8 @@ namespace USFMConverter.UI.Pages
 {
     public partial class ProjectDetailScreen : UserControl
     {
+        private ProgressBar progressBar;
+
         public ProjectDetailScreen()
         {
             InitializeComponent();
@@ -22,6 +24,16 @@ namespace USFMConverter.UI.Pages
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+        }
+
+        private void UpdateProgressBar(double value)
+        {
+            progressBar.Value = value;
+
+            if (progressBar.Value == 100)
+            {
+                // finish conversion
+            }
         }
     }
 }
