@@ -2,7 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="USFMConverter.UI.Pages.OptionView"
              Name="OptionView">
 
@@ -52,15 +52,15 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="7*" />
-            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="400" />
         </Grid.ColumnDefinitions>
 
         <TextBlock Name="BlurredArea" Grid.Column="0" Background="#000000" Opacity="0.6" />
 
         <Border Grid.Column="1" Background="White">
 
-            <ScrollViewer Height="600" x:Name="ScrollViewer2"
+            <ScrollViewer Height="{Binding $parent.Height}" x:Name="ScrollViewer2"
                           VerticalScrollBarVisibility="Visible"
                           VerticalAlignment="Top" HorizontalAlignment="Stretch">
 
