@@ -10,6 +10,7 @@ using System.Linq;
 using Avalonia.Interactivity;
 using USFMConverter.Core;
 using USFMConverter.Core.Util;
+using USFMConverter.Core.ConstantValue;
 
 namespace USFMConverter.UI.Pages
 {
@@ -19,10 +20,28 @@ namespace USFMConverter.UI.Pages
         private ListBox filesContainer;
         private TextBlock selectedCount;
         private Button browseBtn;
+        private Button convertBtn;
         private Button removeFileBtn;
 
+        public event EventHandler<RoutedEventArgs> ConvertStart
+        {
+            add
+            {
+                AddHandler(StartConvertEvent, value);
+            }
+            remove
+            {
+                RemoveHandler(StartConvertEvent, value);
+            }
+        }
+
         private static readonly StyledProperty<List<string>> ItemsProperty = AvaloniaProperty.Register<ProjectDetailScreen, List<string>>(nameof(Items));
-        
+        public static readonly RoutedEvent<RoutedEventArgs> StartConvertEvent = 
+            RoutedEvent.Register<FileView, RoutedEventArgs>(
+                nameof(ConvertStart), 
+                RoutingStrategies.Bubble
+            );
+
         public List<string> Items
         {
             get => GetValue(ItemsProperty);
@@ -44,6 +63,9 @@ namespace USFMConverter.UI.Pages
 
             browseBtn = this.Find<Button>("BrowseBtn");
             browseBtn.AddHandler(Button.ClickEvent, OnBrowseClick);
+            
+            convertBtn = this.Find<Button>("ConvertBtn");
+            convertBtn.AddHandler(Button.ClickEvent, OnConvertClick);
 
             removeFileBtn = this.Find<Button>("RemoveFileBtn");
             removeFileBtn.AddHandler(Button.ClickEvent, OnRemoveClick);
@@ -75,6 +97,31 @@ namespace USFMConverter.UI.Pages
                 Items = newList;
 
                 filesContainer.Items = newList; // changes to the UI will bind to DataContext
+            }
+        }
+
+        private async void OnConvertClick(object? sender, RoutedEventArgs e)
+        {
+            var dialog = new SaveFileDialog();
+            var extensions = new List<string> {
+                FileFormat.DOCX.ToString().ToLower()
+                //FileFormat.HTML.ToString().ToLower()
+            };
+
+            dialog.Title = "Save Project As";
+            dialog.InitialFileName = "out";
+            dialog.Filters.Add(new FileDialogFilter
+            {
+                Name = "Word Document",
+                Extensions = extensions
+            });
+
+            var result = await dialog.ShowAsync((Window)this.VisualRoot);
+            if (!string.IsNullOrEmpty(result))
+            {
+                // raise convert event to parent
+                ((ViewData)DataContext).OutputFileLocation = result;
+                RaiseEvent(new RoutedEventArgs(StartConvertEvent));
             }
         }
 

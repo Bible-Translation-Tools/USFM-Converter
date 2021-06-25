@@ -33,8 +33,9 @@
                     <TextBlock HorizontalAlignment="Center" FontWeight="Bold" FontSize="25" Margin="10">Project Ready!</TextBlock>
                     <TextBlock HorizontalAlignment="Center" Margin="10 5 10 5">Your project is ready to be converted.</TextBlock>
                     <Button HorizontalAlignment="Center" BorderBrush="Black" BorderThickness="0.5" Margin="15"
-                            Padding="15" Background="#335cff" Foreground="White">
-                        Convert Project
+                            Padding="15" Background="#335cff" Foreground="White"
+                            Name="ConvertBtn">
+                        Convert Now
                     </Button>
                 </StackPanel>
                 

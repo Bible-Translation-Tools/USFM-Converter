@@ -26,5 +26,6 @@ namespace USFMConverter.UI
         public bool VerseBreak { get; set; } = false;
         public bool NoteTaking { get; set; } = false;
         public bool TableOfContents { get; set; } = false;
+        public string OutputFileLocation { get; set; } = "";
     }
 }

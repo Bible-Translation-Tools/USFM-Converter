@@ -87,7 +87,7 @@
                             <TextBlock VerticalAlignment="Center" Margin="10 20">Font Size</TextBlock>
                             <ComboBox SelectedIndex="0" SelectedItem="{Binding TextSize, Mode=OneWayToSource}">
                                 <ComboBoxItem Tag="SMALL">Small</ComboBoxItem>
-                                <ComboBoxItem Tag="NORMAL">Normal</ComboBoxItem>
+                                <ComboBoxItem Tag="MEDIUM">Normal</ComboBoxItem>
                                 <ComboBoxItem Tag="LARGE">Large</ComboBoxItem>
                             </ComboBox>
                         </DockPanel>
