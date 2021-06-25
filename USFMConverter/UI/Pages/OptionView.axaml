@@ -51,12 +51,7 @@
         </Style>
     </UserControl.Styles>
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="400" />
-        </Grid.ColumnDefinitions>
-
+    <Grid ColumnDefinitions="* 400">
         <TextBlock Name="BlurredArea" Grid.Column="0" Background="#000000" Opacity="0.6" />
 
         <Border Grid.Column="1" Background="White">
@@ -66,19 +61,18 @@
                           VerticalAlignment="Top" HorizontalAlignment="Stretch">
 
                 <StackPanel Background="White" Margin="20">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="9*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Grid.Column="0" Classes="Title">Project Settings</TextBlock>
-                        <Border Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" CornerRadius="5">
-                            <Button Name="CloseBtn" Classes="Cancel" Padding="10 5">
-                                <Image Width="16" Height="16" Source="/UI/Assets/close.png" />
-                            </Button>
-                        </Border>
-                    </Grid>
+                    <DockPanel>
+                        <TextBlock Classes="Title">Project Settings</TextBlock>
+                        
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Border BorderThickness="1" BorderBrush="LightGray" CornerRadius="5">
+                                <Button Name="CloseBtn" Classes="Cancel" Padding="10 5">
+                                    <Image Width="16" Height="16" Source="/UI/Assets/close.png" />
+                                </Button>
+                            </Border>
+                            
+                        </StackPanel>
+                    </DockPanel>
 
                     <TextBlock Classes="SubTitle">Output</TextBlock>
 
