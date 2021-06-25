@@ -47,6 +47,10 @@ namespace USFMConverter.Core.Render
             config.separateVerses = format.VerseBreak;
             config.separateChapters = format.ChapterBreak;
             config.renderTableOfContents = format.TableOfContents;
+            
+            if (format.TextAlign == TextAlignment.JUSTIFIED) {
+                config.textAlign = NPOI.XWPF.UserModel.ParagraphAlignment.BOTH;
+            }
 
             if (format.NoteTaking)
             {
@@ -65,6 +69,7 @@ namespace USFMConverter.Core.Render
 
             var document = renderer.Render(usfm);
 
+            // check write permission to output location
             using (Stream outputStream = File.Create(project.OutputFile.FullName))
             {
                 document.Write(outputStream);

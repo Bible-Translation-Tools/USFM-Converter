@@ -80,7 +80,9 @@
                         <DockPanel Margin="15 0 0 0">
                             <Image Classes="Icon" Source="/UI/Assets/page.png" />
                             <TextBlock VerticalAlignment="Center" Margin="10 20">File Format</TextBlock>
-                            <ComboBox SelectedIndex="0" Name="OutputFormatSelector" SelectedItem="{Binding OutputFileFormat, Mode=OneWayToSource}">
+                            <ComboBox SelectedIndex="0"
+                                      SelectedItem="{Binding OutputFileFormat, Mode=OneWayToSource}"
+                                      Name="OutputFormatSelector">
                                 <ComboBoxItem Tag="DOCX">Docx</ComboBoxItem>
                                 <ComboBoxItem Tag="HTML">HTML</ComboBoxItem>
                             </ComboBox>

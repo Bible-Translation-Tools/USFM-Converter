@@ -57,11 +57,13 @@ namespace USFMConverter.UI.Pages
 
         private void ResetInputOptions()
         {
-            var files = ((ViewData)DataContext).Files;
+            var data = ((ViewData)DataContext);
 
-            DataContext = new ViewData
+            // change the DataContext of root element
+            // will apply to all children
+            ((Window)this.VisualRoot).DataContext = new ViewData
             {
-                Files = files
+                Files = data.Files
             };
         }
     }

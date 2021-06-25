@@ -38,13 +38,9 @@ namespace USFMConverter.Core
             project.Name = name;
         }
 
-        public void RemoveFile(string fileName)
+        public void SetOutputLocation(string path)
         {
-            var fileToRemove = project.Files.Find(f => f.FullName == fileName);
-            if (fileToRemove != null)
-            {
-                project.Files.Remove(fileToRemove);
-            }
+            project.OutputFile = new FileInfo(path);
         }
 
         public void SetLineSpacing(LineSpacing lineSpacing)
@@ -77,7 +73,7 @@ namespace USFMConverter.Core
             renderFormat.VerseBreak = breakVerse;
         }
 
-        public void SetFontSize(TextSize size)
+        public void SetTextSize(TextSize size)
         {
             renderFormat.TextSize = size;
         }

@@ -59,8 +59,8 @@
                     </Border>
                 </StackPanel>
             </DockPanel>
-
-            <view:FileView Name="FileView" ZIndex="1" />
+            
+            <view:FileView Name="FileView" ZIndex="1" ConvertStart="OnConvertStart"/>
         </StackPanel>
         
         <view:OptionView Name="OptionView" ZIndex="2" IsVisible="False" />
