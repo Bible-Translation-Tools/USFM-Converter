@@ -4,6 +4,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using USFMConverter.UI;
 
 namespace USFMConverter.UI.Pages
 {
@@ -13,8 +14,10 @@ namespace USFMConverter.UI.Pages
         private TextBlock blurredArea;
         private UserControl optionView;
 
-        public OptionView()
+        private UserControl docxOption;
+        private UserControl htmlOption;
         
+        public OptionView()
         {
             InitializeComponent();
         }
@@ -30,6 +33,9 @@ namespace USFMConverter.UI.Pages
             blurredArea.AddHandler(PointerPressedEvent, OnCloseClick);
             
             optionView = this.Find<UserControl>("OptionView");
+            
+            docxOption = this.Find<UserControl>("DocxOption");
+            htmlOption = this.Find<UserControl>("HtmlOption");
         }
 
         private void OnCloseClick(object? sender, RoutedEventArgs e)

@@ -2,6 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:pages="clr-namespace:USFMConverter.UI.Pages"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="USFMConverter.UI.Pages.OptionView"
              Name="OptionView">
@@ -27,26 +28,26 @@
             <Setter Property="VerticalAlignment" Value="Top" />
         </Style>
         <Style Selector="ComboBox">
-            <Setter Property="HorizontalAlignment" Value="Right"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="BorderBrush" Value="LightGray"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Margin" Value="10 20"/>
-            <Setter Property="Width" Value="150"/>
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="BorderBrush" Value="LightGray" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Margin" Value="10 20" />
+            <Setter Property="Width" Value="150" />
         </Style>
         <Style Selector="NumericUpDown">
-            <Setter Property="HorizontalAlignment" Value="Right"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="10 20"/>
-            <Setter Property="Width" Value="150"/>
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Margin" Value="10 20" />
+            <Setter Property="Width" Value="150" />
         </Style>
-        
+
         <Style Selector="ToggleSwitch">
-            <Setter Property="OnContent" Value=""/>
-            <Setter Property="OffContent" Value=""/>
-            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="OnContent" Value="" />
+            <Setter Property="OffContent" Value="" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
         </Style>
     </UserControl.Styles>
 
@@ -79,82 +80,22 @@
                         </Border>
                     </Grid>
 
-                    <TextBlock Classes="SubTitle">Content</TextBlock>
+                    <TextBlock Classes="SubTitle">Output</TextBlock>
 
                     <StackPanel>
                         <DockPanel Margin="15 0 0 0">
-                            <Image Classes="Icon" Source="/UI/Assets/font.png" />
-                            <TextBlock VerticalAlignment="Center" Margin="10 20">Font Size</TextBlock>
-                            <ComboBox SelectedIndex="0" SelectedItem="{Binding TextSize, Mode=OneWayToSource}">
-                                <ComboBoxItem Tag="SMALL">Small</ComboBoxItem>
-                                <ComboBoxItem Tag="NORMAL">Normal</ComboBoxItem>
-                                <ComboBoxItem Tag="LARGE">Large</ComboBoxItem>
+                            <Image Classes="Icon" Source="/UI/Assets/page.png" />
+                            <TextBlock VerticalAlignment="Center" Margin="10 20">Output Format</TextBlock>
+                            <ComboBox SelectedIndex="0" SelectedItem="{Binding OutputFileFormat, Mode=OneWayToSource}">
+                                <ComboBoxItem Tag="DOCX">Docx</ComboBoxItem>
+                                <ComboBoxItem Tag="HTML">HTML</ComboBoxItem>
                             </ComboBox>
                         </DockPanel>
-
-                        <DockPanel Margin="15 0 0 0">
-                            <Image Classes="Icon" Source="/UI/Assets/paragraph.png" />
-                            <TextBlock VerticalAlignment="Center" Margin="10 20">Text Direction</TextBlock>
-                            <ComboBox SelectedIndex="{Binding !LeftToRight, Mode=TwoWay}">
-                                <ComboBoxItem>Left to Right</ComboBoxItem>
-                                <ComboBoxItem>Right to Left</ComboBoxItem>
-                            </ComboBox>
-                        </DockPanel>
-
-                        <DockPanel Margin="15 0 0 0">
-                            <Image Classes="Icon" Source="/UI/Assets/line_space.png" />
-                            <TextBlock VerticalAlignment="Center" Margin="10 20">Line Spacing</TextBlock>
-                            <ComboBox SelectedIndex="0" SelectedItem="{Binding LineSpacing, Mode=OneWayToSource}">
-                                <ComboBoxItem Tag="SINGLE">Single Space</ComboBoxItem>
-                                <ComboBoxItem Tag="DOUBLE">Double Space</ComboBoxItem>
-                            </ComboBox>
-                        </DockPanel>
-
-                        <DockPanel Margin="15 0 0 0">
-                            <Image Classes="Icon" Source="/UI/Assets/column.png" />
-                            <TextBlock VerticalAlignment="Center" Margin="10 20">Columns</TextBlock>
-                            <NumericUpDown Minimum="1" Maximum="2" Increment="1" Value="{Binding ColumnCount, Mode=TwoWay}"/>
-                        </DockPanel>
-
-                        <DockPanel Margin="15 0 0 0">
-                            <Image Classes="Icon" Source="/UI/Assets/justify.png" />
-                            <TextBlock VerticalAlignment="Center" Margin="10 20">Justify Text</TextBlock>
-                            <ToggleSwitch IsChecked="{Binding Justified, Mode=TwoWay}"/>
-                        </DockPanel>
                     </StackPanel>
-
-                    <TextBlock Classes="SubTitle">Structure</TextBlock>
-
-                    <StackPanel>
-
-                        <DockPanel Margin="15 0 0 0">
-                            <Image Classes="Icon" Source="/UI/Assets/chapter.png" />
-                            <TextBlock VerticalAlignment="Center" Margin="10 20">Chapter Break</TextBlock>
-                            <ToggleSwitch IsChecked="{Binding ChapterBreak, Mode=TwoWay}"/>
-                        </DockPanel>
-
-                        <DockPanel Margin="15 0 0 0">
-                            <Image Classes="Icon" Source="/UI/Assets/verse.png" />
-                            <TextBlock VerticalAlignment="Center" Margin="10 20">Verse Break</TextBlock>
-                            <ToggleSwitch IsChecked="{Binding VerseBreak, Mode=TwoWay}"/>
-                        </DockPanel>
-                    </StackPanel>
-
-                    <TextBlock Classes="SubTitle">Options</TextBlock>
-
-                    <StackPanel>
-                        <DockPanel Margin="15 0 0 0">
-                            <Image Classes="Icon" Source="/UI/Assets/note.png" />
-                            <TextBlock VerticalAlignment="Center" Margin="10 20">Note Taking</TextBlock>
-                            <ToggleSwitch IsChecked="{Binding NoteTaking, Mode=TwoWay}"/>
-                        </DockPanel>
-
-                        <DockPanel Margin="15 0 0 0">
-                            <Image Classes="Icon" Source="/UI/Assets/table_of_content.png" />
-                            <TextBlock VerticalAlignment="Center" Margin="10 20">Table of Contents</TextBlock>
-                            <ToggleSwitch IsChecked="{Binding TableOfContents, Mode=TwoWay}"/>
-                        </DockPanel>
-                    </StackPanel>
+                    
+                    <pages:DocxOption Name="DocxOption" IsVisible="False"/>
+                    <pages:HtmlOption Name="HtmlOption" IsVisible="False"/>
+                    
                 </StackPanel>
             </ScrollViewer>
         </Border>

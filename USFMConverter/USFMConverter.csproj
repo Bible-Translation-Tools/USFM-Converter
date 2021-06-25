@@ -49,6 +49,8 @@
     <AvaloniaResource Include="UI\Assets\column.png" />
     <None Remove="UI\Assets\upload.png" />
     <AvaloniaResource Include="UI\Assets\upload.png" />
+    <None Remove="UI\Assets\page.png" />
+    <AvaloniaResource Include="UI\Assets\page.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.10.4" />
