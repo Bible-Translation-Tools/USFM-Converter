@@ -60,7 +60,7 @@
 
         <Border Grid.Column="1" Background="White">
 
-            <ScrollViewer Height="{Binding $parent.Height, Mode=TwoWay}" x:Name="ScrollViewer2"
+            <ScrollViewer Height="{Binding $parent.Height}" x:Name="ScrollViewer2"
                           VerticalScrollBarVisibility="Visible"
                           VerticalAlignment="Top" HorizontalAlignment="Stretch">
 
