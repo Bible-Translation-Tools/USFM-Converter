@@ -4,6 +4,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using USFMConverter.Core.ConstantValue;
 using USFMConverter.UI;
 
 namespace USFMConverter.UI.Pages
@@ -13,8 +14,7 @@ namespace USFMConverter.UI.Pages
         private Button closeBtn;
         private TextBlock blurredArea;
         private UserControl optionView;
-
-        private ComboBox outputOption;
+        private ComboBox outputFormatCb;
 
         public OptionView()
         {
@@ -31,23 +31,21 @@ namespace USFMConverter.UI.Pages
             blurredArea = this.Find<TextBlock>("BlurredArea");
             blurredArea.AddHandler(PointerPressedEvent, OnCloseClick);
 
-            outputOption = this.Find<ComboBox>("OutputOption");
-            outputOption.AddHandler(ComboBox.SelectionChangedEvent, OnOuputSelection);
-            
+            outputFormatCb = this.Find<ComboBox>("OutputOption");
+            outputFormatCb.AddHandler(ComboBox.SelectionChangedEvent, OnOuputFormatSelect);
+
             optionView = this.Find<UserControl>("OptionView");
         }
 
-        private void OnOuputSelection(object? sender, SelectionChangedEventArgs e)
+        private void OnOuputFormatSelect(object? sender, SelectionChangedEventArgs e)
         {
-            string selectedFormat;
-            foreach (var comboBoxItem in outputOption.Items)
-            {
-                selectedFormat = ((ComboBoxItem)comboBoxItem).Tag.ToString();
-                this.Find<UserControl>(selectedFormat).IsVisible = false;
-            }
+            string selectedFormat = ((ComboBoxItem)outputFormatCb.SelectedItem).Tag.ToString();
             
-            selectedFormat = ((ComboBoxItem)outputOption.SelectedItem).Tag.ToString();
-            this.Find<UserControl>(selectedFormat).IsVisible = true;
+            foreach (ComboBoxItem comboBoxItem in outputFormatCb.Items)
+            {
+                var formatName = comboBoxItem.Tag.ToString();
+                this.Find<UserControl>(formatName).IsVisible = (formatName == selectedFormat);
+            }
         }
 
         private void OnCloseClick(object? sender, RoutedEventArgs e)

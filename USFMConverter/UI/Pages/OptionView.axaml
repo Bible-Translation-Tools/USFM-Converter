@@ -2,7 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:pages="clr-namespace:USFMConverter.UI.Pages"
+             xmlns:swappable="clr-namespace:USFMConverter.UI.Pages.OutputFormat"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="USFMConverter.UI.Pages.OptionView"
              Name="OptionView">
@@ -85,7 +85,7 @@
                     <StackPanel>
                         <DockPanel Margin="15 0 0 0">
                             <Image Classes="Icon" Source="/UI/Assets/page.png" />
-                            <TextBlock VerticalAlignment="Center" Margin="10 20">Output Format</TextBlock>
+                            <TextBlock VerticalAlignment="Center" Margin="10 20">File Format</TextBlock>
                             <ComboBox SelectedIndex="0" Name="OutputOption" SelectedItem="{Binding OutputFileFormat, Mode=OneWayToSource}">
                                 <ComboBoxItem Tag="DOCX">Docx</ComboBoxItem>
                                 <ComboBoxItem Tag="HTML">HTML</ComboBoxItem>
@@ -93,8 +93,8 @@
                         </DockPanel>
                     </StackPanel>
                     
-                    <pages:DocxOption Name="DOCX" IsVisible="True"/>
-                    <pages:HtmlOption Name="HTML" IsVisible="False"/>
+                    <swappable:DocxFormat Name="DOCX" IsVisible="True"/>
+                    <swappable:HtmlFormat Name="HTML" IsVisible="False"/>
                     
                 </StackPanel>
             </ScrollViewer>
