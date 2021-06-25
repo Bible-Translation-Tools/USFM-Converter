@@ -61,9 +61,13 @@
             </DockPanel>
 
             <view:FileView Name="FileView" ZIndex="1" />
-
         </StackPanel>
-
+        
         <view:OptionView Name="OptionView" ZIndex="2" IsVisible="False" />
+
+        <!-- Blurred background -->
+        <StackPanel Background="#000000" Opacity="0.6" ZIndex="3"/>
+        <view:ProgressView ZIndex="4"/>
+        
     </Grid>
 </UserControl>
