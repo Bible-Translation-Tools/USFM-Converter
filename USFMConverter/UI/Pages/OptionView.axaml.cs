@@ -31,7 +31,7 @@ namespace USFMConverter.UI.Pages
             blurredArea = this.Find<TextBlock>("BlurredArea");
             blurredArea.AddHandler(PointerPressedEvent, OnCloseClick);
 
-            outputFormatCb = this.Find<ComboBox>("OutputOption");
+            outputFormatCb = this.Find<ComboBox>("OutputFormatSelector");
             outputFormatCb.AddHandler(ComboBox.SelectionChangedEvent, OnOuputFormatSelect);
 
             optionView = this.Find<UserControl>("OptionView");
