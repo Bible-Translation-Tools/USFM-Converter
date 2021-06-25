@@ -21,7 +21,6 @@ namespace USFMConverter.UI
         public ComboBoxItem LineSpacing { get; set; }
 
         public int ColumnCount { get; set; } = 1;
-
         public bool Justified { get; set; } = false;
         public bool LeftToRight { get; set; } = true;
         public bool ChapterBreak { get; set; } = false;

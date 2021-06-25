@@ -22,6 +22,18 @@ namespace USFMConverter.UI.Pages
         private Button browseBtn;
         private Button convertBtn;
         private Button removeFileBtn;
+        private Dictionary<FileFormat, FileDialogFilter> fileFilter = new()
+        {
+            [FileFormat.DOCX] = new FileDialogFilter { 
+                Name = "Word Document", 
+                Extensions = new() { "docx" } 
+            },
+            [FileFormat.HTML] = new FileDialogFilter
+            {
+                Name = "HTML Document",
+                Extensions = new() { "html" }
+            }
+        };
 
         public event EventHandler<RoutedEventArgs> ConvertStart
         {
@@ -102,19 +114,19 @@ namespace USFMConverter.UI.Pages
 
         private async void OnConvertClick(object? sender, RoutedEventArgs e)
         {
-            var dialog = new SaveFileDialog();
-            var extensions = new List<string> {
-                FileFormat.DOCX.ToString().ToLower()
-                //FileFormat.HTML.ToString().ToLower()
-            };
+            var fileFormatName = ((ViewData)DataContext).OutputFileFormat.Tag?.ToString();
 
+            if (string.IsNullOrEmpty(fileFormatName))
+            {
+                return; // invalid output format
+            }
+
+            FileFormat fileFormat = Enum.Parse<FileFormat>(fileFormatName);
+
+            var dialog = new SaveFileDialog();
             dialog.Title = "Save Project As";
             dialog.InitialFileName = "out";
-            dialog.Filters.Add(new FileDialogFilter
-            {
-                Name = "Word Document",
-                Extensions = extensions
-            });
+            dialog.Filters.Add(fileFilter[fileFormat]);
 
             var result = await dialog.ShowAsync((Window)this.VisualRoot);
             if (!string.IsNullOrEmpty(result))

@@ -45,7 +45,7 @@ namespace USFMConverter.Core
 
             var project = projectBuilder.Build();
 
-            string fileFormatName = "DOCX"; //viewData.OutputFileFormat.Tag?.ToString();
+            string fileFormatName = viewData.OutputFileFormat.Tag?.ToString();
             if (fileFormatName == null)
             {
                 throw new ArgumentException(
