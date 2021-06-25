@@ -14,8 +14,10 @@ namespace USFMConverter.UI
 
         public ComboBoxItem OutputFileFormat { get; set; }
 
+        public int SelectedTextSizeIndex { get; set; } = 0; // binding allows resetting user input
         public ComboBoxItem TextSize { get; set; }
 
+        public int SelectedLineSpacingIndex { get; set; } = 0; // binding allows resetting user input
         public ComboBoxItem LineSpacing { get; set; }
 
         public int ColumnCount { get; set; } = 1;
