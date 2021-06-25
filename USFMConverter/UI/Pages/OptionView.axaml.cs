@@ -46,11 +46,23 @@ namespace USFMConverter.UI.Pages
                 var formatName = comboBoxItem.Tag.ToString();
                 this.Find<UserControl>(formatName).IsVisible = (formatName == selectedFormat);
             }
+
+            ResetInputOptions();
         }
 
         private void OnCloseClick(object? sender, RoutedEventArgs e)
         {
             optionView.IsVisible = false;
+        }
+
+        private void ResetInputOptions()
+        {
+            var files = ((ViewData)DataContext).Files;
+
+            DataContext = new ViewData
+            {
+                Files = files
+            };
         }
     }
 }
