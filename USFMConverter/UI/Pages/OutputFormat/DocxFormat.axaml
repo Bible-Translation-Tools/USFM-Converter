@@ -24,7 +24,8 @@
             <DockPanel Margin="15 0 0 0">
                 <Image Classes="Icon" Source="/UI/Assets/font.png" />
                 <TextBlock VerticalAlignment="Center" Margin="10 20">Font Size</TextBlock>
-                <ComboBox SelectedIndex="0" SelectedItem="{Binding TextSize, Mode=OneWayToSource}">
+                <ComboBox SelectedIndex="{Binding SelectedTextSizeIndex, Mode=TwoWay}"
+                          SelectedItem="{Binding TextSize, Mode=OneWayToSource}">
                     <ComboBoxItem Tag="SMALL">Small</ComboBoxItem>
                     <ComboBoxItem Tag="NORMAL">Normal</ComboBoxItem>
                     <ComboBoxItem Tag="LARGE">Large</ComboBoxItem>
@@ -43,7 +44,8 @@
             <DockPanel Margin="15 0 0 0">
                 <Image Classes="Icon" Source="/UI/Assets/line_space.png" />
                 <TextBlock VerticalAlignment="Center" Margin="10 20">Line Spacing</TextBlock>
-                <ComboBox SelectedIndex="0" SelectedItem="{Binding LineSpacing, Mode=OneWayToSource}">
+                <ComboBox SelectedIndex="{Binding SelectedLineSpacingIndex, Mode=TwoWay}"
+                          SelectedItem="{Binding LineSpacing, Mode=OneWayToSource}">
                     <ComboBoxItem Tag="SINGLE">Single Space</ComboBoxItem>
                     <ComboBoxItem Tag="DOUBLE">Double Space</ComboBoxItem>
                 </ComboBox>
