@@ -69,7 +69,7 @@
 
             </DockPanel>
             
-            <view:FileView Name="FileView" ZIndex="1"/>
+            <view:FileView Name="FileView" ZIndex="1" ConvertStart="OnConvertStart"/>
 
         </StackPanel>
 

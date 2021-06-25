@@ -2,6 +2,7 @@ using System;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Interactivity;
+using USFMConverter.Core;
 
 namespace USFMConverter.UI.Pages
 {
@@ -32,14 +33,20 @@ namespace USFMConverter.UI.Pages
             this.optionView.IsVisible = true;
         }
 
-        private void UpdateProgressBar(double value)
+        private void OnConvertStart(object? sender, RoutedEventArgs e)
         {
-            progressBar.Value = value;
+            var context = (ViewData)DataContext;
+            new CoreConverter().Convert(context, UpdateProgressBar);
+        }
 
-            if (progressBar.Value == 100)
-            {
-                // finish conversion
-            }
+        public void UpdateProgressBar(double value)
+        {
+            //progressBar.Value = value;
+
+            //if (progressBar.Value == 100)
+            //{
+            //    // finish conversion
+            //}
         }
     }
 }

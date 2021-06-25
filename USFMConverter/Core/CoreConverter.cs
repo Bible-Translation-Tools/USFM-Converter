@@ -24,19 +24,27 @@ namespace USFMConverter.Core
         public void Convert(ViewData viewData, Action<double> progressCallback)
         {
             var files = viewData.Files.Select(f => new FileInfo(f));
-            //projectBuilder.AddFiles(files.ToList());
-            //projectBuilder.SetFontSize(viewData.TextSize);
-            //projectBuilder.SetTextAlignment(viewData.TextAlignment);
-            //projectBuilder.SetTextDirection(viewData.LeftToRight);
-            //projectBuilder.SetLineSpacing(viewData.LineSpacing);
-            //projectBuilder.SetColumns(viewData.ColumnCount);
-            //projectBuilder.SetChapterBreak(viewData.ChapterBreak);
-            //projectBuilder.SetVerseBreak(viewData.VerseBreak);
-            //projectBuilder.EnableNoteTaking(viewData.NoteTaking);
-            //projectBuilder.EnableTableOfContents(viewData.TableOfContents);
+            
+            var textSizeName = viewData.TextSize.Tag?.ToString();
+            var lineSpacing = viewData.LineSpacing.Tag?.ToString();
+
+            var textAlignment = (viewData.Justified)? TextAlignment.JUSTIFIED 
+                : TextAlignment.LEFT;
+
+            projectBuilder.AddFiles(files.ToList());
+            projectBuilder.SetTextSize(GetTextSize(textSizeName));
+            projectBuilder.SetLineSpacing(GetLineSpacing(lineSpacing));
+            projectBuilder.SetTextAlignment(textAlignment);
+            projectBuilder.SetTextDirection(viewData.LeftToRight);
+            projectBuilder.SetColumns(viewData.ColumnCount);
+            projectBuilder.SetChapterBreak(viewData.ChapterBreak);
+            projectBuilder.SetVerseBreak(viewData.VerseBreak);
+            projectBuilder.EnableNoteTaking(viewData.NoteTaking);
+            projectBuilder.EnableTableOfContents(viewData.TableOfContents);
+            projectBuilder.SetOutputLocation(viewData.OutputFileLocation);
 
             var project = projectBuilder.Build();
-            
+
             string fileFormatName = viewData.OutputFileFormat.Tag?.ToString();
             if (fileFormatName == null)
             {
@@ -63,6 +71,26 @@ namespace USFMConverter.Core
             }
 
             renderer.Render(project);
+        }
+
+        private TextSize GetTextSize(string? sizeName)
+        {
+            if (string.IsNullOrEmpty(sizeName))
+            {
+                return TextSize.MEDIUM;
+            }
+
+            return Enum.Parse<TextSize>(sizeName);
+        }
+
+        private LineSpacing GetLineSpacing(string? spacingName)
+        {
+            if (string.IsNullOrEmpty(spacingName))
+            {
+                return LineSpacing.SINGLE;
+            }
+
+            return Enum.Parse<LineSpacing>(spacingName);
         }
     }
 }

@@ -27,7 +27,7 @@
                 <ComboBox SelectedIndex="{Binding SelectedTextSizeIndex, Mode=TwoWay}"
                           SelectedItem="{Binding TextSize, Mode=OneWayToSource}">
                     <ComboBoxItem Tag="SMALL">Small</ComboBoxItem>
-                    <ComboBoxItem Tag="NORMAL">Normal</ComboBoxItem>
+                    <ComboBoxItem Tag="MEDIUM">Normal</ComboBoxItem>
                     <ComboBoxItem Tag="LARGE">Large</ComboBoxItem>
                 </ComboBox>
             </DockPanel>
