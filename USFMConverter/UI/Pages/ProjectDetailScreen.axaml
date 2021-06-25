@@ -67,7 +67,10 @@
 
         <!-- Blurred background -->
         <StackPanel Background="#000000" Opacity="0.6" ZIndex="3"/>
+        
         <view:ProgressView ZIndex="4"/>
+        <view:SucessView IsVisible="False"/>
+        <view:ErrorView IsVisible="False"/>
         
     </Grid>
 </UserControl>
