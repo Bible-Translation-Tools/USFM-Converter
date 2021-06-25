@@ -7,9 +7,9 @@ namespace USFMConverter.UI.Pages
 {
     public partial class ProjectDetailScreen : UserControl
     {
-        
-        private Button openOptionBtn;
         private OptionView optionView;
+        private ProgressBar progressBar;
+        private Button openOptionBtn;
         
         public ProjectDetailScreen()
         {
@@ -30,6 +30,16 @@ namespace USFMConverter.UI.Pages
         private void OnOpenOptionClick(object? sender, RoutedEventArgs e)
         {
             this.optionView.IsVisible = true;
+        }
+
+        private void UpdateProgressBar(double value)
+        {
+            progressBar.Value = value;
+
+            if (progressBar.Value == 100)
+            {
+                // finish conversion
+            }
         }
     }
 }

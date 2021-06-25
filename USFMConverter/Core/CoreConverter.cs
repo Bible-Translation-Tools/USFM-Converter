@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using USFMConverter.Core.ConstantValue;
@@ -20,7 +21,7 @@ namespace USFMConverter.Core
             projectBuilder = new ProjectBuilder();
         }
 
-        public void Convert(ViewData viewData)
+        public void Convert(ViewData viewData, Action<double> progressCallback)
         {
             var files = viewData.Files.Select(f => new FileInfo(f));
             //projectBuilder.AddFiles(files.ToList());
@@ -35,16 +36,29 @@ namespace USFMConverter.Core
             //projectBuilder.EnableTableOfContents(viewData.TableOfContents);
 
             var project = projectBuilder.Build();
+            
+            string fileFormatName = viewData.OutputFileFormat.Tag?.ToString();
+            if (fileFormatName == null)
+            {
+                throw new ArgumentException(
+                    "Output file format is not properly specified. " +
+                    "Selected format: " + viewData.OutputFileFormat.Tag
+                    );
+            }
+
+            var outputType = Enum.Parse<FileFormat>(fileFormatName);
             RenderDocument renderer;
-            switch (FileFormat.DOCX)
+            
+            switch (outputType)
             {
                 case FileFormat.DOCX:
-                    renderer = new RenderDocx();
+                    renderer = new RenderDocx(progressCallback);
                     break;
                 case FileFormat.HTML:
                     renderer = new RenderHTML();
                     break;
                 default:
+                    renderer = null;
                     break;
             }
 

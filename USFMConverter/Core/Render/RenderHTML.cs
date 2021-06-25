@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using USFMConverter.Core.ConstantValue;
 using USFMConverter.Core.Data;
 using USFMToolsSharp.Models.Markers;
 using USFMToolsSharp.Renderers.HTML;
@@ -8,14 +11,68 @@ namespace USFMConverter.Core.Render
 {
     public class RenderHTML : RenderDocument
     {
+        private List<string> TextDirectionClasses = new() { "", "rtl-direct" };
+
+        private Dictionary<LineSpacing, string> LineSpacingClasses = new()
+        {
+            [LineSpacing.SINGLE] = "single-space",
+            [LineSpacing.ONE_HALF] = "one-half-space",
+            [LineSpacing.DOUBLE] = "double-space",
+            [LineSpacing.TWO_HALF] = "two-half-space",
+            [LineSpacing.TRIPLE] = "triple-space"
+        };
+
+        private Dictionary<int, string> ColumnClasses = new() {
+            [1] = "", 
+            [2] = "two-column" 
+        };
+
+        private Dictionary<TextAlignment, string> TextAlignmentClasses = new() { 
+            [TextAlignment.LEFT] = "",
+            [TextAlignment.RIGHT] = "right-align",
+            [TextAlignment.CENTER] = "center-align",
+            [TextAlignment.JUSTIFIED] = "justified"
+        };
+
+        private Dictionary<TextSize, string> FontSizeClasses = new()
+        {
+            [TextSize.SMALL] = "small-text",
+            [TextSize.MEDIUM] = "med-text",
+            [TextSize.LARGE] = "large-text"
+        };
+
         public RenderHTML()
+        {
+
+        }
+
+        public RenderHTML(Action<double> updateProgress)
+            : base(updateProgress)
         {
 
         }
 
         private HTMLConfig BuildHTMLConfig(RenderFormat format)
         {
-            return new();
+            HTMLConfig config = new HTMLConfig();
+            var styleClasses = new List<string>();
+
+            styleClasses.Add(GetLineSpacingStyle(format.LineSpacing));
+            styleClasses.Add(GetColumnStyle(format.ColumnCount));
+            styleClasses.Add(GetDirectionStyle(format.LeftToRight));
+            styleClasses.Add(GetTextAlignStyle(format.TextAlign));
+            styleClasses.Add(GetFontSizeStyle(format.TextSize));
+
+            var classesToAdd = styleClasses
+                .Where(s => !string.IsNullOrEmpty(s)); // filter valid class only
+
+            config.divClasses.AddRange(classesToAdd);
+
+            config.separateVerses = format.VerseBreak;
+            config.separateChapters = format.ChapterBreak;
+            config.renderTableOfContents = format.TableOfContents;
+
+            return config;
         }
 
         public override void Render(Project project, USFMDocument usfmDoc)
@@ -73,6 +130,36 @@ namespace USFMConverter.Core.Render
             </table>
             </div> ";
             return footerHTML;
+        }
+
+        private string GetLineSpacingStyle(LineSpacing spacing)
+        {
+            return LineSpacingClasses[spacing];
+        }
+
+        private string GetColumnStyle(int columnCount)
+        {
+            return ColumnClasses[columnCount];
+        }
+
+        private string GetDirectionStyle(bool leftToRight)
+        {
+            if (!leftToRight)
+            {
+                return TextDirectionClasses[1];
+            }
+
+            return TextDirectionClasses[0];
+        }
+
+        private string GetTextAlignStyle(TextAlignment alignment)
+        {
+            return TextAlignmentClasses[alignment];
+        }
+
+        private string GetFontSizeStyle(TextSize size)
+        {
+            return FontSizeClasses[size];
         }
     }
 }

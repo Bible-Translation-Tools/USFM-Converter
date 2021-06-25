@@ -12,14 +12,16 @@ namespace USFMConverter.Core.Render
     {
         private Action<double> UpdateProgress;
 
-        public RenderDocument()
+        public RenderDocument(Action<double>? updateProgress = null)
         {
-            UpdateProgress = new Action<double>((value) => { return; });
-        }
-
-        public RenderDocument(Action<double> updateProgress)
-        {
-            UpdateProgress = updateProgress;
+            if (updateProgress != null)
+            {
+                UpdateProgress = updateProgress;
+            }
+            else
+            {
+                UpdateProgress = new Action<double>((value) => { return; });
+            }
         }
 
         protected USFMDocument LoadUSFM(IEnumerable<FileInfo> files)
