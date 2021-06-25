@@ -9,6 +9,6 @@
         Background="White"
         Height="650" Width="1250">
     <StackPanel>
-        <screen:ProjectDetailScreen Name="ProjectDetailScreen" Height="{Binding $parent[1].Height, Mode=TwoWay}" ZIndex="0"/>
+        <screen:ProjectDetailScreen Name="ProjectDetailScreen" Height="{Binding $parent[1].Height}" ZIndex="0"/>
     </StackPanel>
 </Window>
