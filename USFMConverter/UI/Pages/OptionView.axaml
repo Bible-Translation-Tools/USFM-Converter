@@ -52,8 +52,8 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="7*" />
-            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="400" />
         </Grid.ColumnDefinitions>
 
         <TextBlock Name="BlurredArea" Grid.Column="0" Background="#000000" Opacity="0.6" />
