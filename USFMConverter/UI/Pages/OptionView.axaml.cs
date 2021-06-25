@@ -14,9 +14,8 @@ namespace USFMConverter.UI.Pages
         private TextBlock blurredArea;
         private UserControl optionView;
 
-        private UserControl docxOption;
-        private UserControl htmlOption;
-        
+        private ComboBox outputOption;
+
         public OptionView()
         {
             InitializeComponent();
@@ -31,11 +30,24 @@ namespace USFMConverter.UI.Pages
 
             blurredArea = this.Find<TextBlock>("BlurredArea");
             blurredArea.AddHandler(PointerPressedEvent, OnCloseClick);
+
+            outputOption = this.Find<ComboBox>("OutputOption");
+            outputOption.AddHandler(ComboBox.SelectionChangedEvent, OnOuputSelection);
             
             optionView = this.Find<UserControl>("OptionView");
+        }
+
+        private void OnOuputSelection(object? sender, SelectionChangedEventArgs e)
+        {
+            string selectedFormat;
+            foreach (var comboBoxItem in outputOption.Items)
+            {
+                selectedFormat = ((ComboBoxItem)comboBoxItem).Tag.ToString();
+                this.Find<UserControl>(selectedFormat).IsVisible = false;
+            }
             
-            docxOption = this.Find<UserControl>("DocxOption");
-            htmlOption = this.Find<UserControl>("HtmlOption");
+            selectedFormat = ((ComboBoxItem)outputOption.SelectedItem).Tag.ToString();
+            this.Find<UserControl>(selectedFormat).IsVisible = true;
         }
 
         private void OnCloseClick(object? sender, RoutedEventArgs e)

@@ -86,7 +86,7 @@
             <DockPanel Margin="15 0 0 0">
                 <Image Classes="Icon" Source="/UI/Assets/note.png" />
                 <TextBlock VerticalAlignment="Center" Margin="10 20">Note Taking</TextBlock>
-                <ToggleSwitch IsChecked="{Binding NoteTaking, Mode=TwoWay}" />
+                <ToggleSwitch IsEnabled="False" IsChecked="{Binding NoteTaking, Mode=TwoWay}" />
             </DockPanel>
 
             <DockPanel Margin="15 0 0 0">

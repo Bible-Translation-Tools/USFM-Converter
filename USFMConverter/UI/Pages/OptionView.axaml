@@ -86,15 +86,15 @@
                         <DockPanel Margin="15 0 0 0">
                             <Image Classes="Icon" Source="/UI/Assets/page.png" />
                             <TextBlock VerticalAlignment="Center" Margin="10 20">Output Format</TextBlock>
-                            <ComboBox SelectedIndex="0" SelectedItem="{Binding OutputFileFormat, Mode=OneWayToSource}">
+                            <ComboBox Name="OutputOption" SelectedItem="{Binding OutputFileFormat, Mode=OneWayToSource}">
                                 <ComboBoxItem Tag="DOCX">Docx</ComboBoxItem>
                                 <ComboBoxItem Tag="HTML">HTML</ComboBoxItem>
                             </ComboBox>
                         </DockPanel>
                     </StackPanel>
                     
-                    <pages:DocxOption Name="DocxOption" IsVisible="False"/>
-                    <pages:HtmlOption Name="HtmlOption" IsVisible="False"/>
+                    <pages:DocxOption Name="DOCX" IsVisible="False"/>
+                    <pages:HtmlOption Name="HTML" IsVisible="False"/>
                     
                 </StackPanel>
             </ScrollViewer>
