@@ -46,12 +46,6 @@ namespace USFMConverter.Core.Render
 
         }
 
-        public RenderHTML(Action<double> updateProgress)
-            : base(updateProgress)
-        {
-
-        }
-
         private HTMLConfig BuildHTMLConfig(RenderFormat format)
         {
             HTMLConfig config = new HTMLConfig();

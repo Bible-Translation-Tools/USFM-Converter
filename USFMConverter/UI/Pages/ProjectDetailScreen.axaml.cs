@@ -11,6 +11,7 @@ namespace USFMConverter.UI.Pages
         private OptionView optionView;
         private ProgressBar progressBar;
         private Button openOptionBtn;
+        private UserControl modalDialog;
         
         public ProjectDetailScreen()
         {
@@ -33,20 +34,31 @@ namespace USFMConverter.UI.Pages
             this.optionView.IsVisible = true;
         }
 
-        private void OnConvertStart(object? sender, RoutedEventArgs e)
+        private async void OnConvertStart(object? sender, RoutedEventArgs e)
         {
+            modalDialog.IsVisible = true;
+            progressBar.Value = 0;
+
             var context = (ViewData)DataContext;
-            new CoreConverter().Convert(context, UpdateProgressBar);
+            try
+            {
+                await new CoreConverter().ConvertAsync(context, UpdateProgressBar);
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            // show success dialog
         }
 
-        public void UpdateProgressBar(double value)
+        /// <summary>
+        /// Set the value of progress bar. Max value is 100
+        /// </summary>
+        /// <param name="value"></param>
+        private void UpdateProgressBar(double value)
         {
-            //progressBar.Value = value;
-
-            //if (progressBar.Value == 100)
-            //{
-            //    // finish conversion
-            //}
+            progressBar.Value = value;
         }
     }
 }
