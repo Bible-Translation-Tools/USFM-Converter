@@ -60,10 +60,10 @@
     <PackageReference Include="USFMToolsSharp.Renderers.HTML" Version="0.3.0" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="UI\Pages\OutputFormat\DocxFormat.axaml.cs">
+    <Compile Update="UI\Pages\PartialView\DocxFormat.axaml.cs">
       <DependentUpon>DocxFormat.axaml</DependentUpon>
     </Compile>
-    <Compile Update="UI\Pages\OutputFormat\HtmlFormat.axaml.cs">
+    <Compile Update="UI\Pages\PartialView\HtmlFormat.axaml.cs">
       <DependentUpon>HtmlFormat.axaml</DependentUpon>
     </Compile>
   </ItemGroup>

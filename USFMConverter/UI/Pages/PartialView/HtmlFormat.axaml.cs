@@ -2,11 +2,11 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace USFMConverter.UI.Pages.OutputFormat
+namespace USFMConverter.UI.Pages.PartialView
 {
-    public class DocxFormat : UserControl
+    public class HtmlFormat : UserControl
     {
-        public DocxFormat()
+        public HtmlFormat()
         {
             InitializeComponent();
         }
