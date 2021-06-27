@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace USFMConverter.UI.Pages
 {
-    public class SucessView : UserControl
+    public class SuccessView : UserControl
     {
-        public SucessView()
+        public SuccessView()
         {
             InitializeComponent();
         }

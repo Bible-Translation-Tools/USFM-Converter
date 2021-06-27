@@ -69,7 +69,7 @@
         <StackPanel Background="#000000" Opacity="0.6" ZIndex="3" IsVisible="False"/>
         
         <view:ProgressView ZIndex="4" IsVisible="False"/>
-        <view:SucessView IsVisible="False"/>
+        <view:SuccessView IsVisible="False"/>
         <view:ErrorView IsVisible="False"/>
         
     </Grid>
