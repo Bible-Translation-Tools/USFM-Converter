@@ -26,7 +26,6 @@ namespace USFMConverter.UI.Pages
             openOptionBtn = this.Find<Button>("OptionBtn");
             openOptionBtn.AddHandler(Button.ClickEvent, OnOpenOptionClick);
         }
-        
 
         private void OnOpenOptionClick(object? sender, RoutedEventArgs e)
         {
