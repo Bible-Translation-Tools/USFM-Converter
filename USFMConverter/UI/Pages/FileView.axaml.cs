@@ -17,8 +17,8 @@ namespace USFMConverter.UI.Pages
 {
     public class FileView : UserControl
     {
-        private ProjectReady projectReadyDialog;
-        private ProjectNotReady projectNotReadyDialog;
+        private ProjectReady projectReadySection;
+        private ProjectNotReady projectNotReadySection;
         
         private Border dragDropArea;
         private ListBox filesContainer;
@@ -71,17 +71,17 @@ namespace USFMConverter.UI.Pages
 
             SetLinuxText();
 
-            projectReadyDialog = this.FindControl<ProjectReady>("ProjectReady");
-            projectNotReadyDialog = this.FindControl<ProjectNotReady>("ProjectNotReady");
+            projectReadySection = this.FindControl<ProjectReady>("ProjectReady");
+            projectNotReadySection = this.FindControl<ProjectNotReady>("ProjectNotReady");
 
-            if (projectReadyDialog.IsVisible)
+            if (projectReadySection.IsVisible)
             {
-                convertBtn = projectReadyDialog.FindControl<Button>("ConvertBtn");
+                convertBtn = projectReadySection.FindControl<Button>("ConvertBtn");
             }
             
-            if (projectNotReadyDialog.IsVisible)
+            if (projectNotReadySection.IsVisible)
             {
-                convertBtn = projectNotReadyDialog.FindControl<Button>("ConvertBtn");
+                convertBtn = projectNotReadySection.FindControl<Button>("ConvertBtn");
                 
             }
 
