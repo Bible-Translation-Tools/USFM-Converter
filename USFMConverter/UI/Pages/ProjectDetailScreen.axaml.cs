@@ -67,13 +67,13 @@ namespace USFMConverter.UI.Pages
 
             backgroundOverlay = this.FindControl<StackPanel>("OverlayBackground");
 
-            openOptionBtn = this.Find<Button>("OptionBtn");
+            openOptionBtn = this.FindControl<Button>("OptionBtn");
             openOptionBtn.AddHandler(Button.ClickEvent, OnOpenOptionClick);
 
             successDialog = this.FindControl<Success>("SuccessDialog");
             errorDialog = this.FindControl<Error>("ErrorDialog");
             progressDialog = this.FindControl<Progress>("ProgressDialog");
-            progressBar = progressDialog.Find<ProgressBar>("ProgressBar");
+            progressBar = progressDialog.FindControl<ProgressBar>("ProgressBar");
         }
 
         private void OnOpenOptionClick(object? sender, RoutedEventArgs e)
