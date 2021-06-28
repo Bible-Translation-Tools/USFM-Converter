@@ -2,7 +2,9 @@ using System;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Interactivity;
+using NPOI.SS.Formula.Functions;
 using USFMConverter.Core;
+using USFMConverter.UI.Pages.PartialView;
 
 namespace USFMConverter.UI.Pages
 {
@@ -13,6 +15,8 @@ namespace USFMConverter.UI.Pages
         private Button openOptionBtn;
         private StackPanel backgroundOverlay;
         private UserControl progressDialog;
+        private Success successDialog;
+        private Error errorDialog;
 
         public ProjectDetailScreen()
         {
@@ -66,7 +70,9 @@ namespace USFMConverter.UI.Pages
             openOptionBtn = this.Find<Button>("OptionBtn");
             openOptionBtn.AddHandler(Button.ClickEvent, OnOpenOptionClick);
 
-            progressDialog = this.FindControl<UserControl>("ProgressDialog");
+            successDialog = this.FindControl<Success>("SuccessDialog");
+            errorDialog = this.FindControl<Error>("ErrorDialog");
+            progressDialog = this.FindControl<Progress>("ProgressDialog");
             progressBar = progressDialog.Find<ProgressBar>("ProgressBar");
         }
 
