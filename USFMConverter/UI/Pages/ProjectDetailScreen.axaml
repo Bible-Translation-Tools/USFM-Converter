@@ -69,11 +69,10 @@
         <view:OptionView Name="OptionView" ZIndex="2" IsVisible="False" />
 
         <!-- Blurred background -->
-        <StackPanel Name="OverlayBackground" Background="#000000" Opacity="0.6" ZIndex="3" IsVisible="False"/>
+        <StackPanel Name="OverlayBackground" Background="#000000" Opacity="0.6" ZIndex="2" IsVisible="False"/>
 
-        <swappable:Progress Name="ProgressDialog" ZIndex="4" IsVisible="False"/>
-        <swappable:Success Name="SuccessDialog" IsVisible="False"/>
-        <swappable:Error Name="ErrorDialog" IsVisible="False"/>
-        
+        <swappable:Progress Name="ProgressDialog" ZIndex="3" IsVisible="False"/>
+        <swappable:Success Name="SuccessDialog" ZIndex="3" IsVisible="False" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <swappable:Error Name="ErrorDialog" ZIndex="3" IsVisible="False" HorizontalAlignment="Center" VerticalAlignment="Center"/>
     </Grid>
 </UserControl>

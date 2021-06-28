@@ -4,5 +4,26 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="USFMConverter.UI.Pages.PartialView.Success">
-  Welcome to Avalonia!
+
+    <Grid ColumnDefinitions="3* 7*" Width="700" Height="300" Background="White">
+        <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="/UI/Assets/checked.png" Width="100"
+               Height="100" />
+
+        <Grid Grid.Column="1" RowDefinitions="1* 5* 4*">
+        
+            <TextBlock>Dismiss</TextBlock>
+            <TextBlock Grid.Row="1">Conversion Successful</TextBlock>
+            
+            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                
+                <Button Width="100" Height="50">Open</Button>
+                <Button Width="100" Height="50">New</Button>
+                
+            </StackPanel>
+            
+            
+        </Grid>
+
+    </Grid>
+
 </UserControl>
