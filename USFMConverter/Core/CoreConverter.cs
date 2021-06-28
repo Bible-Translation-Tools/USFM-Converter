@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using USFMConverter.Core.ConstantValue;
+using USFMConverter.Core.Data;
 using USFMConverter.Core.Render;
 using USFMConverter.UI;
 
@@ -10,7 +12,6 @@ namespace USFMConverter.Core
 {
     public class CoreConverter
     {
-        private ProjectBuilder projectBuilder;
 
         public static ICollection<string> supportedExtensions = new List<string> { 
             ".usfm", ".txt", ".sfm" 
@@ -18,17 +19,53 @@ namespace USFMConverter.Core
 
         public CoreConverter()
         {
-            projectBuilder = new ProjectBuilder();
+
         }
 
-        public void Convert(ViewData viewData, Action<double> progressCallback)
+        public async Task ConvertAsync(ViewData viewData, Action<double> progressCallback)
         {
+            string fileFormatName = viewData.OutputFileFormat.Tag?.ToString();
+            if (fileFormatName == null)
+            {
+                throw new ArgumentException("Output file format is not properly specified.");
+            }
+
+            Project project = BuildProject(viewData);
+
+            var fileFormat = Enum.Parse<FileFormat>(fileFormatName);
+            RenderDocument renderer;
+
+            switch (fileFormat)
+            {
+                case FileFormat.DOCX:
+                    renderer = new RenderDocx();
+                    break;
+                case FileFormat.HTML:
+                    renderer = new RenderHTML();
+                    break;
+                default:
+                    renderer = null;
+                    break;
+            }
+
+            var usfmDocument = await renderer.LoadUSFMsAsync(project.Files, progressCallback);
+            renderer.Render(project, usfmDocument);
+
+            progressCallback(100); // fills the progress bar
+            await Task.Delay(300); // visible completion before transition
+        }
+
+        private Project BuildProject(ViewData viewData)
+        {
+            var projectBuilder = new ProjectBuilder();
+
             var files = viewData.Files.Select(f => new FileInfo(f));
-            
+
             var textSizeName = viewData.TextSize.Tag?.ToString();
             var lineSpacing = viewData.LineSpacing.Tag?.ToString();
 
-            var textAlignment = (viewData.Justified)? TextAlignment.JUSTIFIED 
+            var textAlignment = (viewData.Justified)
+                ? TextAlignment.JUSTIFIED
                 : TextAlignment.LEFT;
 
             projectBuilder.AddFiles(files.ToList());
@@ -43,34 +80,7 @@ namespace USFMConverter.Core
             projectBuilder.EnableTableOfContents(viewData.TableOfContents);
             projectBuilder.SetOutputLocation(viewData.OutputFileLocation);
 
-            var project = projectBuilder.Build();
-
-            string fileFormatName = viewData.OutputFileFormat.Tag?.ToString();
-            if (fileFormatName == null)
-            {
-                throw new ArgumentException(
-                    "Output file format is not properly specified. " +
-                    "Selected format: " + viewData.OutputFileFormat.Tag
-                    );
-            }
-
-            var outputType = Enum.Parse<FileFormat>(fileFormatName);
-            RenderDocument renderer;
-            
-            switch (outputType)
-            {
-                case FileFormat.DOCX:
-                    renderer = new RenderDocx(progressCallback);
-                    break;
-                case FileFormat.HTML:
-                    renderer = new RenderHTML();
-                    break;
-                default:
-                    renderer = null;
-                    break;
-            }
-
-            renderer.Render(project);
+            return projectBuilder.Build();
         }
 
         private TextSize GetTextSize(string? sizeName)

@@ -14,8 +14,7 @@ namespace USFMConverter.UI.Pages
         private ProgressBar progressBar;
         private Button openOptionBtn;
         private StackPanel backgroundOverlay;
-
-        private Progress progressDialog;
+        private UserControl progressDialog;
         private Success successDialog;
         private Error errorDialog;
 
@@ -67,47 +66,67 @@ namespace USFMConverter.UI.Pages
             optionView = this.FindControl<OptionView>("OptionView");
 
             backgroundOverlay = this.FindControl<StackPanel>("OverlayBackground");
-            // backgroundOverlay.AddHandler(PointerPressedEvent, HideOverlay);
 
             openOptionBtn = this.Find<Button>("OptionBtn");
             openOptionBtn.AddHandler(Button.ClickEvent, OnOpenOptionClick);
 
-            progressDialog = this.FindControl<Progress>("ProgressDialog");
             successDialog = this.FindControl<Success>("SuccessDialog");
             errorDialog = this.FindControl<Error>("ErrorDialog");
-
-            backgroundOverlay.IsVisible = true;
-            successDialog.IsVisible = true;
-            // progressDialog.IsVisible = true;
+            progressDialog = this.FindControl<Progress>("ProgressDialog");
+            progressBar = progressDialog.Find<ProgressBar>("ProgressBar");
         }
 
         private void OnOpenOptionClick(object? sender, RoutedEventArgs e)
         {
-            this.optionView.IsVisible = true;
+            optionView.IsVisible = true;
         }
 
-        private void OnConvertStart(object? sender, RoutedEventArgs e)
+        private async void OnConvertStart(object? sender, RoutedEventArgs e)
         {
-            //var context = (ViewData)DataContext;
-            //new CoreConverter().Convert(context, UpdateProgressBar);
+            //show progress dialog
+            ShowOverlay();
+            progressDialog.IsVisible = true;
+            progressBar.Value = 0;
+
+            var context = (ViewData)DataContext;
+            try
+            {
+                await new CoreConverter().ConvertAsync(context, UpdateProgressBar);
+            }
+            catch (Exception ex)
+            {
+                // show error dialog
+            }
+
+            // show success dialog
+            progressDialog.IsVisible = false;
+            HideOverlay();
         }
 
-        public void UpdateProgressBar(double value)
+        /// <summary>
+        /// Set the value of progress bar. Ranging between 0-100
+        /// </summary>
+        /// <param name="value"></param>
+        private void UpdateProgressBar(double value)
         {
-            //progressBar.Value = value;
-
-            //if (progressBar.Value == 100)
-            //{
-            //    // finish conversion
-            //}
+            progressBar.Value = value;
         }
 
         private void ShowOverlay(object? sender, RoutedEventArgs e)
+        {
+            ShowOverlay();
+        }
+        private void ShowOverlay()
         {
             backgroundOverlay.IsVisible = true;
         }
 
         private void HideOverlay(object? sender, RoutedEventArgs e)
+        {
+            HideOverlay();
+        }
+
+        private void HideOverlay()
         {
             backgroundOverlay.IsVisible = false;
         }

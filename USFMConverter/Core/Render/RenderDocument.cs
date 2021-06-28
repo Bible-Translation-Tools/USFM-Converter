@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using USFMConverter.Core.Data;
 using USFMToolsSharp;
 using USFMToolsSharp.Models.Markers;
@@ -10,21 +11,40 @@ namespace USFMConverter.Core.Render
 {
     public abstract class RenderDocument
     {
-        private Action<double> UpdateProgress;
-
-        public RenderDocument(Action<double>? updateProgress = null)
+        public RenderDocument()
         {
-            if (updateProgress != null)
-            {
-                UpdateProgress = updateProgress;
-            }
-            else
-            {
-                UpdateProgress = new Action<double>((value) => { return; });
-            }
+            
         }
 
-        protected USFMDocument LoadUSFM(IEnumerable<FileInfo> files)
+        /// <summary>
+        /// Parses the given text files into one USFM Document.
+        /// </summary>
+        /// <param name="files">Text files with USFM format.</param>
+        /// <returns>A USFM Document</returns>
+        public USFMDocument LoadUSFMs(IEnumerable<FileInfo> files)
+        {
+            var usfmDoc = new USFMDocument();
+            var parser = new USFMParser(new List<string> { "s5" });
+
+            foreach(var file in files)
+            {
+                var text = File.ReadAllText(file.FullName);
+                usfmDoc.Insert(parser.ParseFromString(text));
+            }
+
+            return usfmDoc;
+        }
+
+        /// <summary>
+        /// Parses the given text files into one USFM Document asynchronously.
+        /// </summary>
+        /// <param name="files">Text files with USFM format.</param>
+        /// <param name="progressCallback">Call back for progress bar update.</param>
+        /// <returns>A USFM Document</returns>
+        public async Task<USFMDocument> LoadUSFMsAsync(
+            IEnumerable<FileInfo> files, 
+            Action<double> progressCallback
+        )
         {
             var usfmDoc = new USFMDocument();
             List<FileInfo> fileList = files.ToList();
@@ -34,12 +54,14 @@ namespace USFMConverter.Core.Render
 
             for (int i = 0; i < totalFiles; i++)
             {
-                var text = File.ReadAllText(fileList[i].FullName);
-
-                usfmDoc.Insert(parser.ParseFromString(text));
+                await Task.Run(() => {
+                    var text = File.ReadAllText(fileList[i].FullName);
+                    usfmDoc.Insert(parser.ParseFromString(text));
+                });
+                
                 // update progress bar
                 var percent = (double)i / totalFiles * 100;
-                UpdateProgress(percent);
+                progressCallback(percent);
             }
 
             return usfmDoc;
@@ -47,7 +69,7 @@ namespace USFMConverter.Core.Render
 
         public void Render(Project project)
         {
-            Render(project, LoadUSFM(project.Files));
+            Render(project, LoadUSFMs(project.Files));
         }
 
         public abstract void Render(Project project, USFMDocument usfmDoc);
