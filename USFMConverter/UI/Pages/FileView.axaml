@@ -26,11 +26,13 @@
     <StackPanel Spacing="5" Margin="20">
         <StackPanel>
             <Grid ColumnDefinitions="3* 7*">
-                <swappable:ProjectReady Name="ProjectReady" IsVisible="False"/>
-                <swappable:ProjectNotReady Name="ProjectNotReady" IsVisible="True"/>
+                <swappable:ProjectReady Name="ProjectReady" Grid.Column="0" 
+                                        MinWidth="100" IsVisible="False"/>
+                <swappable:ProjectNotReady Name="ProjectNotReady" Grid.Column="0" 
+                                           MinWidth="100" IsVisible="True"/>
 
                 <Border Name="DragDropArea" DragDrop.AllowDrop="True" Grid.Column="1"
-                        Background="#edf1fa" BorderBrush="#edf1fa"
+                        Background="#edf1fa" BorderBrush="#edf1fa" MinWidth="300"
                         BorderThickness="1" CornerRadius="10">
 
 
@@ -39,8 +41,9 @@
                                    Margin="10" Foreground="#244f9d">
                             Add Files
                         </TextBlock>
-                        <TextBlock Name="DragDropText" VerticalAlignment="Center" Margin="10 0 10 10">
-                            You may browse your computer for files or drag and drop them directly to the screen to import.
+                        <TextBlock Name="DragDropText" VerticalAlignment="Center" 
+                                   Margin="10 0 10 10" TextWrapping="WrapWithOverflow">
+                            You can select a folder or drag and drop from your computer into this area to import.
                         </TextBlock>
 
                         <Grid>
