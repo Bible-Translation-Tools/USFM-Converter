@@ -21,8 +21,6 @@ namespace USFMConverter
                     DataContext = new ViewData()
                 };
             }
-            
-            
 
             base.OnFrameworkInitializationCompleted();
         }

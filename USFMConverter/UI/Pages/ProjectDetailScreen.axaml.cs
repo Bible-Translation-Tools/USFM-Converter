@@ -2,7 +2,6 @@ using System;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Interactivity;
-using NPOI.SS.Formula.Functions;
 using USFMConverter.Core;
 using USFMConverter.UI.Pages.PartialView;
 
