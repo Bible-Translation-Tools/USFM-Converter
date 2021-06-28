@@ -51,9 +51,27 @@ namespace USFMConverter.UI.Pages
             }
         }
 
+        public event EventHandler<RoutedEventArgs> ProjectStatusChange
+        {
+            add
+            {
+                AddHandler(ProjectStatusChangeEvent, value);
+            }
+            remove
+            {
+                RemoveHandler(ProjectStatusChangeEvent, value);
+            }
+        }
+
         public static readonly RoutedEvent<RoutedEventArgs> StartConvertEvent = 
             RoutedEvent.Register<FileView, RoutedEventArgs>(
                 nameof(ConvertStart), 
+                RoutingStrategies.Bubble
+            );
+
+        public static readonly RoutedEvent<RoutedEventArgs> ProjectStatusChangeEvent =
+            RoutedEvent.Register<FileView, RoutedEventArgs>(
+                nameof(ProjectStatusChange),
                 RoutingStrategies.Bubble
             );
 
@@ -215,7 +233,7 @@ namespace USFMConverter.UI.Pages
             }
         }
 
-        private void UpdateProjectStatus()
+        public void UpdateProjectStatus()
         {
             if (filesContainer.ItemCount > 0)
             {

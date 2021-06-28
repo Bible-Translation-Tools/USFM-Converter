@@ -71,8 +71,10 @@ namespace USFMConverter.UI.Pages
             openOptionBtn.AddHandler(Button.ClickEvent, OnOpenOptionClick);
 
             successDialog = this.FindControl<Success>("SuccessDialog");
-            
+            successDialog.AddHandler(FileView.ProjectStatusChangeEvent, OnProjectStatusChange);
+
             errorDialog = this.FindControl<Error>("ErrorDialog");
+            errorDialog.AddHandler(FileView.ProjectStatusChangeEvent, OnProjectStatusChange);
             errorMessageText = errorDialog.FindControl<TextBlock>("ErrorMessageText");
 
             progressDialog = this.FindControl<Progress>("ProgressDialog");
@@ -108,6 +110,11 @@ namespace USFMConverter.UI.Pages
             // show success dialog
             progressDialog.IsVisible = false;
             successDialog.IsVisible = true;
+        }
+
+        private void OnProjectStatusChange(object? sender, RoutedEventArgs e)
+        {
+            this.FindControl<FileView>("FileView").UpdateProjectStatus();
         }
 
         /// <summary>

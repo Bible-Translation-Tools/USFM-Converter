@@ -31,6 +31,7 @@ namespace USFMConverter.UI.Pages.PartialView
         {
             this.IsVisible = false;
             ((Window)this.VisualRoot).DataContext = new ViewData();
+            RaiseEvent(new RoutedEventArgs(FileView.ProjectStatusChangeEvent));
             HideOverlayBackground();
         }
 
