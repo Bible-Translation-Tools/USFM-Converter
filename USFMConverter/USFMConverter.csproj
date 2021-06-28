@@ -66,8 +66,5 @@
     <Compile Update="UI\Pages\PartialView\HtmlFormat.axaml.cs">
       <DependentUpon>HtmlFormat.axaml</DependentUpon>
     </Compile>
-    <Compile Update="UI\Pages\SuccessView.axaml.cs">
-      <DependentUpon>SuccessView.axaml</DependentUpon>
-    </Compile>
   </ItemGroup>
 </Project>

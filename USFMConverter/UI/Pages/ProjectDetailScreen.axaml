@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:view="clr-namespace:USFMConverter.UI.Pages"
+             xmlns:swappable="clr-namespace:USFMConverter.UI.Pages.PartialView"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="USFMConverter.UI.Pages.ProjectDetailScreen"
              Name="ProjectDetailScreen">
@@ -67,10 +68,10 @@
 
         <!-- Blurred background -->
         <StackPanel Background="#000000" Opacity="0.6" ZIndex="3" IsVisible="False"/>
-        
-        <view:ProgressView ZIndex="4" IsVisible="False"/>
-        <view:SuccessView IsVisible="False"/>
-        <view:ErrorView IsVisible="False"/>
+
+        <swappable:Progress ZIndex="4" IsVisible="False"/>
+        <swappable:Success IsVisible="False"/>
+        <swappable:Error IsVisible="False"/>
         
     </Grid>
 </UserControl>
