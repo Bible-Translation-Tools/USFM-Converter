@@ -131,7 +131,7 @@ namespace USFMConverter.UI.Pages
             var result = await dialog.ShowAsync((Window)this.VisualRoot);
             if (!string.IsNullOrEmpty(result))
             {
-                // raise convert event to parent
+                // propagate event to parent
                 ((ViewData)DataContext).OutputFileLocation = result;
                 RaiseEvent(new RoutedEventArgs(StartConvertEvent));
             }
@@ -196,13 +196,18 @@ namespace USFMConverter.UI.Pages
             }
         }
 
+        /// <summary>
+        /// Avalonia currently does not support drag and drop.
+        /// Please remove this method once the framework implemented it.
+        /// <see cref="https://github.com/AvaloniaUI/Avalonia/issues/5273"/>
+        /// </summary>
         private void SetLinuxText()
         {
             var platform = AvaloniaLocator.Current.GetService<IRuntimePlatform>().GetRuntimeInfo().OperatingSystem;
             if (platform == OperatingSystemType.Linux)
             {
                 TextBlock dndText = this.Find<TextBlock>("DragDropText");
-                dndText.Text = "Browse for folder that contains .usfm files";
+                dndText.Text = "Browse for folder that contains USFM files";
             }
         }
 
