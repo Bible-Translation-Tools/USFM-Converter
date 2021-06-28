@@ -2,11 +2,11 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace USFMConverter.UI.Pages
+namespace USFMConverter.UI.Pages.PartialView
 {
-    public class SuccessScreen : UserControl
+    public class HtmlFormat : UserControl
     {
-        public SuccessScreen()
+        public HtmlFormat()
         {
             InitializeComponent();
         }
@@ -17,4 +17,3 @@ namespace USFMConverter.UI.Pages
         }
     }
 }
-
