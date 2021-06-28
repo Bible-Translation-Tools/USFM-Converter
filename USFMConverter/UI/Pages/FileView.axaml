@@ -3,7 +3,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:swappable="clr-namespace:USFMConverter.UI.Pages.PartialView"
              x:Class="USFMConverter.UI.Pages.FileView"
+             
              Name="FileView">
 
     <UserControl.Styles>
@@ -24,18 +26,13 @@
     <StackPanel Spacing="5" Margin="20">
         <StackPanel>
             <Grid ColumnDefinitions="3* 7*">
-                <StackPanel Grid.Column="0" HorizontalAlignment="Center">
-                    <TextBlock HorizontalAlignment="Center" FontWeight="Bold" FontSize="25" Margin="10">Project Ready!</TextBlock>
-                    <TextBlock HorizontalAlignment="Center" Margin="10 5 10 5">Your project is ready to be converted.</TextBlock>
-                    <Button HorizontalAlignment="Center" BorderBrush="Black" BorderThickness="0.5" Margin="15"
-                            Padding="15" Background="#335cff" Foreground="White"
-                            Name="ConvertBtn">
-                        Convert Now
-                    </Button>
-                </StackPanel>
+                <swappable:ProjectReady Name="ProjectReady" Grid.Column="0" 
+                                        MinWidth="100" IsVisible="False"/>
+                <swappable:ProjectNotReady Name="ProjectNotReady" Grid.Column="0" 
+                                           MinWidth="100" IsVisible="True"/>
 
                 <Border Name="DragDropArea" DragDrop.AllowDrop="True" Grid.Column="1"
-                        Background="#edf1fa" BorderBrush="#edf1fa"
+                        Background="#edf1fa" BorderBrush="#edf1fa" MinWidth="300"
                         BorderThickness="1" CornerRadius="10">
 
 
@@ -44,8 +41,9 @@
                                    Margin="10" Foreground="#244f9d">
                             Add Files
                         </TextBlock>
-                        <TextBlock Name="DragDropText" VerticalAlignment="Center" Margin="10 0 10 10">
-                            You may browse your computer for files or drag and drop them directly to the screen to import.
+                        <TextBlock Name="DragDropText" VerticalAlignment="Center" 
+                                   Margin="10 0 10 10" TextWrapping="WrapWithOverflow">
+                            You can select a folder or drag and drop from your computer into this area to import.
                         </TextBlock>
 
                         <Grid>

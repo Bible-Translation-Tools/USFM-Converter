@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="USFMConverter.UI.Pages.PartialView.ProjectNotReady">
+    <StackPanel HorizontalAlignment="Center">
+        <TextBlock HorizontalAlignment="Center" FontWeight="Bold" FontSize="25" 
+                   Margin="10" TextWrapping="WrapWithOverflow">
+            Welcome!
+        </TextBlock>
+        <TextBlock HorizontalAlignment="Center" Margin="10 5 10 5" TextWrapping="WrapWithOverflow">
+            Please add files to start conversion.
+        </TextBlock>
+        <Button HorizontalAlignment="Center" BorderBrush="Black" BorderThickness="0.5" Margin="15"
+                Padding="15" Background="#335cff" Foreground="White" IsEnabled="False"
+                Name="ConvertBtn">
+            Convert Now
+        </Button>
+    </StackPanel>
+</UserControl>
