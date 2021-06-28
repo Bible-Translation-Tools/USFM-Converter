@@ -124,15 +124,5 @@ namespace USFMConverter.UI.Pages
         {
             backgroundOverlay.IsVisible = false;
         }
-
-        private void ShowOverlay(object? sender, RoutedEventArgs e)
-        {
-            backgroundOverlay.IsVisible = true;
-        }
-
-        private void HideOverlay(object? sender, RoutedEventArgs e)
-        {
-            backgroundOverlay.IsVisible = false;
-        }
     }
 }
