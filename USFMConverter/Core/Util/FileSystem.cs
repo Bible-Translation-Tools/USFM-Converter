@@ -32,5 +32,12 @@ namespace USFMConverter.Core.Util
 
             return files;
         }
+
+        /// <exception cref="UnauthorizedAccessException"/>
+        /// <exception cref="DirectoryNotFoundException"/>
+        public static void CheckWritePermission(string path)
+        {
+            File.OpenWrite(path).Close();
+        }
     }
 }

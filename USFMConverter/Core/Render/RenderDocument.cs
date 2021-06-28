@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using USFMConverter.Core.ConstantValue;
 using USFMConverter.Core.Data;
 using USFMToolsSharp;
 using USFMToolsSharp.Models.Markers;
@@ -73,5 +74,18 @@ namespace USFMConverter.Core.Render
         }
 
         public abstract void Render(Project project, USFMDocument usfmDoc);
+
+        public static RenderDocument GetInstance(FileFormat fileFormat)
+        {
+            switch (fileFormat)
+            {
+                case FileFormat.DOCX:
+                    return new RenderDocx();
+                case FileFormat.HTML:
+                    return new RenderHTML();
+                default:
+                    throw new ArgumentException("Output file format is not supported");
+            }
+        }
     }
 }

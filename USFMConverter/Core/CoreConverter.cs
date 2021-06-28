@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using USFMConverter.Core.ConstantValue;
 using USFMConverter.Core.Data;
 using USFMConverter.Core.Render;
+using USFMConverter.Core.Util;
 using USFMConverter.UI;
 
 namespace USFMConverter.Core
@@ -24,29 +25,13 @@ namespace USFMConverter.Core
 
         public async Task ConvertAsync(ViewData viewData, Action<double> progressCallback)
         {
-            string fileFormatName = viewData.OutputFileFormat.Tag?.ToString();
-            if (fileFormatName == null)
-            {
-                throw new ArgumentException("Output file format is not properly specified.");
-            }
+            FileSystem.CheckWritePermission(viewData.OutputFileLocation);
 
-            Project project = BuildProject(viewData);
-
+            string fileFormatName = viewData.OutputFileFormat.Tag.ToString();
             var fileFormat = Enum.Parse<FileFormat>(fileFormatName);
-            RenderDocument renderer;
-
-            switch (fileFormat)
-            {
-                case FileFormat.DOCX:
-                    renderer = new RenderDocx();
-                    break;
-                case FileFormat.HTML:
-                    renderer = new RenderHTML();
-                    break;
-                default:
-                    renderer = null;
-                    break;
-            }
+            
+            Project project = BuildProject(viewData);
+            RenderDocument renderer = RenderDocument.GetInstance(fileFormat);
 
             var usfmDocument = await renderer.LoadUSFMsAsync(project.Files, progressCallback);
             renderer.Render(project, usfmDocument);
