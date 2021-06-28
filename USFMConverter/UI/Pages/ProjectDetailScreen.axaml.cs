@@ -62,7 +62,6 @@ namespace USFMConverter.UI.Pages
             optionView = this.FindControl<OptionView>("OptionView");
 
             backgroundOverlay = this.FindControl<StackPanel>("OverlayBackground");
-            //backgroundOverlay.AddHandler(PointerPressedEvent, HideOverlay);
 
             openOptionBtn = this.Find<Button>("OptionBtn");
             openOptionBtn.AddHandler(Button.ClickEvent, OnOpenOptionClick);
@@ -122,6 +121,16 @@ namespace USFMConverter.UI.Pages
         }
 
         private void HideOverlay()
+        {
+            backgroundOverlay.IsVisible = false;
+        }
+
+        private void ShowOverlay(object? sender, RoutedEventArgs e)
+        {
+            backgroundOverlay.IsVisible = true;
+        }
+
+        private void HideOverlay(object? sender, RoutedEventArgs e)
         {
             backgroundOverlay.IsVisible = false;
         }
