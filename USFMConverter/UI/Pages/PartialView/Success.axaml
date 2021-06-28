@@ -38,7 +38,7 @@
     
     
     <Grid ColumnDefinitions="3* 7*" Width="700" Height="300" Background="White">
-        <Image Grid.Column="0" Classes="Close"/>
+        <Image Grid.Column="0" Classes="Close" Source="/UI/Assets/checked.png"/>
 
         <Grid Grid.Column="1" RowDefinitions="1* 6* 3*">
             <Button Grid.Row="0" Classes="Close">
