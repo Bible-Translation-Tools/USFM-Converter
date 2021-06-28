@@ -11,11 +11,15 @@ using Avalonia.Interactivity;
 using USFMConverter.Core;
 using USFMConverter.Core.Util;
 using USFMConverter.Core.ConstantValue;
+using USFMConverter.UI.Pages.PartialView;
 
 namespace USFMConverter.UI.Pages
 {
     public class FileView : UserControl
     {
+        private ProjectReady projectReadyDialog;
+        private ProjectNotReady projectNotReadyDialog;
+        
         private Border dragDropArea;
         private ListBox filesContainer;
         private TextBlock selectedCount;
@@ -73,12 +77,25 @@ namespace USFMConverter.UI.Pages
 
             Items = new List<string>();
 
+            projectReadyDialog = this.FindControl<ProjectReady>("ProjectReady");
+            projectNotReadyDialog = this.FindControl<ProjectNotReady>("ProjectNotReady");
+
+            if (projectReadyDialog.IsVisible)
+            {
+                convertBtn = projectReadyDialog.Find<Button>("ConvertBtn");
+            }
+            
+            if (projectNotReadyDialog.IsVisible)
+            {
+                convertBtn = projectNotReadyDialog.Find<Button>("ConvertBtn");
+                
+            }
+
+            convertBtn.AddHandler(Button.ClickEvent, OnConvertClick);
+            
             browseBtn = this.Find<Button>("BrowseBtn");
             browseBtn.AddHandler(Button.ClickEvent, OnBrowseClick);
             
-            convertBtn = this.Find<Button>("ConvertBtn");
-            convertBtn.AddHandler(Button.ClickEvent, OnConvertClick);
-
             removeFileBtn = this.Find<Button>("RemoveFileBtn");
             removeFileBtn.AddHandler(Button.ClickEvent, OnRemoveClick);
 

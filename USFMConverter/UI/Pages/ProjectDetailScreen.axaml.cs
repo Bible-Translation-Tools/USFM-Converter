@@ -74,6 +74,9 @@ namespace USFMConverter.UI.Pages
             errorDialog = this.FindControl<Error>("ErrorDialog");
             progressDialog = this.FindControl<Progress>("ProgressDialog");
             progressBar = progressDialog.Find<ProgressBar>("ProgressBar");
+
+            // backgroundOverlay.IsVisible = true;
+            // errorDialog.IsVisible = true;
         }
 
         private void OnOpenOptionClick(object? sender, RoutedEventArgs e)
