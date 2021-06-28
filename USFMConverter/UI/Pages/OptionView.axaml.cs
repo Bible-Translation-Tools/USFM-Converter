@@ -1,11 +1,6 @@
-using System;
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
-using USFMConverter.Core.ConstantValue;
-using USFMConverter.UI;
 
 namespace USFMConverter.UI.Pages
 {
@@ -25,16 +20,16 @@ namespace USFMConverter.UI.Pages
         {
             AvaloniaXamlLoader.Load(this);
 
-            closeBtn = this.Find<Button>("CloseBtn");
+            closeBtn = this.FindControl<Button>("CloseBtn");
             closeBtn.AddHandler(Button.ClickEvent, OnCloseClick);
 
-            blurredArea = this.Find<Border>("BlurredArea");
+            blurredArea = this.FindControl<Border>("BlurredArea");
             blurredArea.AddHandler(PointerPressedEvent, OnCloseClick);
 
-            outputFormatCb = this.Find<ComboBox>("OutputFormatSelector");
+            outputFormatCb = this.FindControl<ComboBox>("OutputFormatSelector");
             outputFormatCb.AddHandler(ComboBox.SelectionChangedEvent, OnOuputFormatSelect);
 
-            optionView = this.Find<UserControl>("OptionView");
+            optionView = this.FindControl<UserControl>("OptionView");
         }
 
         private void OnOuputFormatSelect(object? sender, SelectionChangedEventArgs e)
@@ -44,7 +39,7 @@ namespace USFMConverter.UI.Pages
             foreach (ComboBoxItem comboBoxItem in outputFormatCb.Items)
             {
                 var formatName = comboBoxItem.Tag.ToString();
-                this.Find<UserControl>(formatName).IsVisible = (formatName == selectedFormat);
+                this.FindControl<UserControl>(formatName).IsVisible = (formatName == selectedFormat);
             }
 
             ResetInputOptions();

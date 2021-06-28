@@ -47,23 +47,19 @@ namespace USFMConverter.UI.Pages
             }
         }
 
-        private static readonly StyledProperty<List<string>> ItemsProperty = AvaloniaProperty.Register<ProjectDetailScreen, List<string>>(nameof(Items));
         public static readonly RoutedEvent<RoutedEventArgs> StartConvertEvent = 
             RoutedEvent.Register<FileView, RoutedEventArgs>(
                 nameof(ConvertStart), 
                 RoutingStrategies.Bubble
             );
 
-        public List<string> Items
-        {
-            get => GetValue(ItemsProperty);
-            set => SetValue(ItemsProperty, value);
-        }
 
         public FileView()
         {
             InitializeComponent();
         }
+
+        private List<string> Items { get; set; } = new();
 
         private void InitializeComponent()
         {
@@ -71,27 +67,25 @@ namespace USFMConverter.UI.Pages
 
             SetLinuxText();
 
-            Items = new List<string>();
-
-            browseBtn = this.Find<Button>("BrowseBtn");
+            browseBtn = this.FindControl<Button>("BrowseBtn");
             browseBtn.AddHandler(Button.ClickEvent, OnBrowseClick);
             
-            convertBtn = this.Find<Button>("ConvertBtn");
+            convertBtn = this.FindControl<Button>("ConvertBtn");
             convertBtn.AddHandler(Button.ClickEvent, OnConvertClick);
 
-            removeFileBtn = this.Find<Button>("RemoveFileBtn");
+            removeFileBtn = this.FindControl<Button>("RemoveFileBtn");
             removeFileBtn.AddHandler(Button.ClickEvent, OnRemoveClick);
 
-            filesContainer = this.Find<ListBox>("FilesListBox");
+            filesContainer = this.FindControl<ListBox>("FilesListBox");
             filesContainer.AddHandler(ListBox.SelectionChangedEvent, OnFileSelect);
             filesContainer.AddHandler(DragDrop.DragOverEvent, OnDragOver);
             filesContainer.AddHandler(DragDrop.DropEvent, OnDrop);
 
-            dragDropArea = this.Find<Border>("DragDropArea");
+            dragDropArea = this.FindControl<Border>("DragDropArea");
             dragDropArea.AddHandler(DragDrop.DragOverEvent, OnDragOver);
             dragDropArea.AddHandler(DragDrop.DropEvent, OnDrop);
 
-            selectedCount = this.Find<TextBlock>("SelectedCount");
+            selectedCount = this.FindControl<TextBlock>("SelectedCount");
         }
 
         private async void OnBrowseClick(object? sender, RoutedEventArgs e)
@@ -206,7 +200,7 @@ namespace USFMConverter.UI.Pages
             var platform = AvaloniaLocator.Current.GetService<IRuntimePlatform>().GetRuntimeInfo().OperatingSystem;
             if (platform == OperatingSystemType.Linux)
             {
-                TextBlock dndText = this.Find<TextBlock>("DragDropText");
+                TextBlock dndText = this.FindControl<TextBlock>("DragDropText");
                 dndText.Text = "Browse for folder that contains USFM files";
             }
         }
