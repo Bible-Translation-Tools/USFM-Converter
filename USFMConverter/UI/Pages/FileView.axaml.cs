@@ -47,18 +47,13 @@ namespace USFMConverter.UI.Pages
             }
         }
 
-        private static readonly StyledProperty<List<string>> ItemsProperty = AvaloniaProperty.Register<ProjectDetailScreen, List<string>>(nameof(Items));
         public static readonly RoutedEvent<RoutedEventArgs> StartConvertEvent = 
             RoutedEvent.Register<FileView, RoutedEventArgs>(
                 nameof(ConvertStart), 
                 RoutingStrategies.Bubble
             );
 
-        public List<string> Items
-        {
-            get => GetValue(ItemsProperty);
-            set => SetValue(ItemsProperty, value);
-        }
+        public List<string> Items { get; set; } = new();
 
         public FileView()
         {
