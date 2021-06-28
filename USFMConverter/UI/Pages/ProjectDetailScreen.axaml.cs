@@ -17,11 +17,6 @@ namespace USFMConverter.UI.Pages
         private Success successDialog;
         private Error errorDialog;
 
-        public ProjectDetailScreen()
-        {
-            InitializeComponent();
-        }
-
         public event EventHandler<RoutedEventArgs> ShowBackgroundOverlay
         {
             add
@@ -57,6 +52,11 @@ namespace USFMConverter.UI.Pages
                 nameof(HideBackgroundOverlay),
                 RoutingStrategies.Bubble
             );
+
+        public ProjectDetailScreen()
+        {
+            InitializeComponent();
+        }
 
         private void InitializeComponent()
         {

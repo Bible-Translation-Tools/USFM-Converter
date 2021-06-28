@@ -53,12 +53,13 @@ namespace USFMConverter.UI.Pages
                 RoutingStrategies.Bubble
             );
 
-        public List<string> Items { get; set; } = new();
 
         public FileView()
         {
             InitializeComponent();
         }
+
+        private List<string> Items { get; set; } = new();
 
         private void InitializeComponent()
         {
