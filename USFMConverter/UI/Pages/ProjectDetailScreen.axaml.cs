@@ -100,6 +100,8 @@ namespace USFMConverter.UI.Pages
 
             // show success dialog
             progressDialog.IsVisible = false;
+            string outputLocation = ((ViewData)DataContext).OutputFileLocation;
+
             HideOverlay();
         }
 
