@@ -39,16 +39,20 @@
     <Grid ColumnDefinitions="3* 7*" Width="700" Height="300" Background="White">
         <Image Grid.Column="0" Classes="Close" Source="/UI/Assets/error.png"/>
 
-        <Grid Grid.Column="1" RowDefinitions="2* 3* 2* 3*">
+        <Grid Grid.Column="1" RowDefinitions="1* 2* 3* 2*">
             <Button Name="CloseBtn" Grid.Row="0" Classes="Close">
                 <Image Source="/UI/Assets/close.png" Width="{Binding $parent.Width}" Height="{Binding $parent.Height}" />
             </Button>
 
-            <TextBlock Grid.Row="1" Classes="MainText">Conversion Error!</TextBlock>
-            <TextBlock Grid.Row="2" Margin="10">Error Message ...</TextBlock>
+            <TextBlock Grid.Row="1" Classes="MainText">
+                Conversion Error!
+            </TextBlock>
+            <TextBlock Grid.Row="2" Margin="10" Name="ErrorMessageText" TextWrapping="Wrap">
+                Error Message Here
+            </TextBlock>
             
             <Grid Grid.Row="3" ColumnDefinitions="* *">
-                <Button Name="ShowFileBtn" Grid.Column="0" Classes="Action">New Project</Button>
+                <Button Name="NewProjectBtn" Grid.Column="0" Classes="Action">New Project</Button>
             </Grid>
         </Grid>
     </Grid>
