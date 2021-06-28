@@ -2,11 +2,11 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace USFMConverter.UI.Pages
+namespace USFMConverter.UI.Pages.PartialView
 {
-    public class ProgressView : UserControl
+    public partial class Error : UserControl
     {
-        public ProgressView()
+        public Error()
         {
             InitializeComponent();
         }

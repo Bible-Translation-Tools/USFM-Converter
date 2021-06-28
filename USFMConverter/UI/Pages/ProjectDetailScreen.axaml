@@ -3,9 +3,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:view="clr-namespace:USFMConverter.UI.Pages"
+             xmlns:swappable="clr-namespace:USFMConverter.UI.Pages.PartialView"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="USFMConverter.UI.Pages.ProjectDetailScreen"
-             Name="ProjectDetailScreen">
+             Name="ProjectDetailScreen"
+             ShowBackgroundOverlay="ShowOverlay"
+             HideBackgroundOverlay="HideOverlay">
 
     <!-- Styles of the elements in this entire file -->
     <UserControl.Styles>
@@ -66,11 +69,11 @@
         <view:OptionView Name="OptionView" ZIndex="2" IsVisible="False" />
 
         <!-- Blurred background -->
-        <StackPanel Background="#000000" Opacity="0.6" ZIndex="3"/>
-        
-        <view:ProgressView ZIndex="4"/>
-        <view:SucessView IsVisible="False"/>
-        <view:ErrorView IsVisible="False"/>
+        <StackPanel Name="OverlayBackground" Background="#000000" Opacity="0.6" ZIndex="3" IsVisible="False"/>
+
+        <swappable:Progress Name="ProgressDialog" ZIndex="4" IsVisible="False"/>
+        <swappable:Success Name="SuccessDialog" IsVisible="False"/>
+        <swappable:Error Name="ErrorDialog" IsVisible="False"/>
         
     </Grid>
 </UserControl>

@@ -12,7 +12,7 @@ namespace USFMConverter.UI.Pages
     public class OptionView : UserControl
     {
         private Button closeBtn;
-        private TextBlock blurredArea;
+        private Border blurredArea;
         private UserControl optionView;
         private ComboBox outputFormatCb;
 
@@ -28,7 +28,7 @@ namespace USFMConverter.UI.Pages
             closeBtn = this.Find<Button>("CloseBtn");
             closeBtn.AddHandler(Button.ClickEvent, OnCloseClick);
 
-            blurredArea = this.Find<TextBlock>("BlurredArea");
+            blurredArea = this.Find<Border>("BlurredArea");
             blurredArea.AddHandler(PointerPressedEvent, OnCloseClick);
 
             outputFormatCb = this.Find<ComboBox>("OutputFormatSelector");
