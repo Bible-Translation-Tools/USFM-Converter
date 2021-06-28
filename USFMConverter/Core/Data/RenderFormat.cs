@@ -6,7 +6,7 @@ namespace USFMConverter.Core.Data
     {
         public LineSpacing LineSpacing { get; set; }
         public TextAlignment TextAlign { get; set; }
-        public bool LeftToRight { get; set; } = true;
+        public bool LeftToRight { get; set; }
         public TextSize TextSize { get; set; }
         public int ColumnCount { get; set; }
         public bool ChapterBreak { get; set; }
