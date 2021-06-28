@@ -10,6 +10,7 @@ namespace USFMConverter.UI.Pages
     public partial class ProjectDetailScreen : UserControl
     {
         private OptionView optionView;
+        private FileView fileView;
         private ProgressBar progressBar;
         private Button openOptionBtn;
         private StackPanel backgroundOverlay;
@@ -42,6 +43,18 @@ namespace USFMConverter.UI.Pages
             }
         }
 
+        public event EventHandler<RoutedEventArgs> StartNewProject
+        {
+            add
+            {
+                AddHandler(StartNewProjectEvent, value);
+            }
+            remove
+            {
+                RemoveHandler(StartNewProjectEvent, value);
+            }
+        }
+
         public static readonly RoutedEvent<RoutedEventArgs> ShowBackgroundOverlayEvent =
             RoutedEvent.Register<FileView, RoutedEventArgs>(
                 nameof(ShowBackgroundOverlay),
@@ -51,6 +64,12 @@ namespace USFMConverter.UI.Pages
         public static readonly RoutedEvent<RoutedEventArgs> HideBackgroundOverlayEvent =
             RoutedEvent.Register<FileView, RoutedEventArgs>(
                 nameof(HideBackgroundOverlay),
+                RoutingStrategies.Bubble
+            );
+
+        public static readonly RoutedEvent<RoutedEventArgs> StartNewProjectEvent =
+            RoutedEvent.Register<FileView, RoutedEventArgs>(
+                nameof(StartNewProject),
                 RoutingStrategies.Bubble
             );
 
@@ -64,6 +83,7 @@ namespace USFMConverter.UI.Pages
             AvaloniaXamlLoader.Load(this);
 
             optionView = this.FindControl<OptionView>("OptionView");
+            fileView = this.FindControl<FileView>("FileView");
 
             backgroundOverlay = this.FindControl<StackPanel>("OverlayBackground");
 
@@ -71,10 +91,10 @@ namespace USFMConverter.UI.Pages
             openOptionBtn.AddHandler(Button.ClickEvent, OnOpenOptionClick);
 
             successDialog = this.FindControl<Success>("SuccessDialog");
-            successDialog.AddHandler(FileView.ProjectStatusChangeEvent, OnProjectStatusChange);
+            successDialog.AddHandler(StartNewProjectEvent, OnStartNewProject);
 
             errorDialog = this.FindControl<Error>("ErrorDialog");
-            errorDialog.AddHandler(FileView.ProjectStatusChangeEvent, OnProjectStatusChange);
+            errorDialog.AddHandler(StartNewProjectEvent, OnStartNewProject);
             errorMessageText = errorDialog.FindControl<TextBlock>("ErrorMessageText");
 
             progressDialog = this.FindControl<Progress>("ProgressDialog");
@@ -112,9 +132,10 @@ namespace USFMConverter.UI.Pages
             successDialog.IsVisible = true;
         }
 
-        private void OnProjectStatusChange(object? sender, RoutedEventArgs e)
+        private void OnStartNewProject(object? sender, RoutedEventArgs e)
         {
-            this.FindControl<FileView>("FileView").UpdateProjectStatus();
+            ((Window)this.VisualRoot).DataContext = new ViewData();
+            fileView.UpdateProjectStatus();
         }
 
         /// <summary>

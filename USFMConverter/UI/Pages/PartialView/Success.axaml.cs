@@ -42,8 +42,7 @@ namespace USFMConverter.UI.Pages.PartialView
         private void OnNewProjectClick(object? sender, RoutedEventArgs e)
         {
             this.IsVisible = false;
-            ((Window)this.VisualRoot).DataContext = new ViewData();
-            RaiseEvent(new RoutedEventArgs(FileView.ProjectStatusChangeEvent));
+            RaiseEvent(new RoutedEventArgs(ProjectDetailScreen.StartNewProjectEvent));
             HideOverlayBackground();
         }
 
