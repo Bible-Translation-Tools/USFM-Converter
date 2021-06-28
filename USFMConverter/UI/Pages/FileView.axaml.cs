@@ -74,17 +74,7 @@ namespace USFMConverter.UI.Pages
             projectReadySection = this.FindControl<ProjectReady>("ProjectReady");
             projectNotReadySection = this.FindControl<ProjectNotReady>("ProjectNotReady");
 
-            if (projectReadySection.IsVisible)
-            {
-                convertBtn = projectReadySection.FindControl<Button>("ConvertBtn");
-            }
-            
-            if (projectNotReadySection.IsVisible)
-            {
-                convertBtn = projectNotReadySection.FindControl<Button>("ConvertBtn");
-                
-            }
-
+            convertBtn = projectReadySection.FindControl<Button>("ConvertBtn");
             convertBtn.AddHandler(Button.ClickEvent, OnConvertClick);
             
             browseBtn = this.FindControl<Button>("BrowseBtn");
@@ -120,6 +110,7 @@ namespace USFMConverter.UI.Pages
                 Items = newList;
 
                 filesContainer.Items = newList; // changes to the UI will bind to DataContext
+                UpdateProjectStatus();
             }
         }
 
@@ -160,6 +151,7 @@ namespace USFMConverter.UI.Pages
             Items = list;
             filesContainer.Items = list;
 
+            UpdateProjectStatus();
             UpdateCounter();
         }
 
@@ -204,6 +196,7 @@ namespace USFMConverter.UI.Pages
                 Items = newList;
 
                 filesContainer.Items = newList; // changes to the UI will bind to DataContext
+                UpdateProjectStatus();
             }
         }
 
@@ -219,6 +212,20 @@ namespace USFMConverter.UI.Pages
             {
                 TextBlock dndText = this.FindControl<TextBlock>("DragDropText");
                 dndText.Text = "Browse for folder that contains USFM files";
+            }
+        }
+
+        private void UpdateProjectStatus()
+        {
+            if (filesContainer.ItemCount > 0)
+            {
+                projectNotReadySection.IsVisible = false;
+                projectReadySection.IsVisible = true;
+            }
+            else
+            {
+                projectNotReadySection.IsVisible = true;
+                projectReadySection.IsVisible = false;
             }
         }
 

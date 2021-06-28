@@ -13,8 +13,7 @@
             Please add files to start conversion.
         </TextBlock>
         <Button HorizontalAlignment="Center" BorderBrush="Black" BorderThickness="0.5" Margin="15"
-                Padding="15" Background="#335cff" Foreground="White" IsEnabled="False"
-                Name="ConvertBtn">
+                Padding="15" Background="#335cff" Foreground="White" IsEnabled="False">
             Convert Now
         </Button>
     </StackPanel>
