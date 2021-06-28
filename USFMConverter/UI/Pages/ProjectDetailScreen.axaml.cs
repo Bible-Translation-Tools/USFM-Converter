@@ -11,8 +11,8 @@ namespace USFMConverter.UI.Pages
         private OptionView optionView;
         private ProgressBar progressBar;
         private Button openOptionBtn;
-        private UserControl modalDialog;
         private StackPanel backgroundOverlay;
+        private UserControl progressDialog;
 
         public ProjectDetailScreen()
         {
@@ -59,23 +59,28 @@ namespace USFMConverter.UI.Pages
         {
             AvaloniaXamlLoader.Load(this);
 
-            this.optionView = this.FindControl<OptionView>("OptionView");
+            optionView = this.FindControl<OptionView>("OptionView");
 
             backgroundOverlay = this.FindControl<StackPanel>("OverlayBackground");
-            backgroundOverlay.AddHandler(PointerPressedEvent, HideOverlay);
+            //backgroundOverlay.AddHandler(PointerPressedEvent, HideOverlay);
 
             openOptionBtn = this.Find<Button>("OptionBtn");
             openOptionBtn.AddHandler(Button.ClickEvent, OnOpenOptionClick);
+
+            progressDialog = this.FindControl<UserControl>("ProgressDialog");
+            progressBar = progressDialog.Find<ProgressBar>("ProgressBar");
         }
 
         private void OnOpenOptionClick(object? sender, RoutedEventArgs e)
         {
-            this.optionView.IsVisible = true;
+            optionView.IsVisible = true;
         }
 
         private async void OnConvertStart(object? sender, RoutedEventArgs e)
         {
-            modalDialog.IsVisible = true;
+            //show progress dialog
+            ShowOverlay();
+            progressDialog.IsVisible = true;
             progressBar.Value = 0;
 
             var context = (ViewData)DataContext;
@@ -85,14 +90,16 @@ namespace USFMConverter.UI.Pages
             }
             catch (Exception ex)
             {
-
+                // show error dialog
             }
 
             // show success dialog
+            progressDialog.IsVisible = false;
+            HideOverlay();
         }
 
         /// <summary>
-        /// Set the value of progress bar. Max value is 100
+        /// Set the value of progress bar. Ranging between 0-100
         /// </summary>
         /// <param name="value"></param>
         private void UpdateProgressBar(double value)
@@ -102,10 +109,19 @@ namespace USFMConverter.UI.Pages
 
         private void ShowOverlay(object? sender, RoutedEventArgs e)
         {
+            ShowOverlay();
+        }
+        private void ShowOverlay()
+        {
             backgroundOverlay.IsVisible = true;
         }
 
         private void HideOverlay(object? sender, RoutedEventArgs e)
+        {
+            HideOverlay();
+        }
+
+        private void HideOverlay()
         {
             backgroundOverlay.IsVisible = false;
         }

@@ -52,7 +52,7 @@ namespace USFMConverter.Core
             renderer.Render(project, usfmDocument);
 
             progressCallback(100); // fills the progress bar
-            await Task.Delay(500); // visible completion before transition
+            await Task.Delay(300); // visible completion before transition
         }
 
         private Project BuildProject(ViewData viewData)
