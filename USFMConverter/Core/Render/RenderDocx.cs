@@ -31,12 +31,6 @@ namespace USFMConverter.Core.Render
 
         }
 
-        public RenderDocx(Action<double> updateProgress)
-            : base(updateProgress)
-        {
-            
-        }
-
         private DocxConfig BuildDocxConfig(RenderFormat format)
         {
             DocxConfig config = new DocxConfig();
