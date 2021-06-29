@@ -229,7 +229,7 @@ namespace USFMConverter.UI.Pages
             }
         }
 
-        private void UpdateCounter()
+        public void UpdateCounter()
         {
             selectedCount.Text = filesContainer.SelectedItems.Count.ToString();
         }

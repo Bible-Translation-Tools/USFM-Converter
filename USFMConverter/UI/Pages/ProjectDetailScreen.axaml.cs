@@ -136,6 +136,7 @@ namespace USFMConverter.UI.Pages
         {
             ((Window)this.VisualRoot).DataContext = new ViewData();
             fileView.UpdateProjectStatus();
+            fileView.UpdateCounter();
         }
 
         /// <summary>
