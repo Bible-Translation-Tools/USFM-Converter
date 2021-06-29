@@ -63,8 +63,6 @@ namespace USFMConverter.UI.Pages
             InitializeComponent();
         }
 
-        private List<string> Items { get; set; } = new();
-
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
@@ -105,9 +103,9 @@ namespace USFMConverter.UI.Pages
                 var filesInDir = FileSystem.GetFilesInDir(
                     dir, CoreConverter.supportedExtensions
                 ).Select(f => f.FullName);
-                
-                var newList = Items.Concat(filesInDir).ToList();
-                Items = newList;
+
+                var currentFileList = filesContainer.Items.Cast<string>();
+                var newList = currentFileList.Concat(filesInDir).ToList(); ;
 
                 filesContainer.Items = newList; // changes to the UI will bind to DataContext
                 UpdateProjectStatus();
@@ -148,7 +146,6 @@ namespace USFMConverter.UI.Pages
                 list.Remove(item.ToString());
             }
 
-            Items = list;
             filesContainer.Items = list;
 
             UpdateProjectStatus();
@@ -192,8 +189,8 @@ namespace USFMConverter.UI.Pages
                     }
                 }
 
-                var newList = Items.Concat(filesToAdd).ToList();
-                Items = newList;
+                var currentFileList = filesContainer.Items.Cast<string>();
+                var newList = currentFileList.Concat(filesToAdd).ToList();
 
                 filesContainer.Items = newList; // changes to the UI will bind to DataContext
                 UpdateProjectStatus();
