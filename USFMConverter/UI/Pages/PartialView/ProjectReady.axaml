@@ -7,10 +7,11 @@
     
     <StackPanel HorizontalAlignment="Center">
         <TextBlock HorizontalAlignment="Center" FontWeight="Bold" 
-                   FontSize="25" Margin="10">
+                   FontSize="25" Margin="10" TextWrapping="WrapWithOverflow">
             Project Ready!
         </TextBlock>
-        <TextBlock HorizontalAlignment="Center" Margin="10 5 10 5">
+        <TextBlock HorizontalAlignment="Center" Margin="10 5 10 5" 
+                   TextWrapping="WrapWithOverflow">
             Your project is ready to be converted.
         </TextBlock>
         <Button HorizontalAlignment="Center" BorderBrush="Black" 
