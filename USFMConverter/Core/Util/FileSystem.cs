@@ -60,7 +60,7 @@ namespace USFMConverter.Core.Util
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
-                Process.Start("open", "-r " + file.FullName);
+                Process.Start("open", "-R " + file.FullName);
             }
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
