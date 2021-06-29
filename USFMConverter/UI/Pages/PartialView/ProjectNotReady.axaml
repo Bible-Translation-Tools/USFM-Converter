@@ -9,11 +9,14 @@
                    Margin="10" TextWrapping="WrapWithOverflow">
             Welcome!
         </TextBlock>
-        <TextBlock HorizontalAlignment="Center" Margin="10 5 10 5" TextWrapping="WrapWithOverflow">
+        <TextBlock HorizontalAlignment="Center" Margin="10 5 10 5" 
+                   TextWrapping="WrapWithOverflow">
             Please add files to start conversion.
         </TextBlock>
-        <Button HorizontalAlignment="Center" BorderBrush="Black" BorderThickness="0.5" Margin="15"
-                Padding="15" Background="#335cff" Foreground="White" IsEnabled="False">
+        <Button HorizontalAlignment="Center" BorderBrush="Black" 
+                BorderThickness="0.5" Margin="15"
+                Padding="15" Background="#335cff" 
+                Foreground="White" IsEnabled="False">
             Convert Now
         </Button>
     </StackPanel>

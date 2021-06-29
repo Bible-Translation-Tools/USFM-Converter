@@ -33,23 +33,30 @@
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Margin" Value="10"/>
         </Style>
-        
     </UserControl.Styles>
-    
     
     <Grid ColumnDefinitions="3* 7*" Width="600" Height="280" Background="White">
         <Image Grid.Column="0" Classes="Close" Source="/UI/Assets/checked.png"/>
 
-        <Grid Grid.Column="1" RowDefinitions="1* 6* 3*">
-            <Button Name="CloseBtn" Grid.Row="0" Classes="Close" Margin="0,20,20,0">
-                <Image Source="/UI/Assets/close.png" Width="{Binding $parent.Width}" Height="{Binding $parent.Height}" />
+        <Grid Grid.Column="1" RowDefinitions="1* 6* 3*" 
+              Margin="0,20,20,0">
+            <Button Name="CloseBtn" Grid.Row="0" Classes="Close">
+                <Image Source="/UI/Assets/close.png" Width="{Binding $parent.Width}" 
+                       Height="{Binding $parent.Height}" />
             </Button>
 
-            <TextBlock Grid.Row="1" Classes="MainText">Conversion Successful</TextBlock>
+            <TextBlock Grid.Row="1" Classes="MainText">
+                Conversion Successful
+            </TextBlock>
 
             <Grid Grid.Row="2" ColumnDefinitions="* *" Margin="0,0,0,50">
-                <Button Name="ShowFileBtn" Grid.Column="0" Classes="Action" Background="#335cff" Foreground="White">Open File Path</Button>
-                <Button Name="NewProjectBtn" Grid.Column="1" Classes="Action">New Project</Button>
+                <Button Name="ShowFileBtn" Grid.Column="0" Classes="Action" 
+                        Background="#335cff" Foreground="White">
+                    Open File Path
+                </Button>
+                <Button Name="NewProjectBtn" Grid.Column="1" Classes="Action">
+                    New Project
+                </Button>
             </Grid>
         </Grid>
     </Grid>

@@ -23,7 +23,9 @@
         <StackPanel>
             <DockPanel Margin="15 0 0 0">
                 <Image Classes="Icon" Source="/UI/Assets/font.png" />
-                <TextBlock VerticalAlignment="Center" Margin="10 20">Font Size</TextBlock>
+                <TextBlock VerticalAlignment="Center" Margin="10 20">
+                    Font Size
+                </TextBlock>
                 <ComboBox SelectedIndex="{Binding SelectedTextSizeIndex, Mode=TwoWay}"
                           SelectedItem="{Binding TextSize, Mode=OneWayToSource}">
                     <ComboBoxItem Tag="SMALL">Small</ComboBoxItem>
@@ -34,7 +36,9 @@
 
             <DockPanel Margin="15 0 0 0">
                 <Image Classes="Icon" Source="/UI/Assets/paragraph.png" />
-                <TextBlock VerticalAlignment="Center" Margin="10 20">Text Direction</TextBlock>
+                <TextBlock VerticalAlignment="Center" Margin="10 20">
+                    Text Direction
+                </TextBlock>
                 <ComboBox SelectedIndex="{Binding !LeftToRight, Mode=TwoWay}">
                     <ComboBoxItem>Left to Right</ComboBoxItem>
                     <ComboBoxItem>Right to Left</ComboBoxItem>
@@ -43,7 +47,9 @@
 
             <DockPanel Margin="15 0 0 0">
                 <Image Classes="Icon" Source="/UI/Assets/line_space.png" />
-                <TextBlock VerticalAlignment="Center" Margin="10 20">Line Spacing</TextBlock>
+                <TextBlock VerticalAlignment="Center" Margin="10 20">
+                    Line Spacing
+                </TextBlock>
                 <ComboBox SelectedIndex="{Binding SelectedLineSpacingIndex, Mode=TwoWay}"
                           SelectedItem="{Binding LineSpacing, Mode=OneWayToSource}">
                     <ComboBoxItem Tag="SINGLE">Single Space</ComboBoxItem>
@@ -53,14 +59,18 @@
 
             <DockPanel Margin="15 0 0 0">
                 <Image Classes="Icon" Source="/UI/Assets/column.png" />
-                <TextBlock VerticalAlignment="Center" Margin="10 20">Columns</TextBlock>
+                <TextBlock VerticalAlignment="Center" Margin="10 20">
+                    Columns
+                </TextBlock>
                 <NumericUpDown Background="LightGray" IsEnabled="False" Minimum="1" Maximum="2" Increment="1"
                                Value="{Binding ColumnCount, Mode=TwoWay}" />
             </DockPanel>
 
             <DockPanel Margin="15 0 0 0">
                 <Image Classes="Icon" Source="/UI/Assets/justify.png" />
-                <TextBlock VerticalAlignment="Center" Margin="10 20">Justify Text</TextBlock>
+                <TextBlock VerticalAlignment="Center" Margin="10 20">
+                    Justify Text
+                </TextBlock>
                 <ToggleSwitch IsChecked="{Binding Justified, Mode=TwoWay}" />
             </DockPanel>
         </StackPanel>
@@ -71,13 +81,17 @@
 
             <DockPanel Margin="15 0 0 0">
                 <Image Classes="Icon" Source="/UI/Assets/chapter.png" />
-                <TextBlock VerticalAlignment="Center" Margin="10 20">Chapter Break</TextBlock>
+                <TextBlock VerticalAlignment="Center" Margin="10 20">
+                    Chapter Break
+                </TextBlock>
                 <ToggleSwitch IsChecked="{Binding ChapterBreak, Mode=TwoWay}" />
             </DockPanel>
 
             <DockPanel Margin="15 0 0 0">
                 <Image Classes="Icon" Source="/UI/Assets/verse.png" />
-                <TextBlock VerticalAlignment="Center" Margin="10 20">Verse Break</TextBlock>
+                <TextBlock VerticalAlignment="Center" Margin="10 20">
+                    Verse Break
+                </TextBlock>
                 <ToggleSwitch IsChecked="{Binding VerseBreak, Mode=TwoWay}" />
             </DockPanel>
         </StackPanel>
@@ -87,13 +101,17 @@
         <StackPanel>
             <DockPanel Margin="15 0 0 0">
                 <Image Classes="Icon" Source="/UI/Assets/note.png" />
-                <TextBlock VerticalAlignment="Center" Margin="10 20">Note Taking</TextBlock>
+                <TextBlock VerticalAlignment="Center" Margin="10 20">
+                    Note Taking
+                </TextBlock>
                 <ToggleSwitch IsChecked="{Binding NoteTaking, Mode=TwoWay}" />
             </DockPanel>
 
             <DockPanel Margin="15 0 0 0">
                 <Image Classes="Icon" Source="/UI/Assets/table_of_content.png" />
-                <TextBlock VerticalAlignment="Center" Margin="10 20">Table of Contents</TextBlock>
+                <TextBlock VerticalAlignment="Center" Margin="10 20">
+                    Table of Contents
+                </TextBlock>
                 <ToggleSwitch IsChecked="{Binding TableOfContents, Mode=TwoWay}" />
             </DockPanel>
         </StackPanel>

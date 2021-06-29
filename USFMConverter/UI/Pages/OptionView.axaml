@@ -62,24 +62,30 @@
 
                 <StackPanel Background="White" Margin="20">
                     <DockPanel>
-                        <TextBlock Classes="Title">Project Settings</TextBlock>
+                        <TextBlock Classes="Title">
+                            Project Settings
+                        </TextBlock>
                         
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                            <Border BorderThickness="1" BorderBrush="LightGray" CornerRadius="5">
+                            <Border BorderThickness="1" 
+                                    BorderBrush="LightGray" CornerRadius="5">
                                 <Button Name="CloseBtn" Classes="Cancel" Padding="10 5">
                                     <Image Width="16" Height="16" Source="/UI/Assets/close.png" />
                                 </Button>
                             </Border>
-                            
                         </StackPanel>
                     </DockPanel>
 
-                    <TextBlock Classes="SubTitle">Output</TextBlock>
+                    <TextBlock Classes="SubTitle">
+                        Output
+                    </TextBlock>
 
                     <StackPanel>
                         <DockPanel Margin="15 0 0 0">
                             <Image Classes="Icon" Source="/UI/Assets/page.png" />
-                            <TextBlock VerticalAlignment="Center" Margin="10 20">File Format</TextBlock>
+                            <TextBlock VerticalAlignment="Center" Margin="10 20">
+                                File Format
+                            </TextBlock>
                             <ComboBox SelectedIndex="0"
                                       SelectedItem="{Binding OutputFileFormat, Mode=OneWayToSource}"
                                       Name="OutputFormatSelector">

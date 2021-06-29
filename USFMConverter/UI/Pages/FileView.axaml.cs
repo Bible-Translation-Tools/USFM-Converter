@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Avalonia.Interactivity;
+using NPOI.OpenXmlFormats.Vml.Office;
 using USFMConverter.Core;
 using USFMConverter.Core.Util;
 using USFMConverter.Core.ConstantValue;
@@ -230,7 +231,7 @@ namespace USFMConverter.UI.Pages
 
         private void UpdateCounter()
         {
-            selectedCount.Text = filesContainer.SelectedItems.Count + " Selected";
+            selectedCount.Text = filesContainer.SelectedItems.Count.ToString();
         }
     }
 }
