@@ -23,7 +23,6 @@
         </Style>
     </UserControl.Styles>
 
-    <!-- <StackPanel Spacing="5" Margin="20"> -->
     <Grid RowDefinitions="Auto Auto Auto Auto *" Margin="20">
         <StackPanel>
             <Grid ColumnDefinitions="3* 7*">
@@ -48,11 +47,13 @@
 
                         <Grid>
                             <Grid.Background>
-                                <ImageBrush Source="/UI/Assets/drag_drop.png" AlignmentY="Top" AlignmentX="Center" />
+                                <ImageBrush Source="/UI/Assets/drag_drop.png" 
+                                            AlignmentY="Top" AlignmentX="Center" />
                             </Grid.Background>
 
                             <StackPanel Orientation="Horizontal">
-                                <Border Margin="10" CornerRadius="5" BorderThickness="2" BorderBrush="#737f8f">
+                                <Border Margin="10" CornerRadius="5" 
+                                        BorderThickness="2" BorderBrush="#737f8f">
                                     <Button Foreground="#244f9d" Background="#edf1fa" Name="BrowseBtn">
                                         Browse Folder
                                     </Button>
@@ -64,7 +65,9 @@
             </Grid>
         </StackPanel>
 
-        <TextBlock Grid.Row="1" Classes="Title" Margin="0 30 0 0">Project Files</TextBlock>
+        <TextBlock Grid.Row="1" Classes="Title" Margin="0 30 0 0">
+            Project Files
+        </TextBlock>
 
         <Grid Grid.Row="2">
             <TextBlock Grid.Row="3" Classes="SelectedText" Margin="0 10 0 0"
@@ -75,8 +78,7 @@
 
             <Button Grid.Row="3" Classes="RemoveButton" Margin="0 10 0 0"
                     Background="White" BorderThickness="0"
-                    HorizontalAlignment="Right"
-                    Name="RemoveFileBtn">
+                    HorizontalAlignment="Right" Name="RemoveFileBtn">
                 - Remove Files
             </Button>
         </Grid>
@@ -86,5 +88,4 @@
                  SelectionMode="Multiple" DragDrop.AllowDrop="True"
                  Items="{Binding Files, Mode=TwoWay}" />
     </Grid>
-    <!-- </StackPanel> -->
 </UserControl>

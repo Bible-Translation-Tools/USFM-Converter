@@ -10,7 +10,6 @@
              ShowBackgroundOverlay="ShowOverlay"
              HideBackgroundOverlay="HideOverlay">
 
-    <!-- Styles of the elements in this entire file -->
     <UserControl.Styles>
         <Style Selector="DockPanel.TopPanel">
             <Setter Property="Background" Value="#003389" />
@@ -43,17 +42,19 @@
         </Style>
     </UserControl.Styles>
 
-    <Grid>
+    <Panel>
         <Grid RowDefinitions="Auto *" Background="White">
             <DockPanel Classes="TopPanel">
                 <TextBlock HorizontalAlignment="Left">USFM Converter</TextBlock>
                 
-                <StackPanel Margin="0 0 10 0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <StackPanel Margin="0 0 10 0" 
+                            HorizontalAlignment="Right" VerticalAlignment="Center">
                     <Border BorderThickness="1" BorderBrush="White" CornerRadius="5">
                         <Button Name="OptionBtn" Classes="Settings">
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="20" Height="20" Source="/UI/Assets/settings_inverted.png" />
-                                <TextBlock Margin="5" Foreground="White" FontSize="14" HorizontalAlignment="Center"
+                                <TextBlock Margin="5" Foreground="White" 
+                                           FontSize="14" HorizontalAlignment="Center"
                                            VerticalAlignment="Center">
                                     Settings
                                 </TextBlock>
@@ -63,16 +64,18 @@
                 </StackPanel>
             </DockPanel>
             
-            <view:FileView Grid.Row="1" Name="FileView" ZIndex="1" ConvertStart="OnConvertStart"/>
+            <view:FileView Grid.Row="1" Name="FileView" 
+                           ZIndex="1" ConvertStart="OnConvertStart"/>
         </Grid>
         
         <view:OptionView Name="OptionView" ZIndex="2" IsVisible="False" />
 
         <!-- Blurred background -->
-        <StackPanel Name="OverlayBackground" Background="#000000" Opacity="0.6" ZIndex="2" IsVisible="False"/>
+        <StackPanel Name="OverlayBackground" Background="#000000" 
+                    Opacity="0.6" ZIndex="2" IsVisible="False"/>
 
         <swappable:Progress Name="ProgressDialog" ZIndex="3" IsVisible="False"/>
-        <swappable:Success Name="SuccessDialog" ZIndex="3" IsVisible="False" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <swappable:Error Name="ErrorDialog" ZIndex="3" IsVisible="False" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-    </Grid>
+        <swappable:Success Name="SuccessDialog" ZIndex="3" IsVisible="False"/>
+        <swappable:Error Name="ErrorDialog" ZIndex="3" IsVisible="False"/>
+    </Panel>
 </UserControl>

@@ -40,14 +40,22 @@
 
         <Grid Grid.Column="1" RowDefinitions="1* 6* 3*">
             <Button Name="CloseBtn" Grid.Row="0" Classes="Close">
-                <Image Source="/UI/Assets/close.png" Width="{Binding $parent.Width}" Height="{Binding $parent.Height}" />
+                <Image Source="/UI/Assets/close.png" Width="{Binding $parent.Width}" 
+                       Height="{Binding $parent.Height}" />
             </Button>
 
-            <TextBlock Grid.Row="1" Classes="MainText">Conversion Successful</TextBlock>
+            <TextBlock Grid.Row="1" Classes="MainText">
+                Conversion Successful
+            </TextBlock>
 
             <Grid Grid.Row="2" ColumnDefinitions="* *">
-                <Button Name="ShowFileBtn" Grid.Column="0" Classes="Action" Background="#335cff" Foreground="White">Open File Path</Button>
-                <Button Name="NewProjectBtn" Grid.Column="1" Classes="Action">New Project</Button>
+                <Button Name="ShowFileBtn" Grid.Column="0" Classes="Action" 
+                        Background="#335cff" Foreground="White">
+                    Open File Path
+                </Button>
+                <Button Name="NewProjectBtn" Grid.Column="1" Classes="Action">
+                    New Project
+                </Button>
             </Grid>
         </Grid>
     </Grid>
