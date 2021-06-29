@@ -44,7 +44,7 @@
     </UserControl.Styles>
 
     <Grid>
-        <StackPanel Background="White">
+        <Grid RowDefinitions="Auto *" Background="White">
             <DockPanel Classes="TopPanel">
                 <TextBlock HorizontalAlignment="Left">USFM Converter</TextBlock>
                 
@@ -63,8 +63,8 @@
                 </StackPanel>
             </DockPanel>
             
-            <view:FileView Name="FileView" ZIndex="1" ConvertStart="OnConvertStart"/>
-        </StackPanel>
+            <view:FileView Grid.Row="1" Name="FileView" ZIndex="1" ConvertStart="OnConvertStart"/>
+        </Grid>
         
         <view:OptionView Name="OptionView" ZIndex="2" IsVisible="False" />
 

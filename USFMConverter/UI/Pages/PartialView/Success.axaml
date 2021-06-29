@@ -33,9 +33,7 @@
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Margin" Value="10"/>
         </Style>
-        
     </UserControl.Styles>
-    
     
     <Grid ColumnDefinitions="3* 7*" Width="700" Height="300" Background="White">
         <Image Grid.Column="0" Classes="Close" Source="/UI/Assets/checked.png"/>
