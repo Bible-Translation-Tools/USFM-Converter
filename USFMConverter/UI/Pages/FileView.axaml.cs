@@ -231,7 +231,7 @@ namespace USFMConverter.UI.Pages
 
         private void UpdateCounter()
         {
-            selectedCount.Text = filesContainer.SelectedItems.Count + " Selected";
+            selectedCount.Text = filesContainer.SelectedItems.Count.ToString();
         }
     }
 }
