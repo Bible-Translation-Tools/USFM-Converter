@@ -45,7 +45,7 @@
                             You can select a folder or drag and drop from your computer into this area to import.
                         </TextBlock>
 
-                        <Grid>
+                        <Grid Name="DragDropSection">
                             <Grid.Background>
                                 <ImageBrush Source="/UI/Assets/drag_drop.png" 
                                             AlignmentY="Top" AlignmentX="Center" />

@@ -209,6 +209,8 @@ namespace USFMConverter.UI.Pages
             {
                 TextBlock dndText = this.FindControl<TextBlock>("DragDropText");
                 dndText.Text = "Browse for folder that contains USFM files";
+
+                this.FindControl<Grid>("DragDropSection").Background = null;
             }
         }
 
