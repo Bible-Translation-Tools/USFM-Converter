@@ -2,8 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
-using System;
-using System.Diagnostics;
+using USFMConverter.Core.Util;
 
 namespace USFMConverter.UI.Pages.PartialView
 {
@@ -35,8 +34,7 @@ namespace USFMConverter.UI.Pages.PartialView
         private void OnShowFileClick(object? sender, RoutedEventArgs e)
         {
             string path = ((ViewData)DataContext).OutputFileLocation;
-
-            Process.Start("explorer.exe", @"/select," + path);
+            FileSystem.OpenFileLocation(path);
         }
 
         private void OnNewProjectClick(object? sender, RoutedEventArgs e)
