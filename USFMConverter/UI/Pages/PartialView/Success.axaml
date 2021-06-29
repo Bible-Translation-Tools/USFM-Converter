@@ -48,7 +48,7 @@
             <TextBlock Grid.Row="1" Classes="MainText">Conversion Successful</TextBlock>
 
             <Grid Grid.Row="2" ColumnDefinitions="* *">
-                <Button Name="ShowFileBtn" Grid.Column="0" Classes="Action">Open File Path</Button>
+                <Button Name="ShowFileBtn" Grid.Column="0" Classes="Action" Background="#335cff" Foreground="White">Open File Path</Button>
                 <Button Name="NewProjectBtn" Grid.Column="1" Classes="Action">New Project</Button>
             </Grid>
         </Grid>
