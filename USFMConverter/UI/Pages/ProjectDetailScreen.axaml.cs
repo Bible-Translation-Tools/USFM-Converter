@@ -123,7 +123,7 @@ namespace USFMConverter.UI.Pages
                 // show error dialog
                 progressDialog.IsVisible = false;
                 errorDialog.IsVisible = true;
-                errorMessageText.Text = string.Format("{0}{0} \n({1})", ex.Message, ex.GetType());
+                errorMessageText.Text = string.Format("{0}\n({1})", ex.Message, ex.GetType());
                 return;
             }
 
