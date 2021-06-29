@@ -3,20 +3,58 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <ApplicationIcon></ApplicationIcon>
+    <ApplicationIcon>UI\Assets\converter_logo_inverted_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <AvaloniaXaml Remove="UI\Assets\**" />
-    <AvaloniaXaml Remove="UI\Pages\**" />
-    <Compile Remove="UI\Assets\**" />
-    <Compile Remove="UI\Pages\**" />
-    <EmbeddedResource Remove="UI\Assets\**" />
-    <EmbeddedResource Remove="UI\Pages\**" />
-    <None Remove="UI\Assets\**" />
-    <None Remove="UI\Pages\**" />
+    <None Remove="UI\Assets\converter_logo_inverted_icon.ico" />
+    <None Remove="UI\Assets\drag-and-drop.png" />
+    <None Remove="UI\Assets\drag_and_drop.png" />
+    <None Remove="UI\Assets\drag_drop.png" />
+    <None Remove="UI\Assets\small_file.png" />
+    <None Remove="UI\Assets\start_screen.bmp" />
+    <None Remove="UI\Assets\start_screen.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="style.css" />
+    <AvaloniaResource Include="UI\Assets\converter_logo_inverted_icon.ico" />
+    <AvaloniaResource Include="UI\Assets\drag_drop.png" />
+    <AvaloniaResource Include="UI\Assets\small_file.png" />
+    <AvaloniaResource Include="UI\Assets\start_screen.bmp" />
+    <AvaloniaResource Include="UI\Assets\start_screen.png" />
+    <None Remove="UI\Assets\settings_inverted.png" />
+    <AvaloniaResource Include="UI\Assets\settings_inverted.png" />
+    <None Remove="UI\Assets\settings.png" />
+    <AvaloniaResource Include="UI\Assets\settings.png" />
+    <None Remove="UI\Assets\check.png" />
+    <AvaloniaResource Include="UI\Assets\check.png" />
+    <None Remove="UI\Assets\cancel.png" />
+    <AvaloniaResource Include="UI\Assets\close.png" />
+    <None Remove="UI\Assets\chapter1.png" />
+    <AvaloniaResource Include="UI\Assets\chapter.png" />
+    <None Remove="UI\Assets\font.png" />
+    <AvaloniaResource Include="UI\Assets\font.png" />
+    <None Remove="UI\Assets\table_of_content.png" />
+    <AvaloniaResource Include="UI\Assets\table_of_content.png" />
+    <None Remove="UI\Assets\verse.png" />
+    <AvaloniaResource Include="UI\Assets\verse.png" />
+    <None Remove="UI\Assets\paragraph.png" />
+    <AvaloniaResource Include="UI\Assets\paragraph.png" />
+    <None Remove="UI\Assets\note.png" />
+    <AvaloniaResource Include="UI\Assets\note.png" />
+    <None Remove="UI\Assets\line_space.png" />
+    <AvaloniaResource Include="UI\Assets\line_space.png" />
+    <None Remove="UI\Assets\justify.png" />
+    <AvaloniaResource Include="UI\Assets\justify.png" />
+    <None Remove="UI\Assets\column.png" />
+    <None Remove="UI\Assets\column1.png" />
+    <AvaloniaResource Include="UI\Assets\column.png" />
+    <None Remove="UI\Assets\upload.png" />
+    <AvaloniaResource Include="UI\Assets\upload.png" />
+    <None Remove="UI\Assets\page.png" />
+    <AvaloniaResource Include="UI\Assets\page.png" />
+    <None Remove="UI\Assets\error.png" />
+    <AvaloniaResource Include="UI\Assets\error.png" />
+    <None Remove="UI\Assets\checked.png" />
+    <AvaloniaResource Include="UI\Assets\checked.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.10.4" />
@@ -24,5 +62,13 @@
     <PackageReference Include="Avalonia.Diagnostics" Version="0.10.4" />
     <PackageReference Include="USFMToolsSharp.Renderers.Docx" Version="0.9.0" />
     <PackageReference Include="USFMToolsSharp.Renderers.HTML" Version="0.3.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="UI\Pages\PartialView\DocxFormat.axaml.cs">
+      <DependentUpon>DocxFormat.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="UI\Pages\PartialView\HtmlFormat.axaml.cs">
+      <DependentUpon>HtmlFormat.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>
