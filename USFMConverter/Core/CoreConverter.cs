@@ -43,9 +43,6 @@ namespace USFMConverter.Core
 
             var usfmDocument = await FileSystem.LoadUSFMsAsync(project.Files, progressCallback);
             renderer.Render(project, usfmDocument);
-
-            progressCallback(100); // fills the progress bar
-            await Task.Delay(300); // visible completion before transition
         }
 
         private Project BuildProject(ViewData viewData)
