@@ -27,14 +27,16 @@ namespace USFMConverter.Core.Render
 
         private DocxConfig BuildDocxConfig(RenderFormat format)
         {
-            DocxConfig config = new DocxConfig();
-            config.fontSize = GetFontSize(format.TextSize);
-            config.lineSpacing = GetLineSpacing(format.LineSpacing);
-            config.columnCount = format.ColumnCount;
-            config.rightToLeft = !format.LeftToRight;
-            config.separateVerses = format.VerseBreak;
-            config.separateChapters = format.ChapterBreak;
-            config.renderTableOfContents = format.TableOfContents;
+            DocxConfig config = new DocxConfig
+            {
+                fontSize = GetFontSize(format.TextSize),
+                lineSpacing = GetLineSpacing(format.LineSpacing),
+                columnCount = format.ColumnCount,
+                rightToLeft = !format.LeftToRight,
+                separateVerses = format.VerseBreak,
+                separateChapters = format.ChapterBreak,
+                renderTableOfContents = format.TableOfContents
+            };
             
             if (format.TextAlign == TextAlignment.JUSTIFIED) {
                 config.textAlign = NPOI.XWPF.UserModel.ParagraphAlignment.BOTH;
