@@ -52,7 +52,7 @@ namespace USFMConverter.Core.Render
             return config;
         }
 
-        public override void Render(Project project, USFMDocument usfm)
+        public void Render(Project project, USFMDocument usfm)
         {
             var config = BuildDocxConfig(project.FormatOptions);
             var renderer = new USFMToolsSharp.Renderers.Docx.DocxRenderer(config);

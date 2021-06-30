@@ -70,7 +70,7 @@ namespace USFMConverter.Core.Render
             return config;
         }
 
-        public override void Render(Project project, USFMDocument usfmDoc)
+        public void Render(Project project, USFMDocument usfmDoc)
         {
             var config = BuildHTMLConfig(project.FormatOptions);
             var renderer = new HtmlRenderer(config);
