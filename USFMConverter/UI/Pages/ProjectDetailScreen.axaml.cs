@@ -17,7 +17,6 @@ namespace USFMConverter.UI.Pages
         private UserControl progressDialog;
         private Success successDialog;
         private Error errorDialog;
-        private TextBlock errorMessageText;
 
         public event EventHandler<RoutedEventArgs> ShowBackgroundOverlay
         {
@@ -113,7 +112,6 @@ namespace USFMConverter.UI.Pages
 
             errorDialog = this.FindControl<Error>("ErrorDialog");
             errorDialog.AddHandler(StartNewProjectEvent, OnStartNewProject);
-            errorMessageText = errorDialog.FindControl<TextBlock>("ErrorMessageText");
 
             progressDialog = this.FindControl<Progress>("ProgressDialog");
             progressBar = progressDialog.FindControl<ProgressBar>("ProgressBar");
