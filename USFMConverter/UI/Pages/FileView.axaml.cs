@@ -23,7 +23,6 @@ namespace USFMConverter.UI.Pages
         private Border dragDropArea;
         private ListBox filesContainer;
         private TextBlock selectedCount;
-        private Button browseFilesBtn;
 
         public event EventHandler<RoutedEventArgs> ConvertStart
         {
@@ -67,7 +66,6 @@ namespace USFMConverter.UI.Pages
             dragDropArea.AddHandler(DragDrop.DropEvent, OnDrop);
 
             selectedCount = this.FindControl<TextBlock>("SelectedCount");
-            browseFilesBtn = this.FindControl<Button>("BrowseFilesBtn");
         }
 
         private async void OnBrowseFolderClick(object? sender, RoutedEventArgs e)
@@ -185,7 +183,7 @@ namespace USFMConverter.UI.Pages
                 dndText.Text = "Browse for folder that contains USFM files";
 
                 this.FindControl<Grid>("DragDropSection").Background = null;
-                browseFilesBtn.IsVisible = true;
+                this.FindControl<Button>("BrowseFilesBtn").IsVisible = true;
             }
         }
 

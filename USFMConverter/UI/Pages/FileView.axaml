@@ -64,7 +64,8 @@
                                         IsVisible="{Binding $self.Child.IsVisible}"
                                         BorderThickness="2" BorderBrush="#737f8f">
                                     <Button Foreground="#244f9d" Background="#edf1fa"
-                                            Click="OnBrowseFilesClick" IsVisible="False">
+                                            Name="BrowseFilesBtn" IsVisible="False"
+                                            Click="OnBrowseFilesClick">
                                         Browse Files
                                     </Button>
                                 </Border>
