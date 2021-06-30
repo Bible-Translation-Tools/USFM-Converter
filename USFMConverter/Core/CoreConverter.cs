@@ -16,8 +16,8 @@ namespace USFMConverter.Core
     public class CoreConverter
     {
 
-        public static ICollection<string> supportedExtensions = new List<string> { 
-            ".usfm", ".txt", ".sfm" 
+        public static ICollection<string> supportedExtensions = new List<string> {
+            ".usfm", ".txt", ".sfm"
         };
 
         public async Task ConvertAsync(ViewData viewData, Action<double> progressCallback)
@@ -26,7 +26,7 @@ namespace USFMConverter.Core
 
             string fileFormatName = viewData.OutputFileFormat.Tag.ToString();
             var fileFormat = Enum.Parse<FileFormat>(fileFormatName);
-            
+
             Project project = BuildProject(viewData);
             Renderable renderer;
             switch (fileFormat)
@@ -47,11 +47,8 @@ namespace USFMConverter.Core
 
         private Project BuildProject(ViewData viewData)
         {
-            var project = new Project();
-            var files = viewData.Files;
-
             var textSizeName = viewData.TextSize.Tag?.ToString();
-            var textSize = (string.IsNullOrEmpty(textSizeName)) 
+            var textSize = (string.IsNullOrEmpty(textSizeName))
                 ? TextSize.MEDIUM
                 : Enum.Parse<TextSize>(textSizeName);
 
@@ -64,17 +61,24 @@ namespace USFMConverter.Core
                 ? TextAlignment.JUSTIFIED
                 : TextAlignment.LEFT;
 
-            project.Files.AddRange(files);
-            project.FormatOptions.TextSize = textSize;
-            project.FormatOptions.LineSpacing = lineSpacing;
-            project.FormatOptions.TextAlign  = textAlignment;
-            project.FormatOptions.LeftToRight = viewData.LeftToRight;
-            project.FormatOptions.ColumnCount = viewData.ColumnCount;
-            project.FormatOptions.ChapterBreak = viewData.ChapterBreak;
-            project.FormatOptions.VerseBreak = viewData.VerseBreak;
-            project.FormatOptions.NoteTaking = viewData.NoteTaking;
-            project.FormatOptions.TableOfContents = viewData.TableOfContents;
-            project.OutputFile = new FileInfo(viewData.OutputFileLocation);
+            var project = new Project
+            {
+                FormatOptions = new RenderFormat
+                {
+                    TextSize = textSize,
+                    LineSpacing = lineSpacing,
+                    TextAlign = textAlignment,
+                    LeftToRight = viewData.LeftToRight,
+                    ColumnCount = viewData.ColumnCount,
+                    ChapterBreak = viewData.ChapterBreak,
+                    VerseBreak = viewData.VerseBreak,
+                    NoteTaking = viewData.NoteTaking,
+                    TableOfContents = viewData.TableOfContents,
+                },
+                OutputFile = new FileInfo(viewData.OutputFileLocation),
+            };
+
+            project.Files.AddRange(viewData.Files);
 
             return project;
         }
