@@ -91,10 +91,15 @@ namespace USFMConverter.UI.Pages
         {
             var dialog = new OpenFileDialog();
             dialog.AllowMultiple = true;
+
+            var extensions = CoreConverter.supportedExtensions
+                .Select(ex => ex.Replace(".", ""))
+                .ToList();
+
             dialog.Filters.Add(new FileDialogFilter
             {
                 Name = "USFM Documents",
-                Extensions = CoreConverter.supportedExtensions.ToList()
+                Extensions = extensions
             });
 
             var paths = await dialog.ShowAsync((Window)this.VisualRoot);
