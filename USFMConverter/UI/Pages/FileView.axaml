@@ -53,11 +53,19 @@
                             </Grid.Background>
 
                             <StackPanel Orientation="Horizontal">
-                                <Border Margin="10" CornerRadius="5" 
+                                <Border Margin="10" CornerRadius="5"
                                         BorderThickness="2" BorderBrush="#737f8f">
                                     <Button Foreground="#244f9d" Background="#edf1fa"
-                                            Click="OnBrowseClick">
+                                            Click="OnBrowseFolderClick">
                                         Browse Folder
+                                    </Button>
+                                </Border>
+                                <Border Margin="10" CornerRadius="5"
+                                        IsVisible="{Binding $self.Child.IsVisible}"
+                                        BorderThickness="2" BorderBrush="#737f8f">
+                                    <Button Foreground="#244f9d" Background="#edf1fa"
+                                            Click="OnBrowseFilesClick" IsVisible="False">
+                                        Browse Files
                                     </Button>
                                 </Border>
                             </StackPanel>
