@@ -22,12 +22,14 @@ namespace USFMConverter.Core.Render
             [LineSpacing.TRIPLE] = "triple-space"
         };
 
-        private Dictionary<int, string> ColumnClasses = new() {
+        private Dictionary<int, string> ColumnClasses = new() 
+        {
             [1] = "", 
             [2] = "two-column" 
         };
 
-        private Dictionary<TextAlignment, string> TextAlignmentClasses = new() { 
+        private Dictionary<TextAlignment, string> TextAlignmentClasses = new()
+        {
             [TextAlignment.LEFT] = "",
             [TextAlignment.RIGHT] = "right-align",
             [TextAlignment.CENTER] = "center-align",
@@ -44,13 +46,15 @@ namespace USFMConverter.Core.Render
         private HTMLConfig BuildHTMLConfig(RenderFormat format)
         {
             HTMLConfig config = new HTMLConfig();
-            var styleClasses = new List<string>();
-            styleClasses.Add(LineSpacingClasses[format.LineSpacing]);
-            styleClasses.Add(ColumnClasses[format.ColumnCount]);
-            styleClasses.Add(TextAlignmentClasses[format.TextAlign]);
-            styleClasses.Add(FontSizeClasses[format.TextSize]);
-            
-            if (!format.LeftToRight) {
+            var styleClasses = new List<string> {
+                LineSpacingClasses[format.LineSpacing],
+                ColumnClasses[format.ColumnCount],
+                TextAlignmentClasses[format.TextAlign],
+                FontSizeClasses[format.TextSize],
+            };
+
+            if (!format.LeftToRight)
+            {
                 styleClasses.Add(TextDirectionClasses[1]);
             }
 
