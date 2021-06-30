@@ -8,7 +8,8 @@
              x:Class="USFMConverter.UI.Pages.ProjectDetailScreen"
              Name="ProjectDetailScreen"
              ShowBackgroundOverlay="ShowOverlay"
-             HideBackgroundOverlay="HideOverlay">
+             HideBackgroundOverlay="HideOverlay"
+             ConvertStart="OnConvertStart">
 
     <UserControl.Styles>
         <Style Selector="DockPanel.TopPanel">
@@ -64,8 +65,7 @@
                 </StackPanel>
             </DockPanel>
             
-            <view:FileView Grid.Row="1" Name="FileView" 
-                           ZIndex="1" ConvertStart="OnConvertStart"/>
+            <view:FileView Grid.Row="1" Name="FileView" ZIndex="1"/>
         </Grid>
         
         <view:OptionView Name="OptionView" ZIndex="2" IsVisible="False" />

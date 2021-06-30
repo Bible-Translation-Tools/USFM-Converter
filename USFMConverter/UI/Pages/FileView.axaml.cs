@@ -1,4 +1,3 @@
-using System;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
@@ -8,10 +7,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Avalonia.Interactivity;
-using NPOI.OpenXmlFormats.Vml.Office;
 using USFMConverter.Core;
 using USFMConverter.Core.Util;
-using USFMConverter.Core.ConstantValue;
 using USFMConverter.UI.Pages.PartialView;
 
 namespace USFMConverter.UI.Pages
@@ -27,36 +24,6 @@ namespace USFMConverter.UI.Pages
         private Button browseBtn;
         private Button convertBtn;
         private Button removeFileBtn;
-        private Dictionary<FileFormat, FileDialogFilter> fileFilter = new()
-        {
-            [FileFormat.DOCX] = new FileDialogFilter { 
-                Name = "Word Document", 
-                Extensions = new() { "docx" } 
-            },
-            [FileFormat.HTML] = new FileDialogFilter
-            {
-                Name = "HTML Document",
-                Extensions = new() { "html" }
-            }
-        };
-
-        public event EventHandler<RoutedEventArgs> ConvertStart
-        {
-            add
-            {
-                AddHandler(StartConvertEvent, value);
-            }
-            remove
-            {
-                RemoveHandler(StartConvertEvent, value);
-            }
-        }
-
-        public static readonly RoutedEvent<RoutedEventArgs> StartConvertEvent = 
-            RoutedEvent.Register<FileView, RoutedEventArgs>(
-                nameof(ConvertStart), 
-                RoutingStrategies.Bubble
-            );
 
         public FileView()
         {
@@ -72,9 +39,6 @@ namespace USFMConverter.UI.Pages
             projectReadySection = this.FindControl<ProjectReady>("ProjectReady");
             projectNotReadySection = this.FindControl<ProjectNotReady>("ProjectNotReady");
 
-            convertBtn = projectReadySection.FindControl<Button>("ConvertBtn");
-            convertBtn.AddHandler(Button.ClickEvent, OnConvertClick);
-            
             browseBtn = this.FindControl<Button>("BrowseBtn");
             browseBtn.AddHandler(Button.ClickEvent, OnBrowseClick);
             
@@ -109,31 +73,6 @@ namespace USFMConverter.UI.Pages
 
                 filesContainer.Items = newList; // changes to the UI will bind to DataContext
                 UpdateProjectStatus();
-            }
-        }
-
-        private async void OnConvertClick(object? sender, RoutedEventArgs e)
-        {
-            var fileFormatName = ((ViewData)DataContext).OutputFileFormat.Tag?.ToString();
-
-            if (string.IsNullOrEmpty(fileFormatName))
-            {
-                return; // invalid output format
-            }
-
-            FileFormat fileFormat = Enum.Parse<FileFormat>(fileFormatName);
-
-            var dialog = new SaveFileDialog();
-            dialog.Title = "Save Project As";
-            dialog.InitialFileName = "out";
-            dialog.Filters.Add(fileFilter[fileFormat]);
-
-            var result = await dialog.ShowAsync((Window)this.VisualRoot);
-            if (!string.IsNullOrEmpty(result))
-            {
-                // propagate event to parent
-                ((ViewData)DataContext).OutputFileLocation = result;
-                RaiseEvent(new RoutedEventArgs(StartConvertEvent));
             }
         }
 
