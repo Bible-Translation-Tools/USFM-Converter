@@ -71,4 +71,9 @@
       <DependentUpon>HtmlFormat.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <None Update="style.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>
