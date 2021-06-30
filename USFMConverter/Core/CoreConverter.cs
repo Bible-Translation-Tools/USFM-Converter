@@ -41,7 +41,7 @@ namespace USFMConverter.Core
                     throw new ArgumentException("Output file format is not supported");
             }
 
-            var usfmDocument = await LoadUSFMsAsync(project.Files, progressCallback);
+            var usfmDocument = await FileSystem.LoadUSFMsAsync(project.Files, progressCallback);
             renderer.Render(project, usfmDocument);
 
             progressCallback(100); // fills the progress bar
@@ -80,38 +80,6 @@ namespace USFMConverter.Core
             project.OutputFile = new FileInfo(viewData.OutputFileLocation);
 
             return project;
-        }
-
-        /// <summary>
-        /// Parses the given text files into one USFM Document asynchronously.
-        /// </summary>
-        /// <param name="files">Text files with USFM format.</param>
-        /// <param name="progressCallback">Call back for progress bar update.</param>
-        /// <returns>A USFM Document</returns>
-        private async Task<USFMDocument> LoadUSFMsAsync(
-            IEnumerable<string> files,
-            Action<double> progressCallback
-        )
-        {
-            var usfmDoc = new USFMDocument();
-            List<string> fileList = files.ToList();
-
-            var parser = new USFMParser(new List<string> { "s5" });
-            int totalFiles = fileList.Count;
-
-            for (int i = 0; i < totalFiles; i++)
-            {
-                await Task.Run(() => {
-                    var text = File.ReadAllText(fileList[i]);
-                    usfmDoc.Insert(parser.ParseFromString(text));
-                });
-
-                // update progress bar
-                var percent = (double)i / totalFiles * 100;
-                progressCallback(percent);
-            }
-
-            return usfmDoc;
         }
     }
 }

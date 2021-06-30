@@ -6,6 +6,8 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using USFMToolsSharp;
+using USFMToolsSharp.Models.Markers;
 
 namespace USFMConverter.Core.Util
 {
@@ -62,6 +64,38 @@ namespace USFMConverter.Core.Util
                 var process = new Process { StartInfo = processInfo };
                 process.Start();
             }
+        }
+
+        /// <summary>
+        /// Parses the given text files into one USFM Document asynchronously.
+        /// </summary>
+        /// <param name="files">Text files with USFM format.</param>
+        /// <param name="progressCallback">Call back for progress bar update.</param>
+        /// <returns>A USFM Document</returns>
+        public static async Task<USFMDocument> LoadUSFMsAsync(
+            IEnumerable<string> files,
+            Action<double> progressCallback
+        )
+        {
+            var usfmDoc = new USFMDocument();
+            List<string> fileList = files.ToList();
+
+            var parser = new USFMParser(new List<string> { "s5" });
+            int totalFiles = fileList.Count;
+
+            for (int i = 0; i < totalFiles; i++)
+            {
+                await Task.Run(() => {
+                    var text = File.ReadAllText(fileList[i]);
+                    usfmDoc.Insert(parser.ParseFromString(text));
+                });
+
+                // update progress bar
+                var percent = (double)i / totalFiles * 100;
+                progressCallback(percent);
+            }
+
+            return usfmDoc;
         }
     }
 }
