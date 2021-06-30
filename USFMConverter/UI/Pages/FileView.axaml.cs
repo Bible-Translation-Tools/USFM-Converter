@@ -10,6 +10,7 @@ using Avalonia.Interactivity;
 using USFMConverter.Core;
 using USFMConverter.Core.Util;
 using USFMConverter.UI.Pages.PartialView;
+using System;
 
 namespace USFMConverter.UI.Pages
 {
@@ -21,6 +22,24 @@ namespace USFMConverter.UI.Pages
         private Border dragDropArea;
         private ListBox filesContainer;
         private TextBlock selectedCount;
+
+        public event EventHandler<RoutedEventArgs> ConvertStart
+        {
+            add
+            {
+                AddHandler(StartConvertEvent, value);
+            }
+            remove
+            {
+                RemoveHandler(StartConvertEvent, value);
+            }
+        }
+
+        public static readonly RoutedEvent<RoutedEventArgs> StartConvertEvent =
+            RoutedEvent.Register<FileView, RoutedEventArgs>(
+                nameof(ConvertStart),
+                RoutingStrategies.Direct
+            );
 
         public FileView()
         {
@@ -125,6 +144,11 @@ namespace USFMConverter.UI.Pages
                 filesContainer.Items = newList; // changes to the UI will bind to DataContext
                 UpdateProjectStatus();
             }
+        }
+
+        private void OnConvertStart(object? sender, RoutedEventArgs e)
+        {
+            RaiseEvent(new RoutedEventArgs(StartConvertEvent));
         }
 
         /// <summary>

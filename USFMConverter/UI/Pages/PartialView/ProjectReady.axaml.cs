@@ -23,6 +23,24 @@ namespace USFMConverter.UI.Pages.PartialView
             }
         };
 
+        public event EventHandler<RoutedEventArgs> ConvertStart
+        {
+            add
+            {
+                AddHandler(StartConvertEvent, value);
+            }
+            remove
+            {
+                RemoveHandler(StartConvertEvent, value);
+            }
+        }
+
+        public static readonly RoutedEvent<RoutedEventArgs> StartConvertEvent =
+            RoutedEvent.Register<FileView, RoutedEventArgs>(
+                nameof(ConvertStart),
+                RoutingStrategies.Direct
+            );
+
         public ProjectReady()
         {
             InitializeComponent();
@@ -54,7 +72,7 @@ namespace USFMConverter.UI.Pages.PartialView
             {
                 // propagate event to parent
                 ((ViewData)DataContext).OutputFileLocation = result;
-                RaiseEvent(new RoutedEventArgs(ProjectDetailScreen.StartConvertEvent));
+                RaiseEvent(new RoutedEventArgs(StartConvertEvent));
             }
         }
     }

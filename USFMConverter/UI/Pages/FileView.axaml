@@ -27,6 +27,7 @@
         <StackPanel>
             <Grid ColumnDefinitions="3* 7*">
                 <swappable:ProjectReady Name="ProjectReady" Grid.Column="0"
+                                        ConvertStart="OnConvertStart"
                                         MinWidth="100" IsVisible="False" />
                 <swappable:ProjectNotReady Name="ProjectNotReady" Grid.Column="0"
                                            MinWidth="100" IsVisible="True" />

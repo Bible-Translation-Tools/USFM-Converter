@@ -53,18 +53,6 @@ namespace USFMConverter.UI.Pages
             }
         }
 
-        public event EventHandler<RoutedEventArgs> ConvertStart
-        {
-            add
-            {
-                AddHandler(StartConvertEvent, value);
-            }
-            remove
-            {
-                RemoveHandler(StartConvertEvent, value);
-            }
-        }
-
         public static readonly RoutedEvent<RoutedEventArgs> ShowBackgroundOverlayEvent =
             RoutedEvent.Register<FileView, RoutedEventArgs>(
                 nameof(ShowBackgroundOverlay),
@@ -80,12 +68,6 @@ namespace USFMConverter.UI.Pages
         public static readonly RoutedEvent<RoutedEventArgs> StartNewProjectEvent =
             RoutedEvent.Register<FileView, RoutedEventArgs>(
                 nameof(StartNewProject),
-                RoutingStrategies.Bubble
-            );
-
-        public static readonly RoutedEvent<RoutedEventArgs> StartConvertEvent =
-            RoutedEvent.Register<FileView, RoutedEventArgs>(
-                nameof(ConvertStart),
                 RoutingStrategies.Bubble
             );
 
