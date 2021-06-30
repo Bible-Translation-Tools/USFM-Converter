@@ -9,7 +9,7 @@ using USFMToolsSharp.Renderers.HTML;
 
 namespace USFMConverter.Core.Render
 {
-    public class RenderHTML : RenderDocument
+    public class HTMLRenderer : Renderable
     {
         private List<string> TextDirectionClasses = new() { "", "rtl-direct" };
 
@@ -45,12 +45,14 @@ namespace USFMConverter.Core.Render
         {
             HTMLConfig config = new HTMLConfig();
             var styleClasses = new List<string>();
-
-            styleClasses.Add(GetLineSpacingStyle(format.LineSpacing));
-            styleClasses.Add(GetColumnStyle(format.ColumnCount));
-            styleClasses.Add(GetDirectionStyle(format.LeftToRight));
-            styleClasses.Add(GetTextAlignStyle(format.TextAlign));
-            styleClasses.Add(GetFontSizeStyle(format.TextSize));
+            styleClasses.Add(LineSpacingClasses[format.LineSpacing]);
+            styleClasses.Add(ColumnClasses[format.ColumnCount]);
+            styleClasses.Add(TextAlignmentClasses[format.TextAlign]);
+            styleClasses.Add(FontSizeClasses[format.TextSize]);
+            
+            if (!format.LeftToRight) {
+                styleClasses.Add(TextDirectionClasses[1]);
+            }
 
             var classesToAdd = styleClasses
                 .Where(s => !string.IsNullOrEmpty(s)); // filter valid class only
@@ -119,36 +121,6 @@ namespace USFMConverter.Core.Render
             </table>
             </div> ";
             return footerHTML;
-        }
-
-        private string GetLineSpacingStyle(LineSpacing spacing)
-        {
-            return LineSpacingClasses[spacing];
-        }
-
-        private string GetColumnStyle(int columnCount)
-        {
-            return ColumnClasses[columnCount];
-        }
-
-        private string GetDirectionStyle(bool leftToRight)
-        {
-            if (!leftToRight)
-            {
-                return TextDirectionClasses[1];
-            }
-
-            return TextDirectionClasses[0];
-        }
-
-        private string GetTextAlignStyle(TextAlignment alignment)
-        {
-            return TextAlignmentClasses[alignment];
-        }
-
-        private string GetFontSizeStyle(TextSize size)
-        {
-            return FontSizeClasses[size];
         }
     }
 }

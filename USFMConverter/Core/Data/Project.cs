@@ -8,6 +8,7 @@ namespace USFMConverter.Core.Data
         public Project()
         {
             Files = new List<string>();
+            FormatOptions = new RenderFormat();
         }
 
         public string Name { get; set; } = "";

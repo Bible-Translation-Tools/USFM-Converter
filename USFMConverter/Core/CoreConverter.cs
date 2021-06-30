@@ -8,6 +8,8 @@ using USFMConverter.Core.Data;
 using USFMConverter.Core.Render;
 using USFMConverter.Core.Util;
 using USFMConverter.UI;
+using USFMToolsSharp;
+using USFMToolsSharp.Models.Markers;
 
 namespace USFMConverter.Core
 {
@@ -18,11 +20,6 @@ namespace USFMConverter.Core
             ".usfm", ".txt", ".sfm" 
         };
 
-        public CoreConverter()
-        {
-
-        }
-
         public async Task ConvertAsync(ViewData viewData, Action<double> progressCallback)
         {
             FileSystem.CheckWritePermission(viewData.OutputFileLocation);
@@ -31,9 +28,20 @@ namespace USFMConverter.Core
             var fileFormat = Enum.Parse<FileFormat>(fileFormatName);
             
             Project project = BuildProject(viewData);
-            RenderDocument renderer = RenderDocument.GetInstance(fileFormat);
+            Renderable renderer;
+            switch (fileFormat)
+            {
+                case FileFormat.DOCX:
+                    renderer = new DocxRenderer();
+                    break;
+                case FileFormat.HTML:
+                    renderer = new HTMLRenderer();
+                    break;
+                default:
+                    throw new ArgumentException("Output file format is not supported");
+            }
 
-            var usfmDocument = await renderer.LoadUSFMsAsync(project.Files, progressCallback);
+            var usfmDocument = await LoadUSFMsAsync(project.Files, progressCallback);
             renderer.Render(project, usfmDocument);
 
             progressCallback(100); // fills the progress bar
@@ -42,50 +50,68 @@ namespace USFMConverter.Core
 
         private Project BuildProject(ViewData viewData)
         {
-            var projectBuilder = new ProjectBuilder();
-
+            var project = new Project();
             var files = viewData.Files;
 
             var textSizeName = viewData.TextSize.Tag?.ToString();
-            var lineSpacing = viewData.LineSpacing.Tag?.ToString();
+            var textSize = (string.IsNullOrEmpty(textSizeName)) 
+                ? TextSize.MEDIUM
+                : Enum.Parse<TextSize>(textSizeName);
+
+            var lineSpacingName = viewData.LineSpacing.Tag?.ToString();
+            var lineSpacing = (string.IsNullOrEmpty(lineSpacingName))
+                ? LineSpacing.SINGLE
+                : Enum.Parse<LineSpacing>(lineSpacingName);
 
             var textAlignment = (viewData.Justified)
                 ? TextAlignment.JUSTIFIED
                 : TextAlignment.LEFT;
 
-            projectBuilder.AddFiles(files);
-            projectBuilder.SetTextSize(GetTextSize(textSizeName));
-            projectBuilder.SetLineSpacing(GetLineSpacing(lineSpacing));
-            projectBuilder.SetTextAlignment(textAlignment);
-            projectBuilder.SetTextDirection(viewData.LeftToRight);
-            projectBuilder.SetColumns(viewData.ColumnCount);
-            projectBuilder.SetChapterBreak(viewData.ChapterBreak);
-            projectBuilder.SetVerseBreak(viewData.VerseBreak);
-            projectBuilder.EnableNoteTaking(viewData.NoteTaking);
-            projectBuilder.EnableTableOfContents(viewData.TableOfContents);
-            projectBuilder.SetOutputLocation(viewData.OutputFileLocation);
+            project.Files.AddRange(files);
+            project.FormatOptions.TextSize = textSize;
+            project.FormatOptions.LineSpacing = lineSpacing;
+            project.FormatOptions.TextAlign  = textAlignment;
+            project.FormatOptions.LeftToRight = viewData.LeftToRight;
+            project.FormatOptions.ColumnCount = viewData.ColumnCount;
+            project.FormatOptions.ChapterBreak = viewData.ChapterBreak;
+            project.FormatOptions.VerseBreak = viewData.VerseBreak;
+            project.FormatOptions.NoteTaking = viewData.NoteTaking;
+            project.FormatOptions.TableOfContents = viewData.TableOfContents;
+            project.OutputFile = new FileInfo(viewData.OutputFileLocation);
 
-            return projectBuilder.Build();
+            return project;
         }
 
-        private TextSize GetTextSize(string? sizeName)
+        /// <summary>
+        /// Parses the given text files into one USFM Document asynchronously.
+        /// </summary>
+        /// <param name="files">Text files with USFM format.</param>
+        /// <param name="progressCallback">Call back for progress bar update.</param>
+        /// <returns>A USFM Document</returns>
+        private async Task<USFMDocument> LoadUSFMsAsync(
+            IEnumerable<string> files,
+            Action<double> progressCallback
+        )
         {
-            if (string.IsNullOrEmpty(sizeName))
+            var usfmDoc = new USFMDocument();
+            List<string> fileList = files.ToList();
+
+            var parser = new USFMParser(new List<string> { "s5" });
+            int totalFiles = fileList.Count;
+
+            for (int i = 0; i < totalFiles; i++)
             {
-                return TextSize.MEDIUM;
+                await Task.Run(() => {
+                    var text = File.ReadAllText(fileList[i]);
+                    usfmDoc.Insert(parser.ParseFromString(text));
+                });
+
+                // update progress bar
+                var percent = (double)i / totalFiles * 100;
+                progressCallback(percent);
             }
 
-            return Enum.Parse<TextSize>(sizeName);
-        }
-
-        private LineSpacing GetLineSpacing(string? spacingName)
-        {
-            if (string.IsNullOrEmpty(spacingName))
-            {
-                return LineSpacing.SINGLE;
-            }
-
-            return Enum.Parse<LineSpacing>(spacingName);
+            return usfmDoc;
         }
     }
 }
