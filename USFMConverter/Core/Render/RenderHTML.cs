@@ -41,11 +41,6 @@ namespace USFMConverter.Core.Render
             [TextSize.LARGE] = "large-text"
         };
 
-        public RenderHTML()
-        {
-
-        }
-
         private HTMLConfig BuildHTMLConfig(RenderFormat format)
         {
             HTMLConfig config = new HTMLConfig();

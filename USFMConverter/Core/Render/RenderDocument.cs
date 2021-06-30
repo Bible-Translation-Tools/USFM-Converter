@@ -12,24 +12,20 @@ namespace USFMConverter.Core.Render
 {
     public abstract class RenderDocument
     {
-        public RenderDocument()
-        {
-            
-        }
 
         /// <summary>
         /// Parses the given text files into one USFM Document.
         /// </summary>
         /// <param name="files">Text files with USFM format.</param>
         /// <returns>A USFM Document</returns>
-        public USFMDocument LoadUSFMs(IEnumerable<FileInfo> files)
+        public USFMDocument LoadUSFMs(IEnumerable<string> files)
         {
             var usfmDoc = new USFMDocument();
             var parser = new USFMParser(new List<string> { "s5" });
 
             foreach(var file in files)
             {
-                var text = File.ReadAllText(file.FullName);
+                var text = File.ReadAllText(file);
                 usfmDoc.Insert(parser.ParseFromString(text));
             }
 
@@ -43,12 +39,12 @@ namespace USFMConverter.Core.Render
         /// <param name="progressCallback">Call back for progress bar update.</param>
         /// <returns>A USFM Document</returns>
         public async Task<USFMDocument> LoadUSFMsAsync(
-            IEnumerable<FileInfo> files, 
+            IEnumerable<string> files, 
             Action<double> progressCallback
         )
         {
             var usfmDoc = new USFMDocument();
-            List<FileInfo> fileList = files.ToList();
+            List<string> fileList = files.ToList();
 
             var parser = new USFMParser(new List<string> { "s5" });
             int totalFiles = fileList.Count;
@@ -56,7 +52,7 @@ namespace USFMConverter.Core.Render
             for (int i = 0; i < totalFiles; i++)
             {
                 await Task.Run(() => {
-                    var text = File.ReadAllText(fileList[i].FullName);
+                    var text = File.ReadAllText(fileList[i]);
                     usfmDoc.Insert(parser.ParseFromString(text));
                 });
                 

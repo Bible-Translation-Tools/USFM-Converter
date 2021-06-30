@@ -11,14 +11,6 @@ namespace USFMConverter.Core.Util
 {
     public static class FileSystem
     {
-        public static ICollection<FileInfo> GetFilesInDir(FileInfo dir)
-        {
-            var dirInfo = new DirectoryInfo(dir.FullName);
-            var allFiles = dirInfo.GetFiles("*", SearchOption.AllDirectories);
-
-            return allFiles;
-        }
-
         public static ICollection<FileInfo> GetFilesInDir(FileInfo dir, IEnumerable<string> extensions)
         {
             List<FileInfo> files = new();
@@ -37,9 +29,10 @@ namespace USFMConverter.Core.Util
 
         /// <exception cref="UnauthorizedAccessException"/>
         /// <exception cref="DirectoryNotFoundException"/>
-        public static void CheckWritePermission(string path)
+        public static bool CheckWritePermission(string path)
         {
             File.OpenWrite(path).Close();
+            return true;
         }
 
         public static void OpenFileLocation(string path)

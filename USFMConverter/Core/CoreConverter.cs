@@ -44,7 +44,7 @@ namespace USFMConverter.Core
         {
             var projectBuilder = new ProjectBuilder();
 
-            var files = viewData.Files.Select(f => new FileInfo(f));
+            var files = viewData.Files;
 
             var textSizeName = viewData.TextSize.Tag?.ToString();
             var lineSpacing = viewData.LineSpacing.Tag?.ToString();
@@ -53,7 +53,7 @@ namespace USFMConverter.Core
                 ? TextAlignment.JUSTIFIED
                 : TextAlignment.LEFT;
 
-            projectBuilder.AddFiles(files.ToList());
+            projectBuilder.AddFiles(files);
             projectBuilder.SetTextSize(GetTextSize(textSizeName));
             projectBuilder.SetLineSpacing(GetLineSpacing(lineSpacing));
             projectBuilder.SetTextAlignment(textAlignment);

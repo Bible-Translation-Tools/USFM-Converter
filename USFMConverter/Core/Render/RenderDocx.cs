@@ -26,11 +26,6 @@ namespace USFMConverter.Core.Render
             [LineSpacing.TRIPLE] = 3.0,
         };
 
-        public RenderDocx()
-        {
-
-        }
-
         private DocxConfig BuildDocxConfig(RenderFormat format)
         {
             DocxConfig config = new DocxConfig();

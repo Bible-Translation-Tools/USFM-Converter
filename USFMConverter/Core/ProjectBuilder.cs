@@ -23,12 +23,12 @@ namespace USFMConverter.Core
             return project;
         }
 
-        public void AddFile(FileInfo file)
+        public void AddFile(string file)
         {
             project.Files.Add(file);
         }
 
-        public void AddFiles(ICollection<FileInfo> files)
+        public void AddFiles(IEnumerable<string> files)
         {
             project.Files.AddRange(files);
         }
