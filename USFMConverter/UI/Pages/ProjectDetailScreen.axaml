@@ -51,7 +51,7 @@
                 <StackPanel Margin="0 0 10 0" 
                             HorizontalAlignment="Right" VerticalAlignment="Center">
                     <Border BorderThickness="1" BorderBrush="White" CornerRadius="5">
-                        <Button Name="OptionBtn" Classes="Settings">
+                        <Button Click="OnOpenOptionClick" Classes="Settings">
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="20" Height="20" Source="/UI/Assets/settings_inverted.png" />
                                 <TextBlock Margin="5" Foreground="White" 

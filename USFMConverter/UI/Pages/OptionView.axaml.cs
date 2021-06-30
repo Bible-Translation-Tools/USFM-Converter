@@ -6,7 +6,6 @@ namespace USFMConverter.UI.Pages
 {
     public class OptionView : UserControl
     {
-        private Button closeBtn;
         private Border blurredArea;
         private UserControl optionView;
         private ComboBox outputFormatCb;
@@ -19,9 +18,6 @@ namespace USFMConverter.UI.Pages
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
-
-            closeBtn = this.FindControl<Button>("CloseBtn");
-            closeBtn.AddHandler(Button.ClickEvent, OnCloseClick);
 
             blurredArea = this.FindControl<Border>("BlurredArea");
             blurredArea.AddHandler(PointerPressedEvent, OnCloseClick);

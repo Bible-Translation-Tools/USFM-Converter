@@ -69,7 +69,8 @@
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                             <Border BorderThickness="1" 
                                     BorderBrush="LightGray" CornerRadius="5">
-                                <Button Name="CloseBtn" Classes="Cancel" Padding="10 5">
+                                <Button Classes="Cancel" Padding="10 5"
+                                        Click="OnCloseClick">
                                     <Image Width="16" Height="16" Source="/UI/Assets/close.png" />
                                 </Button>
                             </Border>

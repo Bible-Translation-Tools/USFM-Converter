@@ -12,7 +12,6 @@ namespace USFMConverter.UI.Pages
         private OptionView optionView;
         private FileView fileView;
         private ProgressBar progressBar;
-        private Button openOptionBtn;
         private StackPanel backgroundOverlay;
         private UserControl progressDialog;
         private Success successDialog;
@@ -103,9 +102,6 @@ namespace USFMConverter.UI.Pages
             fileView = this.FindControl<FileView>("FileView");
 
             backgroundOverlay = this.FindControl<StackPanel>("OverlayBackground");
-
-            openOptionBtn = this.FindControl<Button>("OptionBtn");
-            openOptionBtn.AddHandler(Button.ClickEvent, OnOpenOptionClick);
 
             successDialog = this.FindControl<Success>("SuccessDialog");
             successDialog.AddHandler(StartNewProjectEvent, OnStartNewProject);
