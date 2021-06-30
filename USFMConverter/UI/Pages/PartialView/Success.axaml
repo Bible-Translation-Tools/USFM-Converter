@@ -40,7 +40,8 @@
 
         <Grid Grid.Column="1" RowDefinitions="1* 6* 3*" 
               Margin="0,20,20,0">
-            <Button Name="CloseBtn" Grid.Row="0" Classes="Close">
+            <Button Grid.Row="0" Classes="Close"
+                    Click="OnCloseDialogClick">
                 <Image Source="/UI/Assets/close.png" Width="{Binding $parent.Width}" 
                        Height="{Binding $parent.Height}" />
             </Button>
@@ -50,11 +51,13 @@
             </TextBlock>
 
             <Grid Grid.Row="2" ColumnDefinitions="* *" Margin="0,0,0,50">
-                <Button Name="ShowFileBtn" Grid.Column="0" Classes="Action" 
-                        Background="#335cff" Foreground="White">
+                <Button Grid.Column="0" Classes="Action" 
+                        Background="#335cff" Foreground="White"
+                        Click="OnShowFileClick">
                     Open File Path
                 </Button>
-                <Button Name="NewProjectBtn" Grid.Column="1" Classes="Action">
+                <Button Grid.Column="1" Classes="Action"
+                        Click="OnNewProjectClick">
                     New Project
                 </Button>
             </Grid>

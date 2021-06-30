@@ -8,8 +8,6 @@ namespace USFMConverter.UI.Pages.PartialView
 {
     public partial class Error : UserControl
     {
-        private Button newProjectBtn;
-        private Button closeBtn;
 
         public Error()
         {
@@ -19,12 +17,6 @@ namespace USFMConverter.UI.Pages.PartialView
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
-
-            newProjectBtn = this.FindControl<Button>("NewProjectBtn");
-            newProjectBtn.AddHandler(Button.ClickEvent, OnNewProjectClick);
-            
-            closeBtn = this.FindControl<Button>("CloseBtn");
-            closeBtn.AddHandler(Button.ClickEvent, OnCloseDialogClick);
         }
 
         private void OnNewProjectClick(object? sender, RoutedEventArgs e)

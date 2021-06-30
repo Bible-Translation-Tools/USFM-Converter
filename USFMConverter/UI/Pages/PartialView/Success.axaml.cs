@@ -8,9 +8,6 @@ namespace USFMConverter.UI.Pages.PartialView
 {
     public partial class Success : UserControl
     {
-        private Button showFileBtn;
-        private Button newProjectBtn;
-        private Button closeBtn;
 
         public Success()
         {
@@ -20,15 +17,6 @@ namespace USFMConverter.UI.Pages.PartialView
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
-
-            showFileBtn = this.FindControl<Button>("ShowFileBtn");
-            showFileBtn.AddHandler(Button.ClickEvent, OnShowFileClick);
-
-            newProjectBtn = this.FindControl<Button>("NewProjectBtn");
-            newProjectBtn.AddHandler(Button.ClickEvent, OnNewProjectClick);
-
-            closeBtn = this.FindControl<Button>("CloseBtn");
-            closeBtn.AddHandler(Button.ClickEvent, OnCloseDialogClick);
         }
 
         private void OnShowFileClick(object? sender, RoutedEventArgs e)

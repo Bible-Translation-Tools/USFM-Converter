@@ -40,7 +40,9 @@
         <Image Grid.Column="0" Classes="Close" Source="/UI/Assets/error.png"/>
 
         <Grid Grid.Column="1" RowDefinitions="1* 3* 3* 2*">
-            <Button Name="CloseBtn" Grid.Row="0" Classes="Close" Margin="0,20,20,0">
+            <Button Grid.Row="0" 
+                    Classes="Close" Margin="0,20,20,0"
+                    Click="OnCloseDialogClick">
                 <Image Source="/UI/Assets/close.png" Width="{Binding $parent.Width}" Height="{Binding $parent.Height}" />
             </Button>
 
@@ -52,8 +54,9 @@
                 
             </TextBlock>
             
-            <Button Grid.Row="3" Name="NewProjectBtn" Margin="0,20,0,20"
-                    Grid.Column="0" Classes="Action">
+            <Button Grid.Row="3" Margin="0,20,0,20"
+                    Grid.Column="0" Classes="Action"
+                    Click="OnNewProjectClick">
                 New Project
             </Button>
         </Grid>

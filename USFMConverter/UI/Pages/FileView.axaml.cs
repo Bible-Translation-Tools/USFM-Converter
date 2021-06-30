@@ -21,9 +21,6 @@ namespace USFMConverter.UI.Pages
         private Border dragDropArea;
         private ListBox filesContainer;
         private TextBlock selectedCount;
-        private Button browseBtn;
-        private Button convertBtn;
-        private Button removeFileBtn;
 
         public FileView()
         {
@@ -37,13 +34,7 @@ namespace USFMConverter.UI.Pages
             SetLinuxText();
 
             projectReadySection = this.FindControl<ProjectReady>("ProjectReady");
-            projectNotReadySection = this.FindControl<ProjectNotReady>("ProjectNotReady");
-
-            browseBtn = this.FindControl<Button>("BrowseBtn");
-            browseBtn.AddHandler(Button.ClickEvent, OnBrowseClick);
-            
-            removeFileBtn = this.FindControl<Button>("RemoveFileBtn");
-            removeFileBtn.AddHandler(Button.ClickEvent, OnRemoveClick);
+            projectNotReadySection = this.FindControl<ProjectNotReady>("ProjectNotReady");         
 
             filesContainer = this.FindControl<ListBox>("FilesListBox");
             filesContainer.AddHandler(ListBox.SelectionChangedEvent, OnFileSelect);

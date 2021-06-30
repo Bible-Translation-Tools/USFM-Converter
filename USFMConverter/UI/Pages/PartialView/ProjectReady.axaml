@@ -17,7 +17,7 @@
         <Button HorizontalAlignment="Center" BorderBrush="Black" 
                 BorderThickness="0.5" Margin="15"
                 Padding="15" Background="#335cff" Foreground="White"
-                Name="ConvertBtn">
+                Click="OnConvertClick">
             Convert Now
         </Button>
     </StackPanel>

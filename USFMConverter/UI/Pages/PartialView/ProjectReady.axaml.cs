@@ -9,7 +9,6 @@ namespace USFMConverter.UI.Pages.PartialView
 {
     public class ProjectReady : UserControl
     {
-        private Button convertBtn;
         private Dictionary<FileFormat, FileDialogFilter> fileFilter = new()
         {
             [FileFormat.DOCX] = new FileDialogFilter
@@ -32,9 +31,6 @@ namespace USFMConverter.UI.Pages.PartialView
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
-
-            convertBtn = this.FindControl<Button>("ConvertBtn");
-            convertBtn.AddHandler(Button.ClickEvent, OnConvertClick);
         }
 
         private async void OnConvertClick(object? sender, RoutedEventArgs e)
