@@ -1,0 +1,80 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:view="clr-namespace:USFMConverter.UI.Pages"
+             xmlns:swappable="clr-namespace:USFMConverter.UI.Pages.PartialView"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="USFMConverter.UI.Pages.ProjectDetailScreen"
+             Name="ProjectDetailScreen"
+             ShowBackgroundOverlay="ShowOverlay"
+             HideBackgroundOverlay="HideOverlay">
+
+    <UserControl.Styles>
+        <Style Selector="DockPanel.TopPanel">
+            <Setter Property="Background" Value="#003389" />
+        </Style>
+        <Style Selector="DockPanel.TopPanel > TextBlock">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="40" />
+            <Setter Property="Margin" Value="20,10,0,10" />
+        </Style>
+        <Style Selector="DockPanel.MiddlePanel">
+            <Setter Property="Background" Value="#edf1fa" />
+            <Setter Property="Margin" Value="20,10,0,10" />
+        </Style>
+        <Style Selector="DockPanel.MiddlePanel > TextBlock">
+            <Setter Property="Foreground" Value="Black" />
+        </Style>
+
+        <Style Selector="Button.Settings">
+            <Setter Property="Background" Value="#003389" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style Selector="Button.Convert">
+            <Setter Property="Width" Value="150" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+    </UserControl.Styles>
+
+    <Panel>
+        <Grid RowDefinitions="Auto *" Background="White">
+            <DockPanel Classes="TopPanel">
+                <TextBlock HorizontalAlignment="Left">USFM Converter</TextBlock>
+                
+                <StackPanel Margin="0 0 10 0" 
+                            HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Border BorderThickness="1" BorderBrush="White" CornerRadius="5">
+                        <Button Click="OnOpenOptionClick" Classes="Settings">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="20" Height="20" Source="/UI/Assets/settings_inverted.png" />
+                                <TextBlock Margin="5" Foreground="White" 
+                                           FontSize="14" HorizontalAlignment="Center"
+                                           VerticalAlignment="Center">
+                                    Settings
+                                </TextBlock>
+                            </StackPanel>
+                        </Button>
+                    </Border>
+                </StackPanel>
+            </DockPanel>
+            
+            <view:FileView Grid.Row="1" Name="FileView" ZIndex="1" ConvertStart="OnConvertStart"/>
+        </Grid>
+        
+        <view:OptionView Name="OptionView" ZIndex="2" IsVisible="False" />
+
+        <!-- Blurred background -->
+        <StackPanel Name="OverlayBackground" Background="#000000" 
+                    Opacity="0.6" ZIndex="2" IsVisible="False"/>
+
+        <swappable:Progress Name="ProgressDialog" ZIndex="3" IsVisible="False"/>
+        <swappable:Success Name="SuccessDialog" ZIndex="3" IsVisible="False"/>
+        <swappable:Error Name="ErrorDialog" ZIndex="3" IsVisible="False"/>
+    </Panel>
+</UserControl>

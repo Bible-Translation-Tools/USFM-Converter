@@ -9,7 +9,7 @@ using USFMToolsSharp.Renderers.HTML;
 
 namespace USFMConverter.Core.Render
 {
-    public class RenderHTML : RenderDocument
+    public class HTMLRenderer : Renderable
     {
         private List<string> TextDirectionClasses = new() { "", "rtl-direct" };
 
@@ -22,12 +22,14 @@ namespace USFMConverter.Core.Render
             [LineSpacing.TRIPLE] = "triple-space"
         };
 
-        private Dictionary<int, string> ColumnClasses = new() {
+        private Dictionary<int, string> ColumnClasses = new() 
+        {
             [1] = "", 
             [2] = "two-column" 
         };
 
-        private Dictionary<TextAlignment, string> TextAlignmentClasses = new() { 
+        private Dictionary<TextAlignment, string> TextAlignmentClasses = new()
+        {
             [TextAlignment.LEFT] = "",
             [TextAlignment.RIGHT] = "right-align",
             [TextAlignment.CENTER] = "center-align",
@@ -41,21 +43,20 @@ namespace USFMConverter.Core.Render
             [TextSize.LARGE] = "large-text"
         };
 
-        public RenderHTML()
-        {
-
-        }
-
         private HTMLConfig BuildHTMLConfig(RenderFormat format)
         {
             HTMLConfig config = new HTMLConfig();
-            var styleClasses = new List<string>();
+            var styleClasses = new List<string> {
+                LineSpacingClasses[format.LineSpacing],
+                ColumnClasses[format.ColumnCount],
+                TextAlignmentClasses[format.TextAlign],
+                FontSizeClasses[format.TextSize],
+            };
 
-            styleClasses.Add(GetLineSpacingStyle(format.LineSpacing));
-            styleClasses.Add(GetColumnStyle(format.ColumnCount));
-            styleClasses.Add(GetDirectionStyle(format.LeftToRight));
-            styleClasses.Add(GetTextAlignStyle(format.TextAlign));
-            styleClasses.Add(GetFontSizeStyle(format.TextSize));
+            if (!format.LeftToRight)
+            {
+                styleClasses.Add(TextDirectionClasses[1]);
+            }
 
             var classesToAdd = styleClasses
                 .Where(s => !string.IsNullOrEmpty(s)); // filter valid class only
@@ -69,7 +70,7 @@ namespace USFMConverter.Core.Render
             return config;
         }
 
-        public override void Render(Project project, USFMDocument usfmDoc)
+        public void Render(Project project, USFMDocument usfmDoc)
         {
             var config = BuildHTMLConfig(project.FormatOptions);
             var renderer = new HtmlRenderer(config);
@@ -124,36 +125,6 @@ namespace USFMConverter.Core.Render
             </table>
             </div> ";
             return footerHTML;
-        }
-
-        private string GetLineSpacingStyle(LineSpacing spacing)
-        {
-            return LineSpacingClasses[spacing];
-        }
-
-        private string GetColumnStyle(int columnCount)
-        {
-            return ColumnClasses[columnCount];
-        }
-
-        private string GetDirectionStyle(bool leftToRight)
-        {
-            if (!leftToRight)
-            {
-                return TextDirectionClasses[1];
-            }
-
-            return TextDirectionClasses[0];
-        }
-
-        private string GetTextAlignStyle(TextAlignment alignment)
-        {
-            return TextAlignmentClasses[alignment];
-        }
-
-        private string GetFontSizeStyle(TextSize size)
-        {
-            return FontSizeClasses[size];
         }
     }
 }

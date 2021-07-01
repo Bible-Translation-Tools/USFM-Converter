@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using USFMConverter.Core.ConstantValue;
 using USFMConverter.Core.Data;
@@ -8,7 +7,7 @@ using USFMToolsSharp.Renderers.Docx;
 
 namespace USFMConverter.Core.Render
 {
-    public class RenderDocx : RenderDocument
+    public class DocxRenderer : Renderable
     {
         private Dictionary<TextSize, int> FontSizeMap = new()
         {
@@ -26,21 +25,18 @@ namespace USFMConverter.Core.Render
             [LineSpacing.TRIPLE] = 3.0,
         };
 
-        public RenderDocx()
-        {
-
-        }
-
         private DocxConfig BuildDocxConfig(RenderFormat format)
         {
-            DocxConfig config = new DocxConfig();
-            config.fontSize = GetFontSize(format.TextSize);
-            config.lineSpacing = GetLineSpacing(format.LineSpacing);
-            config.columnCount = format.ColumnCount;
-            config.rightToLeft = !format.LeftToRight;
-            config.separateVerses = format.VerseBreak;
-            config.separateChapters = format.ChapterBreak;
-            config.renderTableOfContents = format.TableOfContents;
+            DocxConfig config = new DocxConfig
+            {
+                fontSize = GetFontSize(format.TextSize),
+                lineSpacing = GetLineSpacing(format.LineSpacing),
+                columnCount = format.ColumnCount,
+                rightToLeft = !format.LeftToRight,
+                separateVerses = format.VerseBreak,
+                separateChapters = format.ChapterBreak,
+                renderTableOfContents = format.TableOfContents
+            };
             
             if (format.TextAlign == TextAlignment.JUSTIFIED) {
                 config.textAlign = NPOI.XWPF.UserModel.ParagraphAlignment.BOTH;
@@ -56,14 +52,13 @@ namespace USFMConverter.Core.Render
             return config;
         }
 
-        public override void Render(Project project, USFMDocument usfm)
+        public void Render(Project project, USFMDocument usfm)
         {
             var config = BuildDocxConfig(project.FormatOptions);
-            var renderer = new DocxRenderer(config);
+            var renderer = new USFMToolsSharp.Renderers.Docx.DocxRenderer(config);
 
             var document = renderer.Render(usfm);
 
-            // check write permission to output location
             using (Stream outputStream = File.Create(project.OutputFile.FullName))
             {
                 document.Write(outputStream);

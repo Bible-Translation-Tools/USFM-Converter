@@ -1,0 +1,106 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:swappable="clr-namespace:USFMConverter.UI.Pages.PartialView"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="USFMConverter.UI.Pages.OptionView"
+             Name="OptionView">
+
+    <UserControl.Styles>
+        <Style Selector="TextBlock.Title">
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+        <Style Selector="TextBlock.SubTitle">
+            <Setter Property="Padding" Value="0 20 0 0" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+        <Style Selector="Image.Icon">
+            <Setter Property="Width" Value="18" />
+            <Setter Property="Height" Value="18" />
+        </Style>
+        <Style Selector="Button.Cancel">
+            <Setter Property="Background" Value="White" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+        </Style>
+        <Style Selector="ComboBox">
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="BorderBrush" Value="LightGray" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Margin" Value="10 20" />
+            <Setter Property="Width" Value="150" />
+        </Style>
+        <Style Selector="NumericUpDown">
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Margin" Value="10 20" />
+            <Setter Property="Width" Value="150" />
+        </Style>
+
+        <Style Selector="ToggleSwitch">
+            <Setter Property="OnContent" Value="" />
+            <Setter Property="OffContent" Value="" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+        </Style>
+    </UserControl.Styles>
+
+    <Grid ColumnDefinitions="* 400">
+        <Border Name="BlurredArea" Grid.Column="0" Background="#000000" Opacity="0.6" />
+
+        <Border Grid.Column="1" Background="White">
+
+            <ScrollViewer Height="{Binding $parent.Height}" x:Name="ScrollViewer2"
+                          VerticalScrollBarVisibility="Visible"
+                          VerticalAlignment="Top" HorizontalAlignment="Stretch">
+
+                <StackPanel Background="White" Margin="20">
+                    <DockPanel>
+                        <TextBlock Classes="Title">
+                            Project Settings
+                        </TextBlock>
+                        
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Border BorderThickness="1" 
+                                    BorderBrush="LightGray" CornerRadius="5">
+                                <Button Classes="Cancel" Padding="10 5"
+                                        Click="OnCloseClick">
+                                    <Image Width="16" Height="16" Source="/UI/Assets/close.png" />
+                                </Button>
+                            </Border>
+                        </StackPanel>
+                    </DockPanel>
+
+                    <TextBlock Classes="SubTitle">
+                        Output
+                    </TextBlock>
+
+                    <StackPanel>
+                        <DockPanel Margin="15 0 0 0">
+                            <Image Classes="Icon" Source="/UI/Assets/page.png" />
+                            <TextBlock VerticalAlignment="Center" Margin="10 20">
+                                File Format
+                            </TextBlock>
+                            <ComboBox SelectedIndex="0"
+                                      SelectedItem="{Binding OutputFileFormat, Mode=OneWayToSource}"
+                                      Name="OutputFormatSelector">
+                                <ComboBoxItem Tag="DOCX">Docx</ComboBoxItem>
+                                <ComboBoxItem Tag="HTML">HTML</ComboBoxItem>
+                            </ComboBox>
+                        </DockPanel>
+                    </StackPanel>
+                    
+                    <swappable:DocxFormat Name="DOCX" IsVisible="True"/>
+                    <swappable:HtmlFormat Name="HTML" IsVisible="False"/>
+                    
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</UserControl>

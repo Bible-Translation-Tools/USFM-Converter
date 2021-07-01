@@ -8,20 +8,17 @@ using USFMConverter.Core.Data;
 using USFMConverter.Core.Render;
 using USFMConverter.Core.Util;
 using USFMConverter.UI;
+using USFMToolsSharp;
+using USFMToolsSharp.Models.Markers;
 
 namespace USFMConverter.Core
 {
     public class CoreConverter
     {
 
-        public static ICollection<string> supportedExtensions = new List<string> { 
-            ".usfm", ".txt", ".sfm" 
+        public static ICollection<string> supportedExtensions = new List<string> {
+            ".usfm", ".txt", ".sfm"
         };
-
-        public CoreConverter()
-        {
-
-        }
 
         public async Task ConvertAsync(ViewData viewData, Action<double> progressCallback)
         {
@@ -29,63 +26,61 @@ namespace USFMConverter.Core
 
             string fileFormatName = viewData.OutputFileFormat.Tag.ToString();
             var fileFormat = Enum.Parse<FileFormat>(fileFormatName);
-            
+
             Project project = BuildProject(viewData);
-            RenderDocument renderer = RenderDocument.GetInstance(fileFormat);
+            Renderable renderer;
+            switch (fileFormat)
+            {
+                case FileFormat.DOCX:
+                    renderer = new DocxRenderer();
+                    break;
+                case FileFormat.HTML:
+                    renderer = new HTMLRenderer();
+                    break;
+                default:
+                    throw new ArgumentException("Output file format is not supported");
+            }
 
-            var usfmDocument = await renderer.LoadUSFMsAsync(project.Files, progressCallback);
+            var usfmDocument = await FileSystem.LoadUSFMsAsync(project.Files, progressCallback);
             renderer.Render(project, usfmDocument);
-
-            progressCallback(100); // fills the progress bar
-            await Task.Delay(300); // visible completion before transition
         }
 
         private Project BuildProject(ViewData viewData)
         {
-            var projectBuilder = new ProjectBuilder();
-
-            var files = viewData.Files.Select(f => new FileInfo(f));
-
             var textSizeName = viewData.TextSize.Tag?.ToString();
-            var lineSpacing = viewData.LineSpacing.Tag?.ToString();
+            var textSize = (string.IsNullOrEmpty(textSizeName))
+                ? TextSize.MEDIUM
+                : Enum.Parse<TextSize>(textSizeName);
+
+            var lineSpacingName = viewData.LineSpacing.Tag?.ToString();
+            var lineSpacing = (string.IsNullOrEmpty(lineSpacingName))
+                ? LineSpacing.SINGLE
+                : Enum.Parse<LineSpacing>(lineSpacingName);
 
             var textAlignment = (viewData.Justified)
                 ? TextAlignment.JUSTIFIED
                 : TextAlignment.LEFT;
 
-            projectBuilder.AddFiles(files.ToList());
-            projectBuilder.SetTextSize(GetTextSize(textSizeName));
-            projectBuilder.SetLineSpacing(GetLineSpacing(lineSpacing));
-            projectBuilder.SetTextAlignment(textAlignment);
-            projectBuilder.SetTextDirection(viewData.LeftToRight);
-            projectBuilder.SetColumns(viewData.ColumnCount);
-            projectBuilder.SetChapterBreak(viewData.ChapterBreak);
-            projectBuilder.SetVerseBreak(viewData.VerseBreak);
-            projectBuilder.EnableNoteTaking(viewData.NoteTaking);
-            projectBuilder.EnableTableOfContents(viewData.TableOfContents);
-            projectBuilder.SetOutputLocation(viewData.OutputFileLocation);
-
-            return projectBuilder.Build();
-        }
-
-        private TextSize GetTextSize(string? sizeName)
-        {
-            if (string.IsNullOrEmpty(sizeName))
+            var project = new Project
             {
-                return TextSize.MEDIUM;
-            }
+                FormatOptions = new RenderFormat
+                {
+                    TextSize = textSize,
+                    LineSpacing = lineSpacing,
+                    TextAlign = textAlignment,
+                    LeftToRight = viewData.LeftToRight,
+                    ColumnCount = viewData.ColumnCount,
+                    ChapterBreak = viewData.ChapterBreak,
+                    VerseBreak = viewData.VerseBreak,
+                    NoteTaking = viewData.NoteTaking,
+                    TableOfContents = viewData.TableOfContents,
+                },
+                OutputFile = new FileInfo(viewData.OutputFileLocation),
+            };
 
-            return Enum.Parse<TextSize>(sizeName);
-        }
+            project.Files.AddRange(viewData.Files);
 
-        private LineSpacing GetLineSpacing(string? spacingName)
-        {
-            if (string.IsNullOrEmpty(spacingName))
-            {
-                return LineSpacing.SINGLE;
-            }
-
-            return Enum.Parse<LineSpacing>(spacingName);
+            return project;
         }
     }
 }
