@@ -23,7 +23,7 @@ namespace USFMConverter.UI.Pages
         private ListBox filesContainer;
         private TextBlock selectedCount;
         private Button selectAllBtn;
-        private bool allSelected = false;
+        private bool selected = false;
 
         public event EventHandler<RoutedEventArgs> ConvertStart
         {
@@ -91,18 +91,19 @@ namespace USFMConverter.UI.Pages
 
         private void OnSelectAllClick(object? sender, RoutedEventArgs e)
         {
-            if (allSelected)
+            if (selected)
             {
                 // unselect
                 filesContainer.SelectedIndex = -1;
                 selectAllBtn.Content = "Select All";
+                selected = false;
             }
             else
             {
                 filesContainer.SelectAll();
-                selectAllBtn.Content = "Unselect";
+                selectAllBtn.Content = "Unselect All";
+                selected = true;
             }
-            allSelected = !allSelected;
         }
 
         private void OnRemoveClick(object? sender, RoutedEventArgs e)
@@ -118,11 +119,13 @@ namespace USFMConverter.UI.Pages
 
             UpdateProjectStatus();
             UpdateCounter();
+            UpdateSelectBtn();
         }
 
         private void OnFileSelect(object? sender, SelectionChangedEventArgs e)
         {
             UpdateCounter();
+            UpdateSelectBtn();
         }
 
         private void OnDragOver(object? sender, DragEventArgs e)
@@ -204,6 +207,21 @@ namespace USFMConverter.UI.Pages
         public void UpdateCounter()
         {
             selectedCount.Text = filesContainer.SelectedItems.Count.ToString();
+        }
+
+        public void UpdateSelectBtn()
+        {
+            if (filesContainer.SelectedItems.Count == 0)
+            {
+                // unselect
+                selectAllBtn.Content = "Select All";
+                selected = false;
+            }
+            else
+            {
+                selectAllBtn.Content = "Unselect All";
+                selected = true;
+            }
         }
     }
 }
