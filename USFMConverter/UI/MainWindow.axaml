@@ -1,0 +1,15 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+        xmlns:screen="using:USFMConverter.UI.Pages"
+        x:Class="USFMConverter.MainWindow"
+        Icon="/UI/Assets/converter_logo_inverted_icon.ico"
+        Title="USFM Converter"
+        Background="White"
+        Height="650" Width="1250">
+    <StackPanel Height="{Binding $parent.Height}">
+        <screen:ProjectDetailScreen Name="ProjectDetailScreen" Height="{Binding $parent.Height}" ZIndex="0"/>
+    </StackPanel>
+</Window>
