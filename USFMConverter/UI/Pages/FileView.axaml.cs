@@ -22,6 +22,8 @@ namespace USFMConverter.UI.Pages
         private Border dragDropArea;
         private ListBox filesContainer;
         private TextBlock selectedCount;
+        private Button selectAllBtn;
+        private bool allSelected = false;
 
         public event EventHandler<RoutedEventArgs> ConvertStart
         {
@@ -65,6 +67,7 @@ namespace USFMConverter.UI.Pages
             dragDropArea.AddHandler(DragDrop.DropEvent, OnDrop);
 
             selectedCount = this.FindControl<TextBlock>("SelectedCount");
+            selectAllBtn = this.FindControl<Button>("SelectAllBtn");
         }
 
         private async void OnBrowseClick(object? sender, RoutedEventArgs e)
@@ -84,6 +87,22 @@ namespace USFMConverter.UI.Pages
                 filesContainer.Items = newList; // changes to the UI will bind to DataContext
                 UpdateProjectStatus();
             }
+        }
+
+        private void OnSelectAllClick(object? sender, RoutedEventArgs e)
+        {
+            if (allSelected)
+            {
+                // unselect
+                filesContainer.SelectedIndex = -1;
+                selectAllBtn.Content = "Select All";
+            }
+            else
+            {
+                filesContainer.SelectAll();
+                selectAllBtn.Content = "Unselect";
+            }
+            allSelected = !allSelected;
         }
 
         private void OnRemoveClick(object? sender, RoutedEventArgs e)
