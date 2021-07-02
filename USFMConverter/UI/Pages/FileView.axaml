@@ -95,7 +95,7 @@
             </StackPanel>
             <Button Classes="RemoveButton" Margin="0 10 0 5"
                     HorizontalAlignment="Right" Click="OnRemoveClick"
-                    IsEnabled="{Binding #FilesListBox.Items.Count}">
+                    IsEnabled="{Binding #FilesListBox.SelectedItems.Count}">
                 - Remove Files
             </Button>
         </Grid>
