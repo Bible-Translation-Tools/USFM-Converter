@@ -66,6 +66,36 @@ namespace USFMConverter.Core.Util
             }
         }
 
+        public static void OpenFile(string path)
+        {
+            if (!File.Exists(path))
+            {
+                throw new FileNotFoundException(
+                    "Could not find the specified file at: " + path
+                    );
+            }
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                Process.Start(new ProcessStartInfo(path)
+                {
+                    UseShellExecute = true
+                });
+            }
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                Process.Start("open", path);
+            }
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                var processInfo = new ProcessStartInfo(path);
+                var process = new Process { StartInfo = processInfo };
+                process.Start();
+            }
+        }
+
         /// <summary>
         /// Parses the given text files into one USFM Document asynchronously.
         /// </summary>

@@ -19,6 +19,12 @@ namespace USFMConverter.UI.Pages.PartialView
             AvaloniaXamlLoader.Load(this);
         }
 
+        private void OnOpenFileClick(object? sender, RoutedEventArgs e)
+        {
+            string path = ((ViewData)DataContext).OutputFileLocation;
+            FileSystem.OpenFile(path);
+        }
+
         private void OnShowFileClick(object? sender, RoutedEventArgs e)
         {
             string path = ((ViewData)DataContext).OutputFileLocation;
