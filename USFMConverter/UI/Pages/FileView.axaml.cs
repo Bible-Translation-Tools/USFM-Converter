@@ -154,20 +154,25 @@ namespace USFMConverter.UI.Pages
             var selectedFile = filesContainer.SelectedItem;
             var list = filesContainer.Items.Cast<string>().ToList();
             list.RemoveAt(index);
-            list.Insert(index - 1, selectedFile.ToString());
+            list.Insert(--index, selectedFile.ToString());
             filesContainer.Items = list;
+            filesContainer.SelectedIndex = index;
         }
 
         private void OnMoveDown(object? sender, RoutedEventArgs e)
         {
             var index = filesContainer.SelectedIndex;
-            if (index >= (filesContainer.ItemCount - 1)) return;
+            if (index < 0 || index >= (filesContainer.ItemCount - 1))
+            {
+                return;
+            }
 
             var selectedFile = filesContainer.SelectedItem;
             var list = filesContainer.Items.Cast<string>().ToList();
             list.RemoveAt(index);
-            list.Insert(index + 1, selectedFile.ToString());
+            list.Insert(++index, selectedFile.ToString());
             filesContainer.Items = list;
+            filesContainer.SelectedIndex = index;
         }
 
         private void OnConvertStart(object? sender, RoutedEventArgs e)
