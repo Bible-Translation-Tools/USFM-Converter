@@ -4,6 +4,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Interactivity;
 using USFMConverter.Core;
 using USFMConverter.UI.Pages.PartialView;
+using USFMConverter.Core.Util;
 
 namespace USFMConverter.UI.Pages
 {
@@ -131,6 +132,40 @@ namespace USFMConverter.UI.Pages
             ((Window)this.VisualRoot).DataContext = new ViewData();
             fileView.UpdateProjectStatus();
             fileView.UpdateCounter();
+        }
+
+        private void OnOpenFile(object? sender, RoutedEventArgs e)
+        {
+            string path = ((ViewData)DataContext).OutputFileLocation;
+            try
+            {
+                FileSystem.OpenFile(path);
+            }
+            catch (Exception ex)
+            {
+                // show error dialog
+                successDialog.IsVisible = false;
+                errorDialog.IsVisible = true;
+                errorDialog.DataContext = string.Format("{0}\n({1})", ex.Message, ex.GetType());
+                return;
+            }
+        }
+
+        private void OnOpenFolder(object? sender, RoutedEventArgs e)
+        {
+            string path = ((ViewData)DataContext).OutputFileLocation;
+            try
+            {
+                FileSystem.OpenFileLocation(path);
+            }
+            catch (Exception ex)
+            {
+                // show error dialog
+                successDialog.IsVisible = false;
+                errorDialog.IsVisible = true;
+                errorDialog.DataContext = string.Format("{0}\n({1})", ex.Message, ex.GetType());
+                return;
+            }
         }
 
         /// <summary>

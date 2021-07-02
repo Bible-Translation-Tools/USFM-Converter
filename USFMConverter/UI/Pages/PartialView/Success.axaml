@@ -58,7 +58,7 @@
                                 Click="OnOpenFileClick">
                             Open File
                         </Button>
-                        <Button Classes="Action" Click="OnShowFileClick">
+                        <Button Classes="Action" Click="OnOpenFolderClick">
                             Show in Folder
                         </Button>
                     </StackPanel>
