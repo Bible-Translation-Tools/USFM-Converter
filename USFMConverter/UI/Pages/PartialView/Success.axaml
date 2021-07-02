@@ -2,7 +2,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="300"
              x:Class="USFMConverter.UI.Pages.PartialView.Success">
 
     <UserControl.Styles>
@@ -35,40 +34,42 @@
         </Style>
     </UserControl.Styles>
 
-    <Grid RowDefinitions="1* 8*" Width="600" Height="300"
-          Background="White">
-        <Button Grid.Row="0" Classes="Close" Click="OnCloseDialogClick">
-            <Image Source="/UI/Assets/close.png"/>
-        </Button>
-        <StackPanel Grid.Row="1">
-            <StackPanel HorizontalAlignment="Center">
-                <Image Width="50" Height="60"
-                   Classes="Close" Source="/UI/Assets/checked.png"/>
-                
-                <TextBlock Classes="MainText">
-                    Conversion Success!
-                </TextBlock>
-                
-                <StackPanel Orientation="Vertical" Spacing="15"
-                            HorizontalAlignment="Stretch">
-                    <StackPanel Orientation="Horizontal" Spacing="15"
-                                HorizontalAlignment="Center">
+    <Border CornerRadius="30" Background="White"
+            Width="600" Height="350" Padding="20">
+        <Grid RowDefinitions="1* 8*" Background="White">
+            <Button Grid.Row="0" Classes="Close" Click="OnCloseDialogClick">
+                <Image Source="/UI/Assets/close.png"/>
+            </Button>
+            <StackPanel Grid.Row="1">
+                <StackPanel HorizontalAlignment="Center">
+                    <Image Width="50" Height="60"
+                       Classes="Close" Source="/UI/Assets/checked.png"/>
+
+                    <TextBlock Classes="MainText">
+                        Conversion Success!
+                    </TextBlock>
+
+                    <StackPanel Orientation="Vertical" Spacing="15"
+                                HorizontalAlignment="Stretch">
+                        <StackPanel Orientation="Horizontal" Spacing="15"
+                                    HorizontalAlignment="Center">
+                            <Button Classes="Action" HorizontalAlignment="Center"
+                                    Background="#335cff" Foreground="White"
+                                    Click="OnOpenFileClick">
+                                Open File
+                            </Button>
+                            <Button Classes="Action" Click="OnOpenFolderClick">
+                                Show in Folder
+                            </Button>
+                        </StackPanel>
+
                         <Button Classes="Action" HorizontalAlignment="Center"
-                                Background="#335cff" Foreground="White"
-                                Click="OnOpenFileClick">
-                            Open File
-                        </Button>
-                        <Button Classes="Action" Click="OnOpenFolderClick">
-                            Show in Folder
+                                Click="OnNewProjectClick">
+                            New Project
                         </Button>
                     </StackPanel>
-                    
-                    <Button Classes="Action" HorizontalAlignment="Center"
-                            Click="OnNewProjectClick">
-                        New Project
-                    </Button>
                 </StackPanel>
             </StackPanel>
-        </StackPanel>
-    </Grid>
+        </Grid>
+    </Border>
 </UserControl>
