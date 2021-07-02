@@ -23,7 +23,7 @@
         </Style>
     </UserControl.Styles>
 
-    <Grid RowDefinitions="Auto Auto Auto Auto *" Margin="20">
+    <Grid RowDefinitions="Auto Auto Auto Auto Auto *" Margin="20">
         <StackPanel>
             <Grid ColumnDefinitions="3* 7*">
                 <swappable:ProjectReady Name="ProjectReady" Grid.Column="0"
@@ -93,8 +93,12 @@
                 - Remove Files
             </Button>
         </Grid>
+        <StackPanel Grid.Row="4" Orientation="Horizontal">
+            <Button Click="OnMoveUp">Up</Button>
+            <Button Click="OnMoveDown">Down</Button>
+        </StackPanel>
 
-        <ListBox Grid.Row="4" Padding="20" Name="FilesListBox"
+        <ListBox Grid.Row="5" Padding="20" Name="FilesListBox"
                  ScrollViewer.VerticalScrollBarVisibility="Visible"
                  SelectionMode="Multiple" DragDrop.AllowDrop="True"
                  Items="{Binding Files, Mode=TwoWay}" />

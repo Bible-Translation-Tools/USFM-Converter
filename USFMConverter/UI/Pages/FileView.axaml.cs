@@ -146,6 +146,30 @@ namespace USFMConverter.UI.Pages
             }
         }
 
+        private void OnMoveUp(object? sender, RoutedEventArgs e)
+        {
+            var index = filesContainer.SelectedIndex;
+            if (index <= 0) return;
+
+            var selectedFile = filesContainer.SelectedItem;
+            var list = filesContainer.Items.Cast<string>().ToList();
+            list.RemoveAt(index);
+            list.Insert(index - 1, selectedFile.ToString());
+            filesContainer.Items = list;
+        }
+
+        private void OnMoveDown(object? sender, RoutedEventArgs e)
+        {
+            var index = filesContainer.SelectedIndex;
+            if (index >= (filesContainer.ItemCount - 1)) return;
+
+            var selectedFile = filesContainer.SelectedItem;
+            var list = filesContainer.Items.Cast<string>().ToList();
+            list.RemoveAt(index);
+            list.Insert(index + 1, selectedFile.ToString());
+            filesContainer.Items = list;
+        }
+
         private void OnConvertStart(object? sender, RoutedEventArgs e)
         {
             RaiseEvent(new RoutedEventArgs(StartConvertEvent));
