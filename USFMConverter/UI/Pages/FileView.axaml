@@ -94,8 +94,12 @@
             </Button>
         </Grid>
         <StackPanel Grid.Row="4" Orientation="Horizontal">
-            <Button Click="OnMoveUp">Up</Button>
-            <Button Click="OnMoveDown">Down</Button>
+            <Button Click="OnMoveUp" IsEnabled="{Binding #FilesListBox.ItemCount}">
+                Up
+            </Button>
+            <Button Click="OnMoveDown" IsEnabled="{Binding #FilesListBox.ItemCount}">
+                Down
+            </Button>
         </StackPanel>
 
         <ListBox Grid.Row="5" Padding="20" Name="FilesListBox"
