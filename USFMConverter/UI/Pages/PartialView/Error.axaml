@@ -7,10 +7,10 @@
     <UserControl.Styles>
         <Style Selector="Button.Close">
             <Setter Property="HorizontalAlignment" Value="Right"/>
-            <Setter Property="Width" Value="25"/>
-            <Setter Property="Height" Value="25"/>
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Height" Value="50"/>
             <Setter Property="Background" Value="White"/>
-            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Margin" Value="0,15,10,0"/>
         </Style>
         <Style Selector="Button.Action">
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -43,7 +43,7 @@
             <Button Grid.Row="0" 
                     Classes="Close" Margin="0,20,20,0"
                     Click="OnCloseDialogClick">
-                <Image Source="/UI/Assets/close.png" Width="{Binding $parent.Width}" Height="{Binding $parent.Height}" />
+                <Image Source="/UI/Assets/close.png"/>
             </Button>
 
             <TextBlock Grid.Row="1" Classes="MainText">
