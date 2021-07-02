@@ -90,7 +90,7 @@ namespace USFMConverter.Core.Util
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                var processInfo = new ProcessStartInfo(path);
+                var processInfo = new ProcessStartInfo("xdg-open", path);
                 var process = new Process { StartInfo = processInfo };
                 process.Start();
             }
