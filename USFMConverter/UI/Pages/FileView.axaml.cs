@@ -51,7 +51,7 @@ namespace USFMConverter.UI.Pages
         {
             AvaloniaXamlLoader.Load(this);
 
-            RenderLinuxDifference();
+            RenderLinuxUI();
 
             projectReadySection = this.FindControl<ProjectReady>("ProjectReady");
             projectNotReadySection = this.FindControl<ProjectNotReady>("ProjectNotReady");         
@@ -180,15 +180,14 @@ namespace USFMConverter.UI.Pages
         /// Please remove this method once the framework implemented it.
         /// <see cref="https://github.com/AvaloniaUI/Avalonia/issues/5273"/>
         /// </summary>
-        private void RenderLinuxDifference()
+        private void RenderLinuxUI()
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
                 TextBlock dndText = this.FindControl<TextBlock>("DragDropText");
                 dndText.Text = "Browse for folder that contains USFM files";
 
-                this.FindControl<Grid>("DragDropSection").Background = null;
-                this.FindControl<Button>("BrowseFilesBtn").IsVisible = true;
+                this.FindControl<Image>("DragDropImage").IsVisible = false;
             }
         }
 
