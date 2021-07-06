@@ -62,8 +62,9 @@
                 <TextBlock VerticalAlignment="Center" Margin="10 20">
                     Columns
                 </TextBlock>
-                <NumericUpDown Minimum="1" Maximum="2" Increment="1"
-                               Value="{Binding ColumnCount, Mode=TwoWay}" 
+                <NumericUpDown IsEnabled="False" Background="LightGray" 
+							   Minimum="1" Maximum="2" Increment="1"
+                               Value="{Binding ColumnCount, Mode=TwoWay}"
                                HorizontalContentAlignment="Center"/>
             </DockPanel>
 

@@ -43,24 +43,58 @@ namespace USFMConverter.Core.Util
             if (!file.Exists)
             {
                 throw new FileNotFoundException(
-                    "Could not find the specified path: " + path, 
-                    file.Name
-                );
+                    "Could not find the specified path: " + path
+                    );
             }
+
+            var dir = file.DirectoryName;
+            dir = $"\"{dir}\""; // preserve spaces with wrapping double quotes
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                Process.Start("explorer.exe", @"/select," + file.FullName);
+                Process.Start("explorer.exe", @"/select," + dir);
             }
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
-                Process.Start("open", "-R " + file.FullName);
+                Process.Start("open", "-R " + dir);
             }
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                var processInfo = new ProcessStartInfo("xdg-open", file.DirectoryName);
+                var processInfo = new ProcessStartInfo("xdg-open", dir);
+                var process = new Process { StartInfo = processInfo };
+                process.Start();
+            }
+        }
+
+        public static void OpenFile(string path)
+        {
+            if (!File.Exists(path))
+            {
+                throw new FileNotFoundException(
+                    "Could not find the specified file at: " + path
+                    );
+            }
+
+            path = $"\"{path}\""; // preserve spaces with wrapping double quotes
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                Process.Start(new ProcessStartInfo(path)
+                {
+                    UseShellExecute = true
+                });
+            }
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                Process.Start("open", path);
+            }
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                var processInfo = new ProcessStartInfo("xdg-open", path);
                 var process = new Process { StartInfo = processInfo };
                 process.Start();
             }

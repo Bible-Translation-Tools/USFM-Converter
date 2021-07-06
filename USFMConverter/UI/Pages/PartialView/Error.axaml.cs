@@ -19,13 +19,6 @@ namespace USFMConverter.UI.Pages.PartialView
             AvaloniaXamlLoader.Load(this);
         }
 
-        private void OnNewProjectClick(object? sender, RoutedEventArgs e)
-        {
-            this.IsVisible = false;
-            RaiseEvent(new RoutedEventArgs(ProjectDetailScreen.StartNewProjectEvent));
-            HideOverlayBackground();
-        }
-
         private void OnCloseDialogClick(object? sender, RoutedEventArgs e)
         {
             this.IsVisible = false;
