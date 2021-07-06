@@ -2,12 +2,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="USFMConverter.UI.Pages.PartialView.Progress">
 
-    <StackPanel Width="700" Height="200" Background="White">
-        <ProgressBar Name="ProgressBar" Width="500" Height="30" Margin="40" />
-
-        <TextBlock Margin="0 10 0 0" HorizontalAlignment="Center">CONVERTING ... </TextBlock>
-    </StackPanel>
+    <Border CornerRadius="30" Background="White"
+            Width="600" Height="200" Padding="20">
+        <Grid ColumnDefinitions="1* 8* 1*" HorizontalAlignment="Stretch">
+            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                <ProgressBar Name="ProgressBar" Width="{Binding $parent.Width}"
+                             Height="30" Margin="20" />
+                <TextBlock HorizontalAlignment="Center">CONVERTING ... </TextBlock>
+            </StackPanel>
+        </Grid>
+    </Border>
 </UserControl>
