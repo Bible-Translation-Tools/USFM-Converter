@@ -87,6 +87,7 @@ namespace USFMConverter.Core.Util
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
+                // Quotes are added around for files with spaces in the path
                 path = "\"" + path + "\"";
                 Process.Start("open", path);
             }
