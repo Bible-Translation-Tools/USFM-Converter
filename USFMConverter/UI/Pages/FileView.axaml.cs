@@ -11,6 +11,7 @@ using USFMConverter.Core;
 using USFMConverter.Core.Util;
 using USFMConverter.UI.Pages.PartialView;
 using System;
+using System.Runtime.InteropServices;
 
 namespace USFMConverter.UI.Pages
 {
@@ -50,7 +51,7 @@ namespace USFMConverter.UI.Pages
         {
             AvaloniaXamlLoader.Load(this);
 
-            SetLinuxText();
+            RenderLinuxUI();
 
             projectReadySection = this.FindControl<ProjectReady>("ProjectReady");
             projectNotReadySection = this.FindControl<ProjectNotReady>("ProjectNotReady");         
@@ -67,9 +68,11 @@ namespace USFMConverter.UI.Pages
             selectedCount = this.FindControl<TextBlock>("SelectedCount");
         }
 
-        private async void OnBrowseClick(object? sender, RoutedEventArgs e)
+        private async void OnBrowseFolderClick(object? sender, RoutedEventArgs e)
         {
             var dialog = new OpenFolderDialog();
+            dialog.Title = "Select a Folder";
+
             var result = await dialog.ShowAsync((Window)this.VisualRoot);
             if (!string.IsNullOrEmpty(result))
             {
@@ -84,6 +87,30 @@ namespace USFMConverter.UI.Pages
                 filesContainer.Items = newList; // changes to the UI will bind to DataContext
                 UpdateProjectStatus();
             }
+        }
+
+        private async void OnBrowseFilesClick(object? sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+            dialog.AllowMultiple = true;
+            dialog.Title = "Select Files";
+
+            var extensions = CoreConverter.supportedExtensions
+                .Select(ex => ex.Replace(".", ""))
+                .ToList();
+
+            dialog.Filters.Add(new FileDialogFilter
+            {
+                Name = "USFM Documents",
+                Extensions = extensions
+            });
+
+            var paths = await dialog.ShowAsync((Window)this.VisualRoot);
+            var currentFileList = filesContainer.Items.Cast<string>();
+            var newList = currentFileList.Concat(paths).ToList(); ;
+
+            filesContainer.Items = newList; // changes to the UI will bind to DataContext
+            UpdateProjectStatus();
         }
 
         private void OnRemoveClick(object? sender, RoutedEventArgs e)
@@ -156,15 +183,14 @@ namespace USFMConverter.UI.Pages
         /// Please remove this method once the framework implemented it.
         /// <see cref="https://github.com/AvaloniaUI/Avalonia/issues/5273"/>
         /// </summary>
-        private void SetLinuxText()
+        private void RenderLinuxUI()
         {
-            var platform = AvaloniaLocator.Current.GetService<IRuntimePlatform>().GetRuntimeInfo().OperatingSystem;
-            if (platform == OperatingSystemType.Linux)
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
                 TextBlock dndText = this.FindControl<TextBlock>("DragDropText");
                 dndText.Text = "Browse for folder that contains USFM files";
 
-                this.FindControl<Grid>("DragDropSection").Background = null;
+                this.FindControl<Image>("DragDropImage").IsVisible = false;
             }
         }
 
