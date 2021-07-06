@@ -92,28 +92,27 @@ namespace USFMConverter.UI.Pages
             var dialog = new OpenFolderDialog();
             dialog.Title = "Select a Folder";
 
-            string result = "";
-
-            try
-            {
-                result = await dialog.ShowAsync((Window)this.VisualRoot);
-            }
-            catch (Exception ex)
-            {
-                ((ViewData)DataContext).Error = ex;
-                RaiseEvent(new RoutedEventArgs(BrowseErrorEvent));
-                return;
-            }
+            string result = await dialog.ShowAsync((Window)this.VisualRoot);
 
             if (!string.IsNullOrEmpty(result))
             {
                 var dir = new FileInfo(result);
-                var filesInDir = FileSystem.GetFilesInDir(
-                    dir, CoreConverter.supportedExtensions
-                ).Select(f => f.FullName);
-
+                IEnumerable<string> filesInDir;
+                try
+                {
+                    filesInDir = FileSystem.GetFilesInDir(
+                        dir, CoreConverter.supportedExtensions
+                    ).Select(f => f.FullName);
+                }
+                catch (Exception ex)
+                {
+                    ((ViewData)DataContext).Error = ex;
+                    RaiseEvent(new RoutedEventArgs(BrowseErrorEvent));
+                    return;
+                }
+                
                 var currentFileList = filesContainer.Items.Cast<string>();
-                var newList = currentFileList.Concat(filesInDir).ToList(); ;
+                var newList = currentFileList.Concat(filesInDir).ToList();
 
                 filesContainer.Items = newList; // changes to the UI will bind to DataContext
                 UpdateProjectStatus();
@@ -136,18 +135,7 @@ namespace USFMConverter.UI.Pages
                 Extensions = extensions
             });
             
-            string[] paths;
-
-            try
-            {
-                paths = await dialog.ShowAsync((Window)this.VisualRoot);
-            }
-            catch (Exception ex)
-            {
-                ((ViewData)DataContext).Error = ex;
-                RaiseEvent(new RoutedEventArgs(BrowseErrorEvent));
-                return;
-            }
+            var paths = await dialog.ShowAsync((Window)this.VisualRoot);
 
             var currentFileList = filesContainer.Items.Cast<string>();
             var newList = currentFileList.Concat(paths).ToList(); ;
