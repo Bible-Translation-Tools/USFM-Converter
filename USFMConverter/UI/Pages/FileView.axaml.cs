@@ -19,10 +19,12 @@ namespace USFMConverter.UI.Pages
     {
         private ProjectReady projectReadySection;
         private ProjectNotReady projectNotReadySection;
-        
+
         private Border dragDropArea;
         private ListBox filesContainer;
         private TextBlock selectedCount;
+        private Button selectAllBtn;
+        private bool selected = false;
 
         public event EventHandler<RoutedEventArgs> ConvertStart
         {
@@ -73,7 +75,7 @@ namespace USFMConverter.UI.Pages
             RenderLinuxUI();
 
             projectReadySection = this.FindControl<ProjectReady>("ProjectReady");
-            projectNotReadySection = this.FindControl<ProjectNotReady>("ProjectNotReady");         
+            projectNotReadySection = this.FindControl<ProjectNotReady>("ProjectNotReady");
 
             filesContainer = this.FindControl<ListBox>("FilesListBox");
             filesContainer.AddHandler(ListBox.SelectionChangedEvent, OnFileSelect);
@@ -85,6 +87,7 @@ namespace USFMConverter.UI.Pages
             dragDropArea.AddHandler(DragDrop.DropEvent, OnDrop);
 
             selectedCount = this.FindControl<TextBlock>("SelectedCount");
+            selectAllBtn = this.FindControl<Button>("SelectAllBtn");
         }
 
         private async void OnBrowseFolderClick(object? sender, RoutedEventArgs e)
@@ -116,6 +119,24 @@ namespace USFMConverter.UI.Pages
 
                 filesContainer.Items = newList; // changes to the UI will bind to DataContext
                 UpdateProjectStatus();
+            }
+        }
+
+
+        private void OnSelectAllClick(object? sender, RoutedEventArgs e)
+        {
+            if (selected)
+            {
+                // unselect
+                filesContainer.SelectedIndex = -1;
+                selectAllBtn.Content = "Select All";
+                selected = false;
+            }
+            else
+            {
+                filesContainer.SelectAll();
+                selectAllBtn.Content = "Unselect All";
+                selected = true;
             }
         }
 
@@ -158,11 +179,13 @@ namespace USFMConverter.UI.Pages
 
             UpdateProjectStatus();
             UpdateCounter();
+            UpdateSelectBtn();
         }
 
         private void OnFileSelect(object? sender, SelectionChangedEventArgs e)
         {
             UpdateCounter();
+            UpdateSelectBtn();
         }
 
         private void OnDragOver(object? sender, DragEventArgs e)
@@ -253,6 +276,21 @@ namespace USFMConverter.UI.Pages
         public void UpdateCounter()
         {
             selectedCount.Text = filesContainer.SelectedItems.Count.ToString();
+        }
+
+        public void UpdateSelectBtn()
+        {
+            if (filesContainer.SelectedItems.Count == 0)
+            {
+                // unselect
+                selectAllBtn.Content = "Select All";
+                selected = false;
+            }
+            else
+            {
+                selectAllBtn.Content = "Unselect All";
+                selected = true;
+            }
         }
     }
 }
