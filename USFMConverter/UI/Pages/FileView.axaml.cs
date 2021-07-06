@@ -134,8 +134,9 @@ namespace USFMConverter.UI.Pages
                 Name = "USFM Documents",
                 Extensions = extensions
             });
-            
+
             var paths = await dialog.ShowAsync((Window)this.VisualRoot);
+            if (paths == null || paths.Length == 0) return;
 
             var currentFileList = filesContainer.Items.Cast<string>();
             var newList = currentFileList.Concat(paths).ToList(); ;
