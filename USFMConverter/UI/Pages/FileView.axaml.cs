@@ -36,11 +36,30 @@ namespace USFMConverter.UI.Pages
             }
         }
 
+        public event EventHandler<RoutedEventArgs> BrowseError
+        {
+            add
+            {
+                AddHandler(BrowseErrorEvent, value);
+            }
+            remove
+            {
+                RemoveHandler(BrowseErrorEvent, value);
+            }
+        }
+
         public static readonly RoutedEvent<RoutedEventArgs> StartConvertEvent =
             RoutedEvent.Register<FileView, RoutedEventArgs>(
                 nameof(ConvertStart),
                 RoutingStrategies.Direct
             );
+
+        public static readonly RoutedEvent<RoutedEventArgs> BrowseErrorEvent =
+            RoutedEvent.Register<FileView, RoutedEventArgs>(
+                nameof(BrowseError),
+                RoutingStrategies.Bubble
+            );
+
 
         public FileView()
         {
@@ -73,7 +92,19 @@ namespace USFMConverter.UI.Pages
             var dialog = new OpenFolderDialog();
             dialog.Title = "Select a Folder";
 
-            var result = await dialog.ShowAsync((Window)this.VisualRoot);
+            string result = "";
+
+            try
+            {
+                result = await dialog.ShowAsync((Window)this.VisualRoot);
+            }
+            catch (Exception ex)
+            {
+                ((ViewData)DataContext).Error = ex;
+                RaiseEvent(new RoutedEventArgs(BrowseErrorEvent));
+                return;
+            }
+
             if (!string.IsNullOrEmpty(result))
             {
                 var dir = new FileInfo(result);
@@ -104,8 +135,20 @@ namespace USFMConverter.UI.Pages
                 Name = "USFM Documents",
                 Extensions = extensions
             });
+            
+            string[] paths;
 
-            var paths = await dialog.ShowAsync((Window)this.VisualRoot);
+            try
+            {
+                paths = await dialog.ShowAsync((Window)this.VisualRoot);
+            }
+            catch (Exception ex)
+            {
+                ((ViewData)DataContext).Error = ex;
+                RaiseEvent(new RoutedEventArgs(BrowseErrorEvent));
+                return;
+            }
+
             var currentFileList = filesContainer.Items.Cast<string>();
             var newList = currentFileList.Concat(paths).ToList(); ;
 
@@ -116,8 +159,8 @@ namespace USFMConverter.UI.Pages
         private void OnRemoveClick(object? sender, RoutedEventArgs e)
         {
             var list = filesContainer.Items.Cast<string>().ToList();
-            
-            foreach(var item in filesContainer.SelectedItems)
+
+            foreach (var item in filesContainer.SelectedItems)
             {
                 list.Remove(item.ToString());
             }
