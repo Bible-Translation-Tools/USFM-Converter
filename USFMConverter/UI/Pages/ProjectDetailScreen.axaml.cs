@@ -4,6 +4,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Interactivity;
 using USFMConverter.Core;
 using USFMConverter.UI.Pages.PartialView;
+using System.Reflection;
 
 namespace USFMConverter.UI.Pages
 {
@@ -80,6 +81,8 @@ namespace USFMConverter.UI.Pages
         {
             AvaloniaXamlLoader.Load(this);
 
+            SetAppVersion();
+
             optionView = this.FindControl<OptionView>("OptionView");
             fileView = this.FindControl<FileView>("FileView");
 
@@ -93,6 +96,13 @@ namespace USFMConverter.UI.Pages
 
             progressDialog = this.FindControl<Progress>("ProgressDialog");
             progressBar = progressDialog.FindControl<ProgressBar>("ProgressBar");
+        }
+
+        private void SetAppVersion()
+        {
+            var version = Assembly.GetEntryAssembly().GetName().Version;
+            this.FindControl<TextBlock>("AppVersion").Text = 
+                $"(v{version.Major}.{version.Minor}.{version.Revision})";
         }
 
         private void OnOpenOptionClick(object? sender, RoutedEventArgs e)
