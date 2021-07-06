@@ -55,7 +55,9 @@ namespace USFMConverter.Core.Util
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
-                Process.Start("open", "-R " + file.FullName);
+                // Quotes are added around for files with spaces in the path
+                string fileFullName = "\"" + file.FullName + "\"";
+                Process.Start("open", "-R " + fileFullName);
             }
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
@@ -85,6 +87,7 @@ namespace USFMConverter.Core.Util
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
+                path = "\"" + path + "\"";
                 Process.Start("open", path);
             }
 
