@@ -77,6 +77,20 @@
                         </StackPanel>
                     </DockPanel>
 
+					<TextBlock Classes="SubTitle">
+						Legal
+					</TextBlock>
+
+					<StackPanel>
+						<DockPanel Margin="15 0 0 0">
+							<Image Classes="Icon" Source="/UI/Assets/page.png" />
+							<TextBlock VerticalAlignment="Center" Margin="10 20">
+								License Page
+							</TextBlock>
+							<ComboBox IsTextSearchEnabled="True" Name="LicenseSelector"/>
+						</DockPanel>
+					</StackPanel>
+
                     <TextBlock Classes="SubTitle">
                         Output
                     </TextBlock>

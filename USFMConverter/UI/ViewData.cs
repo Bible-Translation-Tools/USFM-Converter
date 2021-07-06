@@ -7,6 +7,8 @@ namespace USFMConverter.UI
     {
         public List<string> Files { get; set; } = new();
 
+        public ComboBoxItem LicenseOption { get; set; }
+
         public ComboBoxItem OutputFileFormat { get; set; }
 
         public int SelectedTextSizeIndex { get; set; } = 0; // binding allows resetting user input

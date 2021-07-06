@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using System.Collections.Generic;
 
 namespace USFMConverter.UI.Pages
 {
@@ -9,6 +10,7 @@ namespace USFMConverter.UI.Pages
         private Border blurredArea;
         private UserControl optionView;
         private ComboBox outputFormatCb;
+        private ComboBox licenseSelectCb;
 
         public OptionView()
         {
@@ -25,7 +27,21 @@ namespace USFMConverter.UI.Pages
             outputFormatCb = this.FindControl<ComboBox>("OutputFormatSelector");
             outputFormatCb.AddHandler(ComboBox.SelectionChangedEvent, OnOuputFormatSelect);
 
+            licenseSelectCb = this.FindControl<ComboBox>("LicenseSelector");
+            LoadLicenseOptions();
+
             optionView = this.FindControl<UserControl>("OptionView");
+        }
+
+        private void LoadLicenseOptions()
+        {
+            var cbItem = new ComboBoxItem
+            {
+                Tag = "en",
+                Content = "English"
+            };
+            licenseSelectCb.Items = new List<ComboBoxItem> { cbItem };
+            licenseSelectCb.SelectedIndex = 0;
         }
 
         private void OnOuputFormatSelect(object? sender, SelectionChangedEventArgs e)
