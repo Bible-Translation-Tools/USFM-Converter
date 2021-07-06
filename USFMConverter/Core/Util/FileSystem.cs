@@ -39,30 +39,28 @@ namespace USFMConverter.Core.Util
 
         public static void OpenFileLocation(string path)
         {
-            var file = new FileInfo(path);
-            if (!file.Exists)
+            if (!File.Exists(path))
             {
                 throw new FileNotFoundException(
-                    "Could not find the specified path: " + path, 
-                    file.Name
-                );
+                    "Could not find the specified path: " + path
+                    );
             }
+
+            path = $"\"{path}\""; // preserve spaces with wrapping double quotes
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                Process.Start("explorer.exe", @"/select," + file.FullName);
+                Process.Start("explorer.exe", @"/select," + path);
             }
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
-                // Quotes are added around for files with spaces in the path
-                string fileFullName = "\"" + file.FullName + "\"";
-                Process.Start("open", "-R " + fileFullName);
+                Process.Start("open", "-R " + path);
             }
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                var processInfo = new ProcessStartInfo("xdg-open", file.DirectoryName);
+                var processInfo = new ProcessStartInfo("xdg-open", path);
                 var process = new Process { StartInfo = processInfo };
                 process.Start();
             }
@@ -77,6 +75,8 @@ namespace USFMConverter.Core.Util
                     );
             }
 
+            path = $"\"{path}\""; // preserve spaces with wrapping double quotes
+
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 Process.Start(new ProcessStartInfo(path)
@@ -87,7 +87,6 @@ namespace USFMConverter.Core.Util
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
-                path = "\"" + path + "\"";
                 Process.Start("open", path);
             }
 
