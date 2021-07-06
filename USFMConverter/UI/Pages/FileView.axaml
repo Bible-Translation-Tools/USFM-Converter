@@ -21,7 +21,11 @@
             <Setter Property="Foreground" Value="#dd4c46" />
             <Setter Property="Background" Value="White" />
         </Style>
-        <Style Selector="Border.BrowseBtnBorder">
+        <Style Selector="Button.SelectAllButton">
+            <Setter Property="Foreground" Value="#244f9d" />
+            <Setter Property="Background" Value="White" />
+		</Style>
+		<Style Selector="Border.BrowseBtnBorder">
             <Setter Property="MinWidth" Value="100"/>
             <Setter Property="Height" Value="40"/>
             <Setter Property="Margin" Value="10"/>
@@ -39,7 +43,7 @@
         </Style>
     </UserControl.Styles>
 
-    <Grid RowDefinitions="Auto Auto Auto Auto *" Margin="20">
+    <Grid RowDefinitions="Auto Auto Auto *" Margin="20">
         <StackPanel>
             <Grid ColumnDefinitions="3* 7*">
                 <swappable:ProjectReady Name="ProjectReady" Grid.Column="0"
@@ -92,31 +96,33 @@
         </TextBlock>
 
         <Grid Grid.Row="2">
-            <StackPanel Grid.Row="3" Orientation="Horizontal">
-                <TextBlock Classes="SelectedText" Margin="0 10 0 0"
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Classes="SelectedText" Margin="0 10 0 5"
                            Background="White" VerticalAlignment="Center"
                            HorizontalAlignment="Left" Name="SelectedCount">
                     0
                 </TextBlock>
-
-                <TextBlock Classes="SelectedText" Margin="5 10 0 0"
+                <TextBlock Classes="SelectedText" Margin="5 10 0 5"
                            Background="White" VerticalAlignment="Center"
                            HorizontalAlignment="Left">
                     Selected
                 </TextBlock>
+                <Button Classes="SelectAllButton" Margin="10 10 0 5"
+                        Name="SelectAllBtn" Click="OnSelectAllClick"
+                        IsEnabled="{Binding #FilesListBox.Items.Count}">
+                    Select All
+                </Button>
             </StackPanel>
-
-            <Button Grid.Row="3" Classes="RemoveButton" Margin="0 10 0 0"
-                    Background="White" BorderThickness="0"
-                    HorizontalAlignment="Right"
-                    Click="OnRemoveClick">
+            <Button Classes="RemoveButton" Margin="0 10 0 5"
+                    HorizontalAlignment="Right" Click="OnRemoveClick"
+                    IsEnabled="{Binding #FilesListBox.SelectedItems.Count}">
                 - Remove Files
             </Button>
         </Grid>
 
-        <ListBox Grid.Row="4" Padding="20" Name="FilesListBox"
+        <ListBox Grid.Row="3" Padding="20" Name="FilesListBox"
                  ScrollViewer.VerticalScrollBarVisibility="Visible"
-                 SelectionMode="Multiple" DragDrop.AllowDrop="True"
+                 SelectionMode="Multiple,Toggle" DragDrop.AllowDrop="True"
                  Items="{Binding Files, Mode=TwoWay}" />
     </Grid>
 </UserControl>
