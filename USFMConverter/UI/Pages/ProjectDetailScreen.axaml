@@ -76,7 +76,9 @@
                     Opacity="0.6" ZIndex="2" IsVisible="False"/>
 
         <swappable:Progress Name="ProgressDialog" ZIndex="3" IsVisible="False"/>
-        <swappable:Success Name="SuccessDialog" ZIndex="3" IsVisible="False"/>
+        <swappable:Success Name="SuccessDialog" ZIndex="3" IsVisible="False"
+                           OpenFile="OnOpenFile"
+                           OpenFolder="OnOpenFolder"/>
         <swappable:Error Name="ErrorDialog" ZIndex="3" IsVisible="False"/>
     </Panel>
 </UserControl>
