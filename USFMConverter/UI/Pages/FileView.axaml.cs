@@ -71,6 +71,8 @@ namespace USFMConverter.UI.Pages
         private async void OnBrowseFolderClick(object? sender, RoutedEventArgs e)
         {
             var dialog = new OpenFolderDialog();
+            dialog.Title = "Select a Folder";
+
             var result = await dialog.ShowAsync((Window)this.VisualRoot);
             if (!string.IsNullOrEmpty(result))
             {
@@ -91,6 +93,7 @@ namespace USFMConverter.UI.Pages
         {
             var dialog = new OpenFileDialog();
             dialog.AllowMultiple = true;
+            dialog.Title = "Select Files";
 
             var extensions = CoreConverter.supportedExtensions
                 .Select(ex => ex.Replace(".", ""))
