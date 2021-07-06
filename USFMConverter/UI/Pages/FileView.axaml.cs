@@ -196,11 +196,21 @@ namespace USFMConverter.UI.Pages
                 {
                     if (file.Attributes.HasFlag(FileAttributes.Directory))
                     {
-                        var filesInDir = FileSystem.GetFilesInDir(
-                            file, CoreConverter.supportedExtensions
-                        ).Select(f => f.FullName);
+                        try
+                        {
+                            var filesInDir = FileSystem.GetFilesInDir(
+                                file, CoreConverter.supportedExtensions
+                            ).Select(f => f.FullName);
 
-                        filesToAdd.AddRange(filesInDir);
+                            filesToAdd.AddRange(filesInDir);
+                        } 
+                        catch (Exception ex)
+                        {
+                            // some folder may not have read permission
+                            ((ViewData)DataContext).Error = ex;
+                            RaiseEvent(new RoutedEventArgs(BrowseErrorEvent));
+                            return;
+                        }
                     }
                     else if (CoreConverter.supportedExtensions.Contains(file.Extension))
                     {
