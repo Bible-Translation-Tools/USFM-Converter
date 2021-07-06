@@ -6,6 +6,7 @@
     <ApplicationIcon>UI\Assets\converter_logo_inverted_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="UI\Assets\close.png" />
     <None Remove="UI\Assets\converter_logo_inverted_icon.ico" />
     <None Remove="UI\Assets\drag-and-drop.png" />
     <None Remove="UI\Assets\drag_and_drop.png" />
@@ -15,6 +16,7 @@
     <None Remove="UI\Assets\start_screen.png" />
   </ItemGroup>
   <ItemGroup>
+    <AvaloniaResource Include="UI\Assets\close.png" />
     <AvaloniaResource Include="UI\Assets\converter_logo_inverted_icon.ico" />
     <AvaloniaResource Include="UI\Assets\drag_drop.png" />
     <AvaloniaResource Include="UI\Assets\small_file.png" />
@@ -27,7 +29,6 @@
     <None Remove="UI\Assets\check.png" />
     <AvaloniaResource Include="UI\Assets\check.png" />
     <None Remove="UI\Assets\cancel.png" />
-    <AvaloniaResource Include="UI\Assets\close.png" />
     <None Remove="UI\Assets\chapter1.png" />
     <AvaloniaResource Include="UI\Assets\chapter.png" />
     <None Remove="UI\Assets\font.png" />
