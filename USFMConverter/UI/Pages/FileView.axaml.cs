@@ -19,7 +19,7 @@ namespace USFMConverter.UI.Pages
     {
         private ProjectReady projectReadySection;
         private ProjectNotReady projectNotReadySection;
-        
+
         private Border dragDropArea;
         private ListBox filesContainer;
         private TextBlock selectedCount;
@@ -56,7 +56,7 @@ namespace USFMConverter.UI.Pages
             RenderLinuxUI();
 
             projectReadySection = this.FindControl<ProjectReady>("ProjectReady");
-            projectNotReadySection = this.FindControl<ProjectNotReady>("ProjectNotReady");         
+            projectNotReadySection = this.FindControl<ProjectNotReady>("ProjectNotReady");
 
             filesContainer = this.FindControl<ListBox>("FilesListBox");
             filesContainer.AddHandler(ListBox.SelectionChangedEvent, OnFileSelect);
@@ -108,6 +108,7 @@ namespace USFMConverter.UI.Pages
                 selectAllBtn.Content = "Unselect All";
                 selected = true;
             }
+        }
 
         private async void OnBrowseFilesClick(object? sender, RoutedEventArgs e)
         {
@@ -136,8 +137,8 @@ namespace USFMConverter.UI.Pages
         private void OnRemoveClick(object? sender, RoutedEventArgs e)
         {
             var list = filesContainer.Items.Cast<string>().ToList();
-            
-            foreach(var item in filesContainer.SelectedItems)
+
+            foreach (var item in filesContainer.SelectedItems)
             {
                 list.Remove(item.ToString());
             }
