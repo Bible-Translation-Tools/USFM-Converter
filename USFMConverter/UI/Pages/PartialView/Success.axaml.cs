@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using System;
 using USFMConverter.Core.Util;
 
 namespace USFMConverter.UI.Pages.PartialView
@@ -14,15 +15,55 @@ namespace USFMConverter.UI.Pages.PartialView
             InitializeComponent();
         }
 
+        public event EventHandler<RoutedEventArgs> OpenFile
+        {
+            add
+            {
+                AddHandler(OpenFileEvent, value);
+            }
+            remove
+            {
+                RemoveHandler(OpenFileEvent, value);
+            }
+        }
+
+        public event EventHandler<RoutedEventArgs> OpenFolder
+        {
+            add
+            {
+                AddHandler(OpenFolderEvent, value);
+            }
+            remove
+            {
+                RemoveHandler(OpenFolderEvent, value);
+            }
+        }
+
+        public static readonly RoutedEvent<RoutedEventArgs> OpenFileEvent =
+            RoutedEvent.Register<FileView, RoutedEventArgs>(
+                nameof(OpenFile),
+                RoutingStrategies.Bubble
+            );
+
+        public static readonly RoutedEvent<RoutedEventArgs> OpenFolderEvent =
+            RoutedEvent.Register<FileView, RoutedEventArgs>(
+                nameof(OpenFolder),
+                RoutingStrategies.Bubble
+            );
+
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
         }
 
-        private void OnShowFileClick(object? sender, RoutedEventArgs e)
+        private void OnOpenFileClick(object? sender, RoutedEventArgs e)
         {
-            string path = ((ViewData)DataContext).OutputFileLocation;
-            FileSystem.OpenFileLocation(path);
+            RaiseEvent(new RoutedEventArgs(OpenFileEvent));
+        }
+
+        private void OnOpenFolderClick(object? sender, RoutedEventArgs e)
+        {
+            RaiseEvent(new RoutedEventArgs(OpenFolderEvent));
         }
 
         private void OnNewProjectClick(object? sender, RoutedEventArgs e)

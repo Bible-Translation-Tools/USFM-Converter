@@ -11,6 +11,7 @@ using USFMConverter.Core;
 using USFMConverter.Core.Util;
 using USFMConverter.UI.Pages.PartialView;
 using System;
+using System.Runtime.InteropServices;
 
 namespace USFMConverter.UI.Pages
 {
@@ -18,10 +19,12 @@ namespace USFMConverter.UI.Pages
     {
         private ProjectReady projectReadySection;
         private ProjectNotReady projectNotReadySection;
-        
+
         private Border dragDropArea;
         private ListBox filesContainer;
         private TextBlock selectedCount;
+        private Button selectAllBtn;
+        private bool selected = false;
 
         public event EventHandler<RoutedEventArgs> ConvertStart
         {
@@ -50,10 +53,10 @@ namespace USFMConverter.UI.Pages
         {
             AvaloniaXamlLoader.Load(this);
 
-            SetLinuxText();
+            RenderLinuxUI();
 
             projectReadySection = this.FindControl<ProjectReady>("ProjectReady");
-            projectNotReadySection = this.FindControl<ProjectNotReady>("ProjectNotReady");         
+            projectNotReadySection = this.FindControl<ProjectNotReady>("ProjectNotReady");
 
             filesContainer = this.FindControl<ListBox>("FilesListBox");
             filesContainer.AddHandler(ListBox.SelectionChangedEvent, OnFileSelect);
@@ -65,11 +68,14 @@ namespace USFMConverter.UI.Pages
             dragDropArea.AddHandler(DragDrop.DropEvent, OnDrop);
 
             selectedCount = this.FindControl<TextBlock>("SelectedCount");
+            selectAllBtn = this.FindControl<Button>("SelectAllBtn");
         }
 
-        private async void OnBrowseClick(object? sender, RoutedEventArgs e)
+        private async void OnBrowseFolderClick(object? sender, RoutedEventArgs e)
         {
             var dialog = new OpenFolderDialog();
+            dialog.Title = "Select a Folder";
+
             var result = await dialog.ShowAsync((Window)this.VisualRoot);
             if (!string.IsNullOrEmpty(result))
             {
@@ -86,11 +92,53 @@ namespace USFMConverter.UI.Pages
             }
         }
 
+
+        private void OnSelectAllClick(object? sender, RoutedEventArgs e)
+        {
+            if (selected)
+            {
+                // unselect
+                filesContainer.SelectedIndex = -1;
+                selectAllBtn.Content = "Select All";
+                selected = false;
+            }
+            else
+            {
+                filesContainer.SelectAll();
+                selectAllBtn.Content = "Unselect All";
+                selected = true;
+            }
+        }
+
+        private async void OnBrowseFilesClick(object? sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+            dialog.AllowMultiple = true;
+            dialog.Title = "Select Files";
+
+            var extensions = CoreConverter.supportedExtensions
+                .Select(ex => ex.Replace(".", ""))
+                .ToList();
+
+            dialog.Filters.Add(new FileDialogFilter
+            {
+                Name = "USFM Documents",
+                Extensions = extensions
+            });
+
+            var paths = await dialog.ShowAsync((Window)this.VisualRoot);
+            var currentFileList = filesContainer.Items.Cast<string>();
+            var newList = currentFileList.Concat(paths).ToList(); ;
+
+            filesContainer.Items = newList; // changes to the UI will bind to DataContext
+            UpdateProjectStatus();
+        }
+
         private void OnRemoveClick(object? sender, RoutedEventArgs e)
         {
             var list = filesContainer.Items.Cast<string>().ToList();
-            
-            foreach(var item in filesContainer.SelectedItems)
+
+            foreach (var item in filesContainer.SelectedItems)
             {
                 list.Remove(item.ToString());
             }
@@ -99,11 +147,13 @@ namespace USFMConverter.UI.Pages
 
             UpdateProjectStatus();
             UpdateCounter();
+            UpdateSelectBtn();
         }
 
         private void OnFileSelect(object? sender, SelectionChangedEventArgs e)
         {
             UpdateCounter();
+            UpdateSelectBtn();
         }
 
         private void OnDragOver(object? sender, DragEventArgs e)
@@ -185,15 +235,14 @@ namespace USFMConverter.UI.Pages
         /// Please remove this method once the framework implemented it.
         /// <see cref="https://github.com/AvaloniaUI/Avalonia/issues/5273"/>
         /// </summary>
-        private void SetLinuxText()
+        private void RenderLinuxUI()
         {
-            var platform = AvaloniaLocator.Current.GetService<IRuntimePlatform>().GetRuntimeInfo().OperatingSystem;
-            if (platform == OperatingSystemType.Linux)
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
                 TextBlock dndText = this.FindControl<TextBlock>("DragDropText");
                 dndText.Text = "Browse for folder that contains USFM files";
 
-                this.FindControl<Grid>("DragDropSection").Background = null;
+                this.FindControl<Image>("DragDropImage").IsVisible = false;
             }
         }
 
@@ -214,6 +263,21 @@ namespace USFMConverter.UI.Pages
         public void UpdateCounter()
         {
             selectedCount.Text = filesContainer.SelectedItems.Count.ToString();
+        }
+
+        public void UpdateSelectBtn()
+        {
+            if (filesContainer.SelectedItems.Count == 0)
+            {
+                // unselect
+                selectAllBtn.Content = "Select All";
+                selected = false;
+            }
+            else
+            {
+                selectAllBtn.Content = "Unselect All";
+                selected = true;
+            }
         }
     }
 }

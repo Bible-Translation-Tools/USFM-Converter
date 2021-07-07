@@ -21,6 +21,26 @@
             <Setter Property="Foreground" Value="#dd4c46" />
             <Setter Property="Background" Value="White" />
         </Style>
+        <Style Selector="Button.SelectAllButton">
+            <Setter Property="Foreground" Value="#244f9d" />
+            <Setter Property="Background" Value="White" />
+		</Style>
+		<Style Selector="Border.BrowseBtnBorder">
+            <Setter Property="MinWidth" Value="100"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="CornerRadius" Value="5"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="#737f8f"/>
+        </Style>
+        <Style Selector="Button.BrowseBtn">
+            <Setter Property="Foreground" Value="#244f9d"/>
+            <Setter Property="Background" Value="#edf1fa"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
     </UserControl.Styles>
 
     <Grid RowDefinitions="Auto Auto Auto Auto Auto *" Margin="20">
@@ -39,28 +59,32 @@
                     <StackPanel Margin="10 20 10 20">
                         <TextBlock VerticalAlignment="Center" FontWeight="Bold"
                                    Margin="10" Foreground="#244f9d">
-                            Add Files
+                            Add Files Here
                         </TextBlock>
                         <TextBlock Name="DragDropText" VerticalAlignment="Center"
                                    Margin="10 0 10 10" TextWrapping="WrapWithOverflow">
-                            You can select a folder or drag and drop from your computer into this area to import.
+                            You can select files or a folder, or drag and drop from your computer into this area.
                         </TextBlock>
 
                         <Grid Name="DragDropSection">
-                            <Grid.Background>
-                                <ImageBrush Source="/UI/Assets/drag_drop.png" 
-                                            AlignmentY="Top" AlignmentX="Center" />
-                            </Grid.Background>
-
-                            <StackPanel Orientation="Horizontal">
-                                <Border Margin="10" CornerRadius="5" 
-                                        BorderThickness="2" BorderBrush="#737f8f">
-                                    <Button Foreground="#244f9d" Background="#edf1fa"
-                                            Click="OnBrowseClick">
-                                        Browse Folder
+                            <WrapPanel>
+                                <Border Classes="BrowseBtnBorder">
+                                    <Button Classes="BrowseBtn"
+                                            Click="OnBrowseFolderClick">
+                                        Select Folder
                                     </Button>
                                 </Border>
-                            </StackPanel>
+                                <Border Classes="BrowseBtnBorder">
+                                    <Button Classes="BrowseBtn"
+                                            Click="OnBrowseFilesClick">
+                                        Add Files
+                                    </Button>
+                                </Border>
+                                <Image Name="DragDropImage"
+                                       Source="/UI/Assets/drag_drop.png"
+                                       Width="75" Height="63"
+                                       Margin="30,0,15,0"/>
+                            </WrapPanel>
                         </Grid>
                     </StackPanel>
                 </Border>
@@ -72,24 +96,26 @@
         </TextBlock>
 
         <Grid Grid.Row="2">
-            <StackPanel Grid.Row="3" Orientation="Horizontal">
-                <TextBlock Classes="SelectedText" Margin="0 10 0 0"
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Classes="SelectedText" Margin="0 10 0 5"
                            Background="White" VerticalAlignment="Center"
                            HorizontalAlignment="Left" Name="SelectedCount">
                     0
                 </TextBlock>
-            
-                <TextBlock Classes="SelectedText" Margin="5 10 0 0"
+                <TextBlock Classes="SelectedText" Margin="5 10 0 5"
                            Background="White" VerticalAlignment="Center"
                            HorizontalAlignment="Left">
                     Selected
                 </TextBlock>
+                <Button Classes="SelectAllButton" Margin="10 10 0 5"
+                        Name="SelectAllBtn" Click="OnSelectAllClick"
+                        IsEnabled="{Binding #FilesListBox.Items.Count}">
+                    Select All
+                </Button>
             </StackPanel>
-
-            <Button Grid.Row="3" Classes="RemoveButton" Margin="0 10 0 0"
-                    Background="White" BorderThickness="0"
-                    HorizontalAlignment="Right"
-                    Click="OnRemoveClick">
+            <Button Classes="RemoveButton" Margin="0 10 0 5"
+                    HorizontalAlignment="Right" Click="OnRemoveClick"
+                    IsEnabled="{Binding #FilesListBox.SelectedItems.Count}">
                 - Remove Files
             </Button>
         </Grid>
@@ -104,7 +130,7 @@
 
         <ListBox Grid.Row="5" Padding="20" Name="FilesListBox"
                  ScrollViewer.VerticalScrollBarVisibility="Visible"
-                 SelectionMode="Multiple" DragDrop.AllowDrop="True"
+                 SelectionMode="Multiple,Toggle" DragDrop.AllowDrop="True"
                  Items="{Binding Files, Mode=TwoWay}" />
     </Grid>
 </UserControl>
