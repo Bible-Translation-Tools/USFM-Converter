@@ -9,6 +9,9 @@
              Name="FileView">
 
     <UserControl.Styles>
+        <Style Selector="Button">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
         <Style Selector="TextBlock.Title">
             <Setter Property="FontSize" Value="20" />
             <Setter Property="FontWeight" Value="Bold" />
@@ -112,6 +115,16 @@
                         IsEnabled="{Binding #FilesListBox.Items.Count}">
                     Select All
                 </Button>
+                <StackPanel Orientation="Horizontal" Margin="25 10 0 5" Spacing="5">
+                    <Button Click="OnMoveUp" MinWidth="90"
+                            IsEnabled="{Binding #FilesListBox.SelectedItems.Count}">
+                        Move Up
+                    </Button>
+                    <Button Click="OnMoveDown" MinWidth="90"
+                            IsEnabled="{Binding #FilesListBox.SelectedItems.Count}">
+                        Move Down
+                    </Button>
+                </StackPanel>
             </StackPanel>
             <Button Classes="RemoveButton" Margin="0 10 0 5"
                     HorizontalAlignment="Right" Click="OnRemoveClick"
@@ -119,16 +132,10 @@
                 - Remove Files
             </Button>
         </Grid>
-        <StackPanel Grid.Row="4" Orientation="Horizontal">
-            <Button Click="OnMoveUp" IsEnabled="{Binding #FilesListBox.SelectedItems.Count}">
-                Up
-            </Button>
-            <Button Click="OnMoveDown" IsEnabled="{Binding #FilesListBox.SelectedItems.Count}">
-                Down
-            </Button>
-        </StackPanel>
+        
 
         <ListBox Grid.Row="5" Padding="20" Name="FilesListBox"
+                 SelectionChanged="OnListItemSelect"
                  ScrollViewer.VerticalScrollBarVisibility="Visible"
                  SelectionMode="Multiple,Toggle" DragDrop.AllowDrop="True"
                  Items="{Binding Files, Mode=TwoWay}" />

@@ -59,7 +59,6 @@ namespace USFMConverter.UI.Pages
             projectNotReadySection = this.FindControl<ProjectNotReady>("ProjectNotReady");
 
             filesContainer = this.FindControl<ListBox>("FilesListBox");
-            filesContainer.AddHandler(ListBox.SelectionChangedEvent, OnFileSelect);
             filesContainer.AddHandler(DragDrop.DragOverEvent, OnDragOver);
             filesContainer.AddHandler(DragDrop.DropEvent, OnDrop);
 
@@ -150,7 +149,7 @@ namespace USFMConverter.UI.Pages
             UpdateSelectBtn();
         }
 
-        private void OnFileSelect(object? sender, SelectionChangedEventArgs e)
+        private void OnListItemSelect(object? sender, SelectionChangedEventArgs e)
         {
             UpdateCounter();
             UpdateSelectBtn();
@@ -206,6 +205,7 @@ namespace USFMConverter.UI.Pages
             list.RemoveAt(index);
             list.Insert(--index, selectedFile.ToString());
             filesContainer.Items = list;
+            filesContainer.SelectedItem = list[index]; // untoggle others
             filesContainer.SelectedIndex = index;
         }
 
@@ -222,6 +222,7 @@ namespace USFMConverter.UI.Pages
             list.RemoveAt(index);
             list.Insert(++index, selectedFile.ToString());
             filesContainer.Items = list;
+            filesContainer.SelectedItem = list[index]; // untoggle others
             filesContainer.SelectedIndex = index;
         }
 
