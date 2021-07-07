@@ -6,8 +6,12 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using USFMConverter.UI;
 using USFMToolsSharp;
 using USFMToolsSharp.Models.Markers;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using USFMConverter.Core.Data;
 
 namespace USFMConverter.Core.Util
 {
@@ -130,6 +134,27 @@ namespace USFMConverter.Core.Util
             }
 
             return usfmDoc;
+        }
+
+        public static Setting? LoadConfig()
+        {
+            Console.WriteLine("Config Loaded!");
+
+            if (File.Exists("appsettings.json"))
+            {
+                string jsonPath = File.ReadAllText("appsettings.json");
+                return JsonSerializer.Deserialize<Setting>(jsonPath);
+            }
+
+            return null;
+        }
+
+        public static void SaveConfig(ViewData? dataContext)
+        {
+            Setting setting = new (dataContext);
+            
+            Console.WriteLine("Config Saved!");
+            File.WriteAllText("appsettings.json", JsonSerializer.Serialize(setting));
         }
     }
 }
