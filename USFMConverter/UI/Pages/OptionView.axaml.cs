@@ -1,6 +1,9 @@
+using System;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using USFMConverter.Core.Data;
+using USFMConverter.Core.Util;
 
 namespace USFMConverter.UI.Pages
 {
@@ -44,6 +47,10 @@ namespace USFMConverter.UI.Pages
         private void OnCloseClick(object? sender, RoutedEventArgs e)
         {
             optionView.IsVisible = false;
+
+            // Save config files when option view is closed
+            var dataContext = ((ViewData) DataContext);
+            FileSystem.SaveConfig(dataContext);
         }
 
         private void ResetInputOptions()

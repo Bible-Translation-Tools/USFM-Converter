@@ -77,4 +77,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Core\Data\appsettings.json" />
+  </ItemGroup>
 </Project>
