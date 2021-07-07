@@ -33,15 +33,15 @@ namespace USFMConverter.UI.Pages
 
         private void OnOuputFormatSelect(object? sender, SelectionChangedEventArgs e)
         {
-            string selectedFormat = ((ComboBoxItem)outputFormatCb.SelectedItem).Tag.ToString();
-            
+            string selectedFormat = ((ComboBoxItem) outputFormatCb.SelectedItem).Tag.ToString();
+
             foreach (ComboBoxItem comboBoxItem in outputFormatCb.Items)
             {
                 var formatName = comboBoxItem.Tag.ToString();
                 this.FindControl<UserControl>(formatName).IsVisible = (formatName == selectedFormat);
             }
 
-            ResetInputOptions();
+            SetInputOptions();
         }
 
         private void OnCloseClick(object? sender, RoutedEventArgs e)
@@ -49,20 +49,43 @@ namespace USFMConverter.UI.Pages
             optionView.IsVisible = false;
 
             // Save config files when option view is closed
-            var dataContext = ((ViewData) DataContext);
+            var dataContext = (ViewData) DataContext;
             FileSystem.SaveConfig(dataContext);
         }
 
-        private void ResetInputOptions()
+        private void SetInputOptions()
         {
-            var data = ((ViewData)DataContext);
+            // var dataContext = (ViewData) DataContext;
+            // Setting? setting = FileSystem.LoadConfig(dataContext);
+            //
+            // if (setting != null)
+            // {
+            //     Console.WriteLine(setting.Justified);
+            //     
+            //     ((Window) VisualRoot).DataContext = new ViewData
+            //     {
+            //         Files = dataContext.Files,
+            //         SelectedTextSizeIndex = setting.TextSize,
+            //         SelectedLineSpacingIndex = setting.LineSpacing,
+            //         ColumnCount = setting.ColumnCount,
+            //         Justified = setting.Justified,
+            //         LeftToRight = setting.LeftToRight,
+            //         ChapterBreak = setting.ChapterBreak,
+            //         VerseBreak = setting.VerseBreak,
+            //         NoteTaking = setting.NoteTaking,
+            //         TableOfContents = setting.TableOfContents
+            //     };
+            // }
+
+
+            // var data = ((ViewData)DataContext);
 
             // change the DataContext of root element
             // will apply to all children
-            ((Window)this.VisualRoot).DataContext = new ViewData
-            {
-                Files = data.Files
-            };
+            // ((Window)this.VisualRoot).DataContext = new ViewData
+            // {
+            // Files = data.Files
+            // };
         }
     }
 }
