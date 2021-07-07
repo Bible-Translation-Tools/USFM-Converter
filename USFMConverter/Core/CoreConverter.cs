@@ -42,17 +42,17 @@ namespace USFMConverter.Core
                     throw new ArgumentException("Output file format is not supported");
             }
 
+            USFMDocument front = null;
             if (viewData.SelectedLicense.Tag != null)
             {
-                //var front = await GetFrontMatterUSFM(
-                //    viewData.SelectedLicense.Tag.ToString(),
-                //    viewData.LicenseFile ?? ""
-                //    );
-                //renderer.FrontMatter = front;
+                front = await GetFrontMatterUSFM(
+                    viewData.SelectedLicense.Tag.ToString(),
+                    viewData.LicenseFile ?? ""
+                    );
             }
 
             var usfmDocument = await FileSystem.LoadUSFMsAsync(project.Files, progressCallback);
-            renderer.Render(project, usfmDocument);
+            renderer.Render(project, usfmDocument, front);
         }
 
         private Project BuildProject(ViewData viewData)
