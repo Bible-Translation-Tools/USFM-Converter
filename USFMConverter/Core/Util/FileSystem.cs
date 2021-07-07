@@ -131,5 +131,23 @@ namespace USFMConverter.Core.Util
 
             return usfmDoc;
         }
+
+        /// <summary>
+        /// Parses the given usfm file into one USFM Document.
+        /// </summary>
+        /// <param name="file">USFM file</param>
+        /// <returns>A USFM Document</returns>
+        public static async Task<USFMDocument> LoadUSFMAsync(string file)
+        {
+            var usfmDoc = new USFMDocument();
+            var parser = new USFMParser(new List<string> { "s5" });
+            
+            await Task.Run(() => {
+                var text = File.ReadAllText(file);
+                usfmDoc.Insert(parser.ParseFromString(text));
+            });
+
+            return usfmDoc;
+        }
     }
 }

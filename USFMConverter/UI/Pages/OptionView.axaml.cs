@@ -1,7 +1,10 @@
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace USFMConverter.UI.Pages
 {
@@ -11,6 +14,8 @@ namespace USFMConverter.UI.Pages
         private UserControl optionView;
         private ComboBox outputFormatCb;
         private ComboBox licenseSelectCb;
+
+        public static readonly string CUSTOM_LICENSE = "CUSTOM";
 
         public OptionView()
         {
@@ -35,12 +40,43 @@ namespace USFMConverter.UI.Pages
 
         private void LoadLicenseOptions()
         {
-            var cbItem = new ComboBoxItem
+            //var cbItem = new ComboBoxItem
+            //{
+            //    Tag = "en",
+            //    Content = "English"
+            //};
+            //licenseSelectCb.Items = new List<ComboBoxItem> { cbItem };
+            //licenseSelectCb.SelectedIndex = 0;
+        }
+
+        private async void OnCustomLicenseSelect(object? sender, PointerPressedEventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+            dialog.AllowMultiple = false;
+            dialog.Title = "Select License File";
+            dialog.Filters.Add(new FileDialogFilter
             {
-                Tag = "en",
-                Content = "English"
-            };
-            licenseSelectCb.Items = new List<ComboBoxItem> { cbItem };
+                Name = "USFM Document",
+                Extensions = new List<string> { "usfm" }
+            });
+
+            var files = await dialog.ShowAsync((Window)this.VisualRoot);
+            if (
+                files.Length == 0 || string.IsNullOrEmpty(files[0])
+                )
+            {
+                return;
+            }
+            var file = new FileInfo(files[0]);
+            ((ViewData)DataContext).LicenseFile = file.FullName;
+
+            var items = licenseSelectCb.Items.Cast<ComboBoxItem>().ToList();
+            items.Insert(0, new ComboBoxItem { 
+                Content = file.Name,
+                Tag = CUSTOM_LICENSE
+            });
+
+            licenseSelectCb.Items = items;
             licenseSelectCb.SelectedIndex = 0;
         }
 
@@ -70,6 +106,8 @@ namespace USFMConverter.UI.Pages
             // will apply to all children
             ((Window)this.VisualRoot).DataContext = new ViewData
             {
+                LicenseFile = data.LicenseFile,
+                SelectedLicense = data.SelectedLicense,
                 Files = data.Files
             };
         }

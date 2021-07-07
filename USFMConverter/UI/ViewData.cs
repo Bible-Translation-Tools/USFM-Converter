@@ -7,7 +7,8 @@ namespace USFMConverter.UI
     {
         public List<string> Files { get; set; } = new();
 
-        public ComboBoxItem LicenseOption { get; set; }
+        public string? LicenseFile { get; set; } = null;
+        public ComboBoxItem SelectedLicense { get; set; }
 
         public ComboBoxItem OutputFileFormat { get; set; }
 
