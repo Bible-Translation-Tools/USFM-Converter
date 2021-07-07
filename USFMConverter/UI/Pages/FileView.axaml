@@ -133,7 +133,6 @@
             </Button>
         </Grid>
         
-
         <ListBox Grid.Row="5" Padding="20" Name="FilesListBox"
                  SelectionChanged="OnListItemSelect"
                  ScrollViewer.VerticalScrollBarVisibility="Visible"
