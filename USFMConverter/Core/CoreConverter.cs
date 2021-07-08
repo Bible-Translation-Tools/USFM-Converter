@@ -29,7 +29,7 @@ namespace USFMConverter.Core
             var fileFormat = Enum.Parse<FileFormat>(fileFormatName);
 
             Project project = BuildProject(viewData);
-            Renderable renderer;
+            DocumentRenderer renderer;
             switch (fileFormat)
             {
                 case FileFormat.DOCX:
@@ -42,17 +42,16 @@ namespace USFMConverter.Core
                     throw new ArgumentException("Output file format is not supported");
             }
 
-            USFMDocument front = null;
             if (viewData.SelectedLicense.Tag != null)
             {
-                front = await GetFrontMatterUSFM(
+                renderer.FrontMatter = await GetFrontMatterUSFM(
                     viewData.SelectedLicense.Tag.ToString(),
                     viewData.LicenseFile ?? ""
                     );
             }
-
+            
             var usfmDocument = await FileSystem.LoadUSFMsAsync(project.Files, progressCallback);
-            renderer.Render(project, usfmDocument, front);
+            renderer.Render(project, usfmDocument);
         }
 
         private Project BuildProject(ViewData viewData)

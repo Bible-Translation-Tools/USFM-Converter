@@ -9,7 +9,7 @@ using USFMToolsSharp.Renderers.HTML;
 
 namespace USFMConverter.Core.Render
 {
-    public class HTMLRenderer : Renderable
+    public class HTMLRenderer : DocumentRenderer
     {
         private List<string> TextDirectionClasses = new() { "", "rtl-direct" };
 
@@ -70,19 +70,17 @@ namespace USFMConverter.Core.Render
             return config;
         }
 
-        public void Render(
-            Project project,
-            USFMDocument usfm,
-            USFMDocument frontMatter = null
-            )
+        public override void Render(Project project, USFMDocument usfm)
         {
             var config = BuildHTMLConfig(project.FormatOptions);
             var renderer = new HtmlRenderer(config);
 
-            if (frontMatter != null)
+            if (FrontMatter != null)
             {
-                frontMatter.Insert(usfm);
-                usfm = frontMatter;
+                var usfmWithFrontMatter = new USFMDocument();
+                usfmWithFrontMatter.Insert(FrontMatter);
+                usfmWithFrontMatter.Insert(usfm);
+                usfm = usfmWithFrontMatter;
             }
 
             //renderer.FrontMatterHTML = GetLicenseInfo();

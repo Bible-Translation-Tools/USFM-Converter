@@ -5,8 +5,10 @@ using USFMToolsSharp.Models.Markers;
 
 namespace USFMConverter.Core.Render
 {
-    public interface Renderable
+    public abstract class DocumentRenderer
     {
-        public void Render(Project project, USFMDocument usfmDoc, USFMDocument frontMatter);
+        public USFMDocument FrontMatter { get; set; }
+
+        public abstract void Render(Project project, USFMDocument usfmDoc);
     }
 }

@@ -7,7 +7,7 @@ using USFMToolsSharp.Renderers.Docx;
 
 namespace USFMConverter.Core.Render
 {
-    public class DocxRenderer : Renderable
+    public class DocxRenderer : DocumentRenderer
     {
         private Dictionary<TextSize, int> FontSizeMap = new()
         {
@@ -52,19 +52,16 @@ namespace USFMConverter.Core.Render
             return config;
         }
 
-        public void Render(
-            Project project, 
-            USFMDocument usfm, 
-            USFMDocument frontMatter = null
-            )
+        public override void Render(Project project, USFMDocument usfm)
         {
             var config = BuildDocxConfig(project.FormatOptions);
             var renderer = new USFMToolsSharp.Renderers.Docx.DocxRenderer(config);
 
-            if (frontMatter != null)
+            if (FrontMatter != null)
             {
-                renderer.FrontMatter = frontMatter;
+                renderer.FrontMatter = FrontMatter;
             }
+
             var document = renderer.Render(usfm);
 
             using (Stream outputStream = File.Create(project.OutputFile.FullName))
