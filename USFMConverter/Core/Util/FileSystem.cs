@@ -4,16 +4,13 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading.Tasks;
 using USFMConverter.UI;
 using USFMToolsSharp;
 using USFMToolsSharp.Models.Markers;
-using System.Text.Json.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using USFMConverter.Core.Data;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace USFMConverter.Core.Util
 {
@@ -138,16 +135,13 @@ namespace USFMConverter.Core.Util
             return usfmDoc;
         }
 
-        public static Setting? LoadConfig(string OutputFileFormat)
+        public static Setting? LoadOptionConfig(string OutputFileFormat)
         {
-            Console.WriteLine("Config Loaded!");
-            
             string path = $"appsettings_{OutputFileFormat}.json";
-            
             return File.Exists(path) ? JsonConvert.DeserializeObject<Setting>(File.ReadAllText(path)) : null;
         }
 
-        public static void SaveConfig(ViewData? dataContext)
+        public static void SaveOptionConfig(ViewData? dataContext)
         {
             Setting setting = new (dataContext);
             string path = $"appsettings_{dataContext?.OutputFileFormat.Tag}.json";
@@ -159,8 +153,40 @@ namespace USFMConverter.Core.Util
             }
             
             File.WriteAllText(path, JsonConvert.SerializeObject(setting, Formatting.Indented));
+        }
+
+        public static string LoadLastUsedFormat()
+        {
+            string path = "appsettings_format.json";
+            string lastUsedFormat = "";
+
+            if (!File.Exists(path))
+            {
+                string content = "{\"LastUsedFormat\": \"\"}";
+                File.WriteAllText(path, content);
+            }
+            else
+            {
+                string jsonFile = File.ReadAllText(path);
+                JObject jsonObj = JObject.Parse(jsonFile);
+
+                lastUsedFormat = (string) jsonObj["LastUsedFormat"];
+            }
+
+            return lastUsedFormat;
+        }
+
+        public static void SaveLastUsedFormat(ViewData? dataContext)
+        {
+            string path = "appsettings_format.json";
+            string lastUsedFormat = dataContext.OutputFileFormat.Tag.ToString();
             
-            Console.WriteLine("Config Saved!");
+            string jsonFile = File.ReadAllText(path);
+            JObject jsonObj = JObject.Parse(jsonFile);
+
+            jsonObj["LastUsedFormat"] = lastUsedFormat;
+            
+            File.WriteAllText(path, JsonConvert.SerializeObject(jsonObj, Formatting.Indented));
         }
     }
 }

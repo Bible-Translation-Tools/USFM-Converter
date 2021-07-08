@@ -2,6 +2,8 @@ using System;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using NPOI.SS.Formula.Functions;
+using USFMConverter.Core.ConstantValue;
 using USFMConverter.Core.Data;
 using USFMConverter.Core.Util;
 
@@ -26,8 +28,11 @@ namespace USFMConverter.UI.Pages
             blurredArea.AddHandler(PointerPressedEvent, OnCloseClick);
 
             outputFormatCb = this.FindControl<ComboBox>("OutputFormatSelector");
-            outputFormatCb.AddHandler(ComboBox.SelectionChangedEvent, OnOuputFormatSelect);
+            int lastUsedFormatIndex = GetLastUsedFormatIndex(outputFormatCb.SelectedIndex);
+            outputFormatCb.SelectedIndex = lastUsedFormatIndex;
 
+            outputFormatCb.AddHandler(ComboBox.SelectionChangedEvent, OnOuputFormatSelect);
+            
             optionView = this.FindControl<UserControl>("OptionView");
         }
 
@@ -41,8 +46,6 @@ namespace USFMConverter.UI.Pages
                 this.FindControl<UserControl>(formatName).IsVisible = (formatName == selectedFormat);
             }
 
-            Console.WriteLine(selectedFormat);
-            
             SaveOptions();
             LoadOptions(selectedFormat);
         }
@@ -57,27 +60,44 @@ namespace USFMConverter.UI.Pages
         {
             // Save config files when option view is closed
             var dataContext = (ViewData) DataContext;
-            FileSystem.SaveConfig(dataContext);
+            FileSystem.SaveOptionConfig(dataContext);
         }
 
         private void LoadOptions(string OutputFileFormat)
         {
             var dataContext = (ViewData) DataContext;
-            Setting? setting = FileSystem.LoadConfig(OutputFileFormat);
+            Setting? setting = FileSystem.LoadOptionConfig(OutputFileFormat);
 
-            ((Window) VisualRoot).DataContext = new ViewData
+            // Don't load config if the config file does not exist
+            if (setting != null)
             {
-                Files = dataContext.Files,
-                SelectedTextSizeIndex = setting.TextSize,
-                SelectedLineSpacingIndex = setting.LineSpacing,
-                ColumnCount = setting.ColumnCount,
-                Justified = setting.Justified,
-                LeftToRight = setting.LeftToRight,
-                ChapterBreak = setting.ChapterBreak,
-                VerseBreak = setting.VerseBreak,
-                NoteTaking = setting.NoteTaking,
-                TableOfContents = setting.TableOfContents
-            };
+                ((Window) VisualRoot).DataContext = new ViewData
+                {
+                    Files = dataContext.Files,
+                    SelectedTextSizeIndex = setting.TextSize,
+                    SelectedLineSpacingIndex = setting.LineSpacing,
+                    ColumnCount = setting.ColumnCount,
+                    Justified = setting.Justified,
+                    LeftToRight = setting.LeftToRight,
+                    ChapterBreak = setting.ChapterBreak,
+                    VerseBreak = setting.VerseBreak,
+                    NoteTaking = setting.NoteTaking,
+                    TableOfContents = setting.TableOfContents
+                };
+            }
+        }
+
+        private int GetLastUsedFormatIndex(int defaultIndex)
+        {
+            string lastUsedFormat = FileSystem.LoadLastUsedFormat();
+            int lastUsedFormatIndex = defaultIndex; // default index is 0
+
+            if (Enum.TryParse(lastUsedFormat, out FileFormat fileFormat))
+            {
+                lastUsedFormatIndex = (int) fileFormat;
+            }
+
+            return lastUsedFormatIndex;
         }
     }
 }

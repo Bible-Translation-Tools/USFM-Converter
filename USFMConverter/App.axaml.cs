@@ -1,3 +1,4 @@
+using System;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -18,9 +19,10 @@ namespace USFMConverter
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                // Temporary
-                Setting? setting = FileSystem.LoadConfig("DOCX");
+                string lastUsedFormat = FileSystem.LoadLastUsedFormat();
+                Setting? setting = FileSystem.LoadOptionConfig(lastUsedFormat);
 
+                // Load if there is config file already
                 if (setting != null)
                 {
                     desktop.MainWindow = new MainWindow
