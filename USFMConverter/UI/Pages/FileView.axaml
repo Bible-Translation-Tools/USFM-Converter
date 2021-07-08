@@ -101,35 +101,36 @@
             Project Files
         </TextBlock>
 
-        <Grid Grid.Row="2">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Classes="SelectedText" Margin="0 10 0 5"
+        <Grid Grid.Row="2" ColumnDefinitions="1* 1* 1*" Margin="0 10 0 5">
+            <StackPanel Grid.Column="0"  Orientation="Horizontal" Spacing="5">
+                <TextBlock Classes="SelectedText" 
                            Background="White" VerticalAlignment="Center"
                            HorizontalAlignment="Left" Name="SelectedCount">
                     0
                 </TextBlock>
-                <TextBlock Classes="SelectedText" Margin="5 10 0 5"
+                <TextBlock Classes="SelectedText"
                            Background="White" VerticalAlignment="Center"
                            HorizontalAlignment="Left">
                     Selected
                 </TextBlock>
-                <Button Classes="SelectAllButton" Margin="10 10 0 5"
+                <Button Classes="SelectAllButton" Margin="5 0 0 0"
                         Name="SelectAllBtn" Click="OnSelectAllClick"
                         IsEnabled="{Binding #FilesListBox.Items.Count}">
                     Select All
                 </Button>
-                <StackPanel Orientation="Horizontal" Margin="25 10 0 5" Spacing="5">
+            </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Column="1" Spacing="10">
                     <Button Click="OnMoveUp" MinWidth="90" Classes="MoveBtn"
                             IsEnabled="{Binding #FilesListBox.SelectedItems.Count}">
                         Move Up
                     </Button>
-                    <Button Click="OnMoveDown" MinWidth="90"
+                    <Button Click="OnMoveDown" MinWidth="90" Classes="MoveBtn"
                             IsEnabled="{Binding #FilesListBox.SelectedItems.Count}">
                         Move Down
                     </Button>
                 </StackPanel>
-            </StackPanel>
-            <Button Classes="RemoveButton" Margin="0 10 0 5"
+            
+            <Button Classes="RemoveButton" Grid.Column="2"
                     HorizontalAlignment="Right" Click="OnRemoveClick"
                     IsEnabled="{Binding #FilesListBox.SelectedItems.Count}">
                 - Remove Files
