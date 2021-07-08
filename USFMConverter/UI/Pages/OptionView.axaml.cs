@@ -41,51 +41,43 @@ namespace USFMConverter.UI.Pages
                 this.FindControl<UserControl>(formatName).IsVisible = (formatName == selectedFormat);
             }
 
-            SetInputOptions();
+            Console.WriteLine(selectedFormat);
+            
+            SaveOptions();
+            LoadOptions(selectedFormat);
         }
 
         private void OnCloseClick(object? sender, RoutedEventArgs e)
         {
             optionView.IsVisible = false;
+            SaveOptions();
+        }
 
+        private void SaveOptions()
+        {
             // Save config files when option view is closed
             var dataContext = (ViewData) DataContext;
             FileSystem.SaveConfig(dataContext);
         }
 
-        private void SetInputOptions()
+        private void LoadOptions(string OutputFileFormat)
         {
-            // var dataContext = (ViewData) DataContext;
-            // Setting? setting = FileSystem.LoadConfig(dataContext);
-            //
-            // if (setting != null)
-            // {
-            //     Console.WriteLine(setting.Justified);
-            //     
-            //     ((Window) VisualRoot).DataContext = new ViewData
-            //     {
-            //         Files = dataContext.Files,
-            //         SelectedTextSizeIndex = setting.TextSize,
-            //         SelectedLineSpacingIndex = setting.LineSpacing,
-            //         ColumnCount = setting.ColumnCount,
-            //         Justified = setting.Justified,
-            //         LeftToRight = setting.LeftToRight,
-            //         ChapterBreak = setting.ChapterBreak,
-            //         VerseBreak = setting.VerseBreak,
-            //         NoteTaking = setting.NoteTaking,
-            //         TableOfContents = setting.TableOfContents
-            //     };
-            // }
+            var dataContext = (ViewData) DataContext;
+            Setting? setting = FileSystem.LoadConfig(OutputFileFormat);
 
-
-            // var data = ((ViewData)DataContext);
-
-            // change the DataContext of root element
-            // will apply to all children
-            // ((Window)this.VisualRoot).DataContext = new ViewData
-            // {
-            // Files = data.Files
-            // };
+            ((Window) VisualRoot).DataContext = new ViewData
+            {
+                Files = dataContext.Files,
+                SelectedTextSizeIndex = setting.TextSize,
+                SelectedLineSpacingIndex = setting.LineSpacing,
+                ColumnCount = setting.ColumnCount,
+                Justified = setting.Justified,
+                LeftToRight = setting.LeftToRight,
+                ChapterBreak = setting.ChapterBreak,
+                VerseBreak = setting.VerseBreak,
+                NoteTaking = setting.NoteTaking,
+                TableOfContents = setting.TableOfContents
+            };
         }
     }
 }

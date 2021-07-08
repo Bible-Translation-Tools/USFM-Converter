@@ -138,12 +138,11 @@ namespace USFMConverter.Core.Util
             return usfmDoc;
         }
 
-        public static Setting? LoadConfig(ViewData? dataContext)
+        public static Setting? LoadConfig(string OutputFileFormat)
         {
             Console.WriteLine("Config Loaded!");
-            string path = $"appsettings_{dataContext?.OutputFileFormat.Tag?.ToString()}.json";
             
-            Console.WriteLine(JsonConvert.DeserializeObject<Setting>(File.ReadAllText(path)));
+            string path = $"appsettings_{OutputFileFormat}.json";
             
             return File.Exists(path) ? JsonConvert.DeserializeObject<Setting>(File.ReadAllText(path)) : null;
         }
@@ -151,9 +150,9 @@ namespace USFMConverter.Core.Util
         public static void SaveConfig(ViewData? dataContext)
         {
             Setting setting = new (dataContext);
-            string path = $"appsettings_{dataContext?.OutputFileFormat.Tag?.ToString()}.json";
+            string path = $"appsettings_{dataContext?.OutputFileFormat.Tag}.json";
 
-            // If files doesn't exist, create the file
+            // If file doesn't exist, create the file
             if (!File.Exists(path))
             {
                 File.WriteAllText(path, "{}");
