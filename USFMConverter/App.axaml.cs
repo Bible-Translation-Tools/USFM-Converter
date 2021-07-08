@@ -29,9 +29,9 @@ namespace USFMConverter
                     {
                         DataContext = new ViewData
                         {
-                            SelectedTextSizeIndex = setting.TextSize,
-                            SelectedLineSpacingIndex = setting.LineSpacing,
-                            ColumnCount = setting.ColumnCount,
+                            SelectedTextSizeIndex = setting.TextSizeIndex,
+                            SelectedLineSpacingIndex = setting.LineSpacingIndex,
+                            ColumnCount = setting.ColumnCountIndex,
                             Justified = setting.Justified,
                             LeftToRight = setting.LeftToRight,
                             ChapterBreak = setting.ChapterBreak,
