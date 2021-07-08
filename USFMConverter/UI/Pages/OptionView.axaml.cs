@@ -61,6 +61,7 @@ namespace USFMConverter.UI.Pages
             // Save config files when option view is closed
             var dataContext = (ViewData) DataContext;
             FileSystem.SaveOptionConfig(dataContext);
+            FileSystem.SaveLastUsedFormat((ViewData) DataContext);
         }
 
         private void LoadOptions(string OutputFileFormat)
