@@ -70,15 +70,25 @@ namespace USFMConverter.Core.Render
             return config;
         }
 
-        public void Render(Project project, USFMDocument usfmDoc)
+        public void Render(
+            Project project,
+            USFMDocument usfm,
+            USFMDocument frontMatter = null
+            )
         {
             var config = BuildHTMLConfig(project.FormatOptions);
             var renderer = new HtmlRenderer(config);
 
-            renderer.FrontMatterHTML = GetLicenseInfo();
+            if (frontMatter != null)
+            {
+                frontMatter.Insert(usfm);
+                usfm = frontMatter;
+            }
+
+            //renderer.FrontMatterHTML = GetLicenseInfo();
             renderer.InsertedFooter = GetFooterInfo();
 
-            var htmlString = renderer.Render(usfmDoc);
+            var htmlString = renderer.Render(usfm);
 
             File.WriteAllText(project.OutputFile.FullName, htmlString);
 

@@ -77,6 +77,29 @@
                         </StackPanel>
                     </DockPanel>
 
+					<TextBlock Classes="SubTitle">
+						Front matter
+					</TextBlock>
+
+					<StackPanel>
+						<DockPanel Margin="15 0 0 0">
+							<Image Classes="Icon" Source="/UI/Assets/page.png" />
+							<TextBlock VerticalAlignment="Center" Margin="10 20">
+								License Page
+							</TextBlock>
+                            <ComboBox IsTextSearchEnabled="True" SelectedIndex="0"
+                                      SelectedItem="{Binding SelectedLicense, Mode=OneWayToSource}"
+                                      Name="LicenseSelector">
+                                <ComboBoxItem>None</ComboBoxItem>
+                                <ComboBoxItem Tag="en">English</ComboBoxItem>
+                                <ComboBoxItem PointerPressed="OnCustomLicenseSelect"
+                                              Tag="CUSTOM">
+                                    Custom File...
+                                </ComboBoxItem>
+                            </ComboBox>
+						</DockPanel>
+					</StackPanel>
+
                     <TextBlock Classes="SubTitle">
                         Output
                     </TextBlock>

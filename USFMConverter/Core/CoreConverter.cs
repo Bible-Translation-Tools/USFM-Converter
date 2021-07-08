@@ -8,6 +8,7 @@ using USFMConverter.Core.Data;
 using USFMConverter.Core.Render;
 using USFMConverter.Core.Util;
 using USFMConverter.UI;
+using USFMConverter.UI.Pages;
 using USFMToolsSharp;
 using USFMToolsSharp.Models.Markers;
 
@@ -41,8 +42,17 @@ namespace USFMConverter.Core
                     throw new ArgumentException("Output file format is not supported");
             }
 
+            USFMDocument front = null;
+            if (viewData.SelectedLicense.Tag != null)
+            {
+                front = await GetFrontMatterUSFM(
+                    viewData.SelectedLicense.Tag.ToString(),
+                    viewData.LicenseFile ?? ""
+                    );
+            }
+
             var usfmDocument = await FileSystem.LoadUSFMsAsync(project.Files, progressCallback);
-            renderer.Render(project, usfmDocument);
+            renderer.Render(project, usfmDocument, front);
         }
 
         private Project BuildProject(ViewData viewData)
@@ -81,6 +91,22 @@ namespace USFMConverter.Core
             project.Files.AddRange(viewData.Files);
 
             return project;
+        }
+
+        private async Task<USFMDocument> GetFrontMatterUSFM(string key, string file)
+        {
+            if (key != OptionView.CUSTOM_LICENSE)
+            {
+                // embedded license
+                file = $"license_{key}.usfm";
+            }
+
+            if (!File.Exists(file))
+            {
+                throw new FileNotFoundException("License file not found.");
+            }
+
+            return await FileSystem.LoadUSFMAsync(file);
         }
     }
 }

@@ -52,11 +52,19 @@ namespace USFMConverter.Core.Render
             return config;
         }
 
-        public void Render(Project project, USFMDocument usfm)
+        public void Render(
+            Project project, 
+            USFMDocument usfm, 
+            USFMDocument frontMatter = null
+            )
         {
             var config = BuildDocxConfig(project.FormatOptions);
             var renderer = new USFMToolsSharp.Renderers.Docx.DocxRenderer(config);
 
+            if (frontMatter != null)
+            {
+                renderer.FrontMatter = frontMatter;
+            }
             var document = renderer.Render(usfm);
 
             using (Stream outputStream = File.Create(project.OutputFile.FullName))
