@@ -21,22 +21,31 @@ namespace USFMConverter
                 // Temporary
                 Setting? setting = FileSystem.LoadConfig("DOCX");
 
-                desktop.MainWindow = new MainWindow
+                if (setting != null)
                 {
-                    DataContext = new ViewData
+                    desktop.MainWindow = new MainWindow
                     {
-                        SelectedTextSizeIndex = setting.TextSize,
-                        SelectedLineSpacingIndex = setting.LineSpacing,
-                        ColumnCount = setting.ColumnCount,
-                        Justified = setting.Justified,
-                        LeftToRight = setting.LeftToRight,
-                        ChapterBreak = setting.ChapterBreak,
-                        VerseBreak = setting.VerseBreak,
-                        NoteTaking = setting.NoteTaking,
-                        TableOfContents = setting.TableOfContents
-
-                    }
-                };
+                        DataContext = new ViewData
+                        {
+                            SelectedTextSizeIndex = setting.TextSize,
+                            SelectedLineSpacingIndex = setting.LineSpacing,
+                            ColumnCount = setting.ColumnCount,
+                            Justified = setting.Justified,
+                            LeftToRight = setting.LeftToRight,
+                            ChapterBreak = setting.ChapterBreak,
+                            VerseBreak = setting.VerseBreak,
+                            NoteTaking = setting.NoteTaking,
+                            TableOfContents = setting.TableOfContents
+                        }
+                    };
+                }
+                else
+                {
+                    desktop.MainWindow = new MainWindow
+                    {
+                        DataContext = new ViewData()
+                    };
+                }
             }
 
             base.OnFrameworkInitializationCompleted();
