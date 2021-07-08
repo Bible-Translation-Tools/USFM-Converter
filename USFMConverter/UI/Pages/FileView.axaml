@@ -44,6 +44,9 @@
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
         </Style>
+        <Style Selector="Button.MoveBtn">
+            <Setter Property="Background" Value="#c7d7ff"/>
+        </Style>
     </UserControl.Styles>
 
     <Grid RowDefinitions="Auto Auto Auto *" Margin="20">
@@ -116,7 +119,7 @@
                     Select All
                 </Button>
                 <StackPanel Orientation="Horizontal" Margin="25 10 0 5" Spacing="5">
-                    <Button Click="OnMoveUp" MinWidth="90"
+                    <Button Click="OnMoveUp" MinWidth="90" Classes="MoveBtn"
                             IsEnabled="{Binding #FilesListBox.SelectedItems.Count}">
                         Move Up
                     </Button>
