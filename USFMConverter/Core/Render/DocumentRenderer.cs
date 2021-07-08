@@ -7,7 +7,7 @@ namespace USFMConverter.Core.Render
 {
     public abstract class DocumentRenderer
     {
-        public USFMDocument FrontMatter { get; set; }
+        public USFMDocument? FrontMatter { get; set; }
 
         public abstract void Render(Project project, USFMDocument usfmDoc);
     }
