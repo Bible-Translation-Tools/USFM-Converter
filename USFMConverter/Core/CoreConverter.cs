@@ -8,14 +8,14 @@ using USFMConverter.Core.Data;
 using USFMConverter.Core.Render;
 using USFMConverter.Core.Util;
 using USFMConverter.UI;
-using USFMConverter.UI.Pages;
-using USFMToolsSharp;
 using USFMToolsSharp.Models.Markers;
 
 namespace USFMConverter.Core
 {
     public class CoreConverter
     {
+        public static readonly string CUSTOM_LICENSE = "CUSTOM_LICENSE";
+        private static readonly string RESOURCE_DIR_NAME = "Resources";
 
         public static ICollection<string> supportedExtensions = new List<string> {
             ".usfm", ".txt", ".sfm"
@@ -95,15 +95,15 @@ namespace USFMConverter.Core
 
         private async Task<USFMDocument> GetFrontMatterUSFM(string key, string file)
         {
-            if (key != OptionView.CUSTOM_LICENSE)
+            if (key != CUSTOM_LICENSE)
             {
                 // embedded license
-                file = $"license_{key}.usfm";
+                file = Path.Combine(RESOURCE_DIR_NAME, $"license_{key}.usfm");
             }
 
             if (!File.Exists(file))
             {
-                throw new FileNotFoundException("License file not found.");
+                throw new FileNotFoundException("License file not found for " + key);
             }
 
             return await FileSystem.LoadUSFMAsync(file);

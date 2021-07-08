@@ -76,6 +76,9 @@
     <None Update="insert_ULB_License.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\license_en.usfm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="style.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
