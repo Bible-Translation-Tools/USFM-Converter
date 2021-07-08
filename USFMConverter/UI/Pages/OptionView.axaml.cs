@@ -30,6 +30,7 @@ namespace USFMConverter.UI.Pages
             outputFormatCb = this.FindControl<ComboBox>("OutputFormatSelector");
             int lastUsedFormatIndex = GetLastUsedFormatIndex(outputFormatCb.SelectedIndex);
             outputFormatCb.SelectedIndex = lastUsedFormatIndex;
+            ShowFormatView();
 
             outputFormatCb.AddHandler(ComboBox.SelectionChangedEvent, OnOuputFormatSelect);
             
@@ -39,16 +40,22 @@ namespace USFMConverter.UI.Pages
         private void OnOuputFormatSelect(object? sender, SelectionChangedEventArgs e)
         {
             string selectedFormat = ((ComboBoxItem) outputFormatCb.SelectedItem).Tag.ToString();
+            ShowFormatView();
+            SaveOptions();
+            LoadOptions(selectedFormat);
+        }
+
+        private void ShowFormatView()
+        {
+            string selectedFormat = ((ComboBoxItem) outputFormatCb.SelectedItem).Tag.ToString();
 
             foreach (ComboBoxItem comboBoxItem in outputFormatCb.Items)
             {
                 var formatName = comboBoxItem.Tag.ToString();
                 this.FindControl<UserControl>(formatName).IsVisible = (formatName == selectedFormat);
             }
-
-            SaveOptions();
-            LoadOptions(selectedFormat);
         }
+        
 
         private void OnCloseClick(object? sender, RoutedEventArgs e)
         {
