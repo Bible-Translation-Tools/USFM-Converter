@@ -127,14 +127,18 @@ namespace USFMConverter.UI.Pages
             {
                 // show error dialog
                 progressDialog.IsVisible = false;
-                errorDialog.IsVisible = true;
-                errorDialog.DataContext = string.Format("{0}\n({1})", ex.Message, ex.GetType());
-                return;
+                ShowError(ex);
             }
 
             // show success dialog
             progressDialog.IsVisible = false;
             successDialog.IsVisible = true;
+        }
+
+        private void OnError(object? sender, RoutedEventArgs e)
+        {
+            var error = ((ViewData)DataContext).Error;
+            ShowError(error);
         }
 
         private void OnStartNewProject(object? sender, RoutedEventArgs e)
@@ -204,6 +208,13 @@ namespace USFMConverter.UI.Pages
         private void HideOverlay()
         {
             backgroundOverlay.IsVisible = false;
+        }
+
+        private void ShowError(Exception ex)
+        {
+            ShowOverlay();
+            errorDialog.IsVisible = true;
+            errorDialog.DataContext = string.Format("{0}\n({1})", ex.Message, ex.GetType());
         }
     }
 }

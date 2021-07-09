@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls;
+using System;
 using System.Collections.Generic;
 
 namespace USFMConverter.UI
@@ -23,5 +24,7 @@ namespace USFMConverter.UI
         public bool NoteTaking { get; set; } = false;
         public bool TableOfContents { get; set; } = false;
         public string OutputFileLocation { get; set; } = "";
+
+        public Exception Error { get; set; }
     }
 }

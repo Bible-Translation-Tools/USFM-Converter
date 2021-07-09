@@ -38,11 +38,30 @@ namespace USFMConverter.UI.Pages
             }
         }
 
+        public event EventHandler<RoutedEventArgs> BrowseError
+        {
+            add
+            {
+                AddHandler(BrowseErrorEvent, value);
+            }
+            remove
+            {
+                RemoveHandler(BrowseErrorEvent, value);
+            }
+        }
+
         public static readonly RoutedEvent<RoutedEventArgs> StartConvertEvent =
             RoutedEvent.Register<FileView, RoutedEventArgs>(
                 nameof(ConvertStart),
                 RoutingStrategies.Direct
             );
+
+        public static readonly RoutedEvent<RoutedEventArgs> BrowseErrorEvent =
+            RoutedEvent.Register<FileView, RoutedEventArgs>(
+                nameof(BrowseError),
+                RoutingStrategies.Bubble
+            );
+
 
         public FileView()
         {
@@ -76,16 +95,27 @@ namespace USFMConverter.UI.Pages
             var dialog = new OpenFolderDialog();
             dialog.Title = "Select a Folder";
 
-            var result = await dialog.ShowAsync((Window)this.VisualRoot);
+            string result = await dialog.ShowAsync((Window)this.VisualRoot);
+
             if (!string.IsNullOrEmpty(result))
             {
                 var dir = new FileInfo(result);
-                var filesInDir = FileSystem.GetFilesInDir(
-                    dir, CoreConverter.supportedExtensions
-                ).Select(f => f.FullName);
-
+                IEnumerable<string> filesInDir;
+                try
+                {
+                    filesInDir = FileSystem.GetFilesInDir(
+                        dir, CoreConverter.supportedExtensions
+                    ).Select(f => f.FullName);
+                }
+                catch (Exception ex)
+                {
+                    ((ViewData)DataContext).Error = ex;
+                    RaiseEvent(new RoutedEventArgs(BrowseErrorEvent));
+                    return;
+                }
+                
                 var currentFileList = filesContainer.Items.Cast<string>();
-                var newList = currentFileList.Concat(filesInDir).ToList(); ;
+                var newList = currentFileList.Concat(filesInDir).ToList();
 
                 filesContainer.Items = newList; // changes to the UI will bind to DataContext
                 UpdateProjectStatus();
@@ -127,6 +157,8 @@ namespace USFMConverter.UI.Pages
             });
 
             var paths = await dialog.ShowAsync((Window)this.VisualRoot);
+            if (paths == null || paths.Length == 0) return;
+
             var currentFileList = filesContainer.Items.Cast<string>();
             var newList = currentFileList.Concat(paths).ToList(); ;
 
@@ -176,11 +208,21 @@ namespace USFMConverter.UI.Pages
                 {
                     if (file.Attributes.HasFlag(FileAttributes.Directory))
                     {
-                        var filesInDir = FileSystem.GetFilesInDir(
-                            file, CoreConverter.supportedExtensions
-                        ).Select(f => f.FullName);
+                        try
+                        {
+                            var filesInDir = FileSystem.GetFilesInDir(
+                                file, CoreConverter.supportedExtensions
+                            ).Select(f => f.FullName);
 
-                        filesToAdd.AddRange(filesInDir);
+                            filesToAdd.AddRange(filesInDir);
+                        } 
+                        catch (Exception ex)
+                        {
+                            // some folder may not have read permission
+                            ((ViewData)DataContext).Error = ex;
+                            RaiseEvent(new RoutedEventArgs(BrowseErrorEvent));
+                            return;
+                        }
                     }
                     else if (CoreConverter.supportedExtensions.Contains(file.Extension))
                     {
