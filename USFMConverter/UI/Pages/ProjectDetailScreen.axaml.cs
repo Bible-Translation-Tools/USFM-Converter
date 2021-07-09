@@ -128,6 +128,7 @@ namespace USFMConverter.UI.Pages
                 // show error dialog
                 progressDialog.IsVisible = false;
                 ShowError(ex);
+                return;
             }
 
             // show success dialog
