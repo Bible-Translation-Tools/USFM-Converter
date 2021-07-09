@@ -28,11 +28,11 @@ namespace USFMConverter.UI.Pages
             blurredArea.AddHandler(PointerPressedEvent, OnCloseClick);
 
             outputFormatCb = this.FindControl<ComboBox>("OutputFormatSelector");
-            int lastUsedFormatIndex = GetLastUsedFormatIndex(outputFormatCb.SelectedIndex);
+            int lastUsedFormatIndex = SettingManager.LoadMostRecentFormatIndex();
             outputFormatCb.SelectedIndex = lastUsedFormatIndex;
             ShowFormatView();
-
             outputFormatCb.AddHandler(ComboBox.SelectionChangedEvent, OnOuputFormatSelect);
+
             
             optionView = this.FindControl<UserControl>("OptionView");
         }
@@ -94,17 +94,17 @@ namespace USFMConverter.UI.Pages
             }
         }
 
-        private int GetLastUsedFormatIndex(int defaultIndex)
-        {
-            string lastUsedFormat = SettingManager.LoadMostRecentFormat();
-            int lastUsedFormatIndex = defaultIndex; // default index is 0
+        //private int GetLastUsedFormatIndex(int defaultIndex)
+        //{
+        //    string lastUsedFormat = SettingManager.LoadMostRecentFormat();
+        //    int lastUsedFormatIndex = defaultIndex; // default index is 0
 
-            if (Enum.TryParse(lastUsedFormat, out FileFormat fileFormat))
-            {
-                lastUsedFormatIndex = (int) fileFormat;
-            }
+        //    if (Enum.TryParse(lastUsedFormat, out FileFormat fileFormat))
+        //    {
+        //        lastUsedFormatIndex = (int) fileFormat;
+        //    }
 
-            return lastUsedFormatIndex;
-        }
+        //    return lastUsedFormatIndex;
+        //}
     }
 }

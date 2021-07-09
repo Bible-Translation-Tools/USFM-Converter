@@ -19,27 +19,29 @@ namespace USFMConverter
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                string lastUsedFormat = SettingManager.LoadMostRecentFormat();
-                Setting? setting = SettingManager.LoadSetting(lastUsedFormat);
-                
-                // Load if there is config file already
-                if (setting != null)
+                string? recentFormat = SettingManager.LoadMostRecentFormat();
+                if (!string.IsNullOrEmpty(recentFormat))
                 {
-                    desktop.MainWindow = new MainWindow
+                    Setting? setting = SettingManager.LoadSetting(recentFormat);
+                    // Load if there is saved setting
+                    if (setting != null)
                     {
-                        DataContext = new ViewData
+                        desktop.MainWindow = new MainWindow
                         {
-                            SelectedTextSizeIndex = setting.TextSizeIndex,
-                            SelectedLineSpacingIndex = setting.LineSpacingIndex,
-                            ColumnCount = setting.ColumnCount,
-                            Justified = setting.Justified,
-                            LeftToRight = setting.LeftToRight,
-                            ChapterBreak = setting.ChapterBreak,
-                            VerseBreak = setting.VerseBreak,
-                            NoteTaking = setting.NoteTaking,
-                            TableOfContents = setting.TableOfContents
-                        }
-                    };
+                            DataContext = new ViewData
+                            {
+                                SelectedTextSizeIndex = setting.TextSizeIndex,
+                                SelectedLineSpacingIndex = setting.LineSpacingIndex,
+                                ColumnCount = setting.ColumnCount,
+                                Justified = setting.Justified,
+                                LeftToRight = setting.LeftToRight,
+                                ChapterBreak = setting.ChapterBreak,
+                                VerseBreak = setting.VerseBreak,
+                                NoteTaking = setting.NoteTaking,
+                                TableOfContents = setting.TableOfContents
+                            }
+                        };
+                    }
                 }
                 else
                 {

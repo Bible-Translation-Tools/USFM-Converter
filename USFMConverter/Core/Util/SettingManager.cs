@@ -35,44 +35,69 @@ namespace USFMConverter.Core.Util
 
         public static void SaveSetting(ViewData dataContext)
         {
-            string formatName = dataContext.OutputFileFormat.Tag.ToString();
-            SaveMostRecentFormat(formatName);
-
             var setting = new Setting(dataContext);
+            var formatName = dataContext.OutputFileFormat.Tag.ToString();
+            var recentFormat = new RecentFormat
+            {
+                FormatIndex = dataContext.SelectedFormatIndex,
+                FormatName = formatName
+            };
+
+            SaveMostRecentFormat(recentFormat);
             SaveFormatSetting(formatName, setting);
         }
 
-        public static string LoadMostRecentFormat()
+        public static int LoadMostRecentFormatIndex()
         {
             string path = Path.Combine(appDir, String.Format(SETTING_FILE_TEMPLATE, RECENT_FORMAT));
-            string lastUsedFormat = "";
+            int formatIndex = 0;
 
-            if (!File.Exists(path))
+            if (File.Exists(path))
             {
-                string content = "{\"LastUsedFormat\": \"\"}";
-                File.WriteAllText(path, content);
-            }
-            else
-            {
-                string jsonFile = File.ReadAllText(path);
-                JObject jsonObj = JObject.Parse(jsonFile);
+                try
+                {
+                    string json = File.ReadAllText(path);
+                    var recentFormat = JsonConvert.DeserializeObject<RecentFormat>(json);
 
-                lastUsedFormat = (string) jsonObj["LastUsedFormat"];
+                    formatIndex = (recentFormat != null) ? recentFormat.FormatIndex : 0;
+                }
+                catch (Exception)
+                {
+
+                }
             }
 
-            return lastUsedFormat;
+            return formatIndex;
         }
 
-        private static void SaveMostRecentFormat(string formatName)
+        public static string? LoadMostRecentFormat()
         {
             string path = Path.Combine(appDir, String.Format(SETTING_FILE_TEMPLATE, RECENT_FORMAT));
-            
-            string jsonFile = File.ReadAllText(path);
-            JObject jsonObj = JObject.Parse(jsonFile);
+            string? format = null;
 
-            jsonObj["LastUsedFormat"] = formatName;
-            
-            File.WriteAllText(path, JsonConvert.SerializeObject(jsonObj, Formatting.Indented));
+            if (File.Exists(path))
+            {
+                try
+                {
+                    string json = File.ReadAllText(path);
+                    var recentFormat = JsonConvert.DeserializeObject<RecentFormat>(json);
+
+                    format = recentFormat?.FormatName;
+                }
+                catch (Exception)
+                {
+
+                }
+            }
+
+            return format;
+        }
+
+        private static void SaveMostRecentFormat(RecentFormat recentFormat)
+        {
+            string path = Path.Combine(appDir, string.Format(SETTING_FILE_TEMPLATE, RECENT_FORMAT));
+            string json = JsonConvert.SerializeObject(recentFormat, Formatting.Indented);
+            File.WriteAllText(path, json);
         }
 
         private static void SaveFormatSetting(string formatName, Setting setting)
@@ -87,6 +112,15 @@ namespace USFMConverter.Core.Util
             }
 
             File.WriteAllText(path, JsonConvert.SerializeObject(setting, Formatting.Indented));
+        }
+
+        /// <summary>
+        /// Private json serializer class
+        /// </summary>
+        private class RecentFormat
+        {
+            public int FormatIndex { get; set; }
+            public string FormatName { get; set; }
         }
     }
 }

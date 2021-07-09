@@ -8,6 +8,7 @@ namespace USFMConverter.UI
     {
         public List<string> Files { get; set; } = new();
 
+        public int SelectedFormatIndex { get; set; } = 0;
         public ComboBoxItem OutputFileFormat { get; set; }
 
         public int SelectedTextSizeIndex { get; set; } = 0; // binding allows resetting user input
