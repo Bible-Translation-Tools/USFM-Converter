@@ -36,7 +36,7 @@ namespace USFMConverter.Core.Util
                     ? JsonConvert.DeserializeObject<Setting>(File.ReadAllText(path))
                     : null;
             }
-            catch { }
+            catch { } // skip previous settings if error
 
             return setting;
         }

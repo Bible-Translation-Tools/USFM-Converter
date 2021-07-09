@@ -27,7 +27,7 @@ namespace USFMConverter.UI.Pages
 
             outputFormatCb = this.FindControl<ComboBox>("OutputFormatSelector");
             int lastUsedFormatIndex = SettingManager.LoadMostRecentFormat()?.FormatIndex ?? 0;
-            outputFormatCb.SelectedIndex = lastUsedFormatIndex;
+            outputFormatCb.SelectedIndex = lastUsedFormatIndex; // pickup last used format
             ShowFormatView();
             outputFormatCb.AddHandler(ComboBox.SelectionChangedEvent, OnOuputFormatSelect);
 
@@ -68,10 +68,10 @@ namespace USFMConverter.UI.Pages
             SettingManager.SaveSetting(dataContext);
         }
 
-        private void LoadOptions(string OutputFileFormat)
+        private void LoadOptions(string outputFormat)
         {
             var dataContext = (ViewData) DataContext;
-            Setting? setting = SettingManager.LoadSetting(OutputFileFormat);
+            Setting? setting = SettingManager.LoadSetting(outputFormat);
 
             // Don't load config if the config file does not exist
             if (setting != null)
@@ -91,18 +91,5 @@ namespace USFMConverter.UI.Pages
                 };
             }
         }
-
-        //private int GetLastUsedFormatIndex(int defaultIndex)
-        //{
-        //    string lastUsedFormat = SettingManager.LoadMostRecentFormat();
-        //    int lastUsedFormatIndex = defaultIndex; // default index is 0
-
-        //    if (Enum.TryParse(lastUsedFormat, out FileFormat fileFormat))
-        //    {
-        //        lastUsedFormatIndex = (int) fileFormat;
-        //    }
-
-        //    return lastUsedFormatIndex;
-        //}
     }
 }
