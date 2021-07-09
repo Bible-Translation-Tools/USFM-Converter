@@ -47,17 +47,17 @@ namespace USFMConverter.Core.Util
                     );
             }
 
-            var dir = file.DirectoryName;
-            dir = $"\"{dir}\""; // preserve spaces with wrapping double quotes
+            var filePath = $"\"{file.FullName}\""; // preserve spaces with wrapping double quotes
+            var dir = $"\"{file.DirectoryName}\"";
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                Process.Start("explorer.exe", @"/select," + dir);
+                Process.Start("explorer.exe", @"/select," + filePath);
             }
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
-                Process.Start("open", "-R " + dir);
+                Process.Start("open", "-R " + filePath);
             }
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
