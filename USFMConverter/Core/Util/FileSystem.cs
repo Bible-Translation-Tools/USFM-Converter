@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using USFMConverter.UI;
@@ -16,6 +17,15 @@ namespace USFMConverter.Core.Util
 {
     public static class FileSystem
     {
+        private static string appDir;
+
+        static FileSystem()
+        {
+            string localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            appDir = Path.Combine(localAppData, Assembly.GetExecutingAssembly().GetName().Name);
+            Directory.CreateDirectory(appDir); // Create directory if doesn't exist. Ignore if it exists.
+        }
+        
         public static ICollection<FileInfo> GetFilesInDir(FileInfo dir, IEnumerable<string> extensions)
         {
             List<FileInfo> files = new();
@@ -137,14 +147,14 @@ namespace USFMConverter.Core.Util
 
         public static Setting? LoadOptionConfig(string OutputFileFormat)
         {
-            string path = $"appsettings_{OutputFileFormat}.json";
+            string path = Path.Combine(appDir, $"appsettings_{OutputFileFormat}.json");
             return File.Exists(path) ? JsonConvert.DeserializeObject<Setting>(File.ReadAllText(path)) : null;
         }
 
         public static void SaveOptionConfig(ViewData? dataContext)
         {
             Setting setting = new (dataContext);
-            string path = $"appsettings_{dataContext?.OutputFileFormat.Tag}.json";
+            string path = Path.Combine(appDir, $"appsettings_{dataContext?.OutputFileFormat.Tag}.json");
 
             // If file doesn't exist, create the file
             if (!File.Exists(path))
@@ -157,7 +167,7 @@ namespace USFMConverter.Core.Util
 
         public static string LoadLastUsedFormat()
         {
-            string path = "appsettings_format.json";
+            string path = Path.Combine(appDir, "appsettings_format.json");
             string lastUsedFormat = "";
 
             if (!File.Exists(path))
@@ -178,7 +188,7 @@ namespace USFMConverter.Core.Util
 
         public static void SaveLastUsedFormat(ViewData? dataContext)
         {
-            string path = "appsettings_format.json";
+            string path = Path.Combine(appDir, "appsettings_format.json");
             string lastUsedFormat = dataContext.OutputFileFormat.Tag.ToString();
             
             string jsonFile = File.ReadAllText(path);

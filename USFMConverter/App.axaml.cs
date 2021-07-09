@@ -21,7 +21,7 @@ namespace USFMConverter
             {
                 string lastUsedFormat = FileSystem.LoadLastUsedFormat();
                 Setting? setting = FileSystem.LoadOptionConfig(lastUsedFormat);
-
+                
                 // Load if there is config file already
                 if (setting != null)
                 {
