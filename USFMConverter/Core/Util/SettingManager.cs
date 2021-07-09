@@ -62,7 +62,7 @@ namespace USFMConverter.Core.Util
             return lastUsedFormat;
         }
 
-        public static void SaveLastUsedFormat(ViewData? dataContext)
+        public static void SaveLastUsedFormat(ViewData dataContext)
         {
             string path = Path.Combine(appDir, String.Format(SETTING_FILE_TEMPLATE, "format"));
             string lastUsedFormat = dataContext.OutputFileFormat.Tag.ToString();
@@ -73,6 +73,12 @@ namespace USFMConverter.Core.Util
             jsonObj["LastUsedFormat"] = lastUsedFormat;
             
             File.WriteAllText(path, JsonConvert.SerializeObject(jsonObj, Formatting.Indented));
+        }
+
+        public static void SaveConfigs(ViewData dataContext)
+        {
+            SaveOptionConfig(dataContext);
+            SaveLastUsedFormat(dataContext);
         }
     }
 }
