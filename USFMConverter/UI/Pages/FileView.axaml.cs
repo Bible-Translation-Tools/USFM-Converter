@@ -261,16 +261,9 @@ namespace USFMConverter.UI.Pages
 
         public void UpdateProjectStatus()
         {
-            if (filesContainer.ItemCount > 0)
-            {
-                projectNotReadySection.IsVisible = false;
-                projectReadySection.IsVisible = true;
-            }
-            else
-            {
-                projectNotReadySection.IsVisible = true;
-                projectReadySection.IsVisible = false;
-            }
+            bool isReady = (filesContainer.ItemCount > 0);
+            projectReadySection.IsVisible = isReady;
+            projectNotReadySection.IsVisible = !isReady;
         }
 
         public void UpdateCounter()
@@ -280,17 +273,9 @@ namespace USFMConverter.UI.Pages
 
         public void UpdateSelectBtn()
         {
-            if (filesContainer.SelectedItems.Count == 0)
-            {
-                // unselect
-                selectAllBtn.Content = "Select All";
-                selected = false;
-            }
-            else
-            {
-                selectAllBtn.Content = "Unselect All";
-                selected = true;
-            }
+            bool anySelected = (filesContainer.SelectedItems.Count > 0);
+            selectAllBtn.Content = anySelected ? "Unselect All" : "Select All";
+            selected = anySelected;
         }
     }
 }
