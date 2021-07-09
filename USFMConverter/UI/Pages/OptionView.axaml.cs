@@ -67,13 +67,13 @@ namespace USFMConverter.UI.Pages
         {
             // Save config files when option view is closed
             var dataContext = (ViewData) DataContext;
-            SettingManager.SaveConfigs(dataContext);
+            SettingManager.SaveSettings(dataContext);
         }
 
         private void LoadOptions(string OutputFileFormat)
         {
             var dataContext = (ViewData) DataContext;
-            Setting? setting = SettingManager.LoadOptionConfig(OutputFileFormat);
+            Setting? setting = SettingManager.LoadSettings(OutputFileFormat);
 
             // Don't load config if the config file does not exist
             if (setting != null)

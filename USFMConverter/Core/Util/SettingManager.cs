@@ -21,13 +21,13 @@ namespace USFMConverter.Core.Util
 
         }
         
-        public static Setting? LoadOptionConfig(string OutputFileFormat)
+        public static Setting? LoadSettings(string OutputFileFormat)
         {
             string path = Path.Combine(appDir, String.Format(SETTING_FILE_TEMPLATE, OutputFileFormat));
             return File.Exists(path) ? JsonConvert.DeserializeObject<Setting>(File.ReadAllText(path)) : null;
         }
 
-        public static void SaveOptionConfig(ViewData dataContext)
+        private static void SaveOptionConfig(ViewData dataContext)
         {
             Setting setting = new (dataContext);
             string path = Path.Combine(appDir, String.Format(SETTING_FILE_TEMPLATE, dataContext.OutputFileFormat.Tag));
@@ -62,7 +62,7 @@ namespace USFMConverter.Core.Util
             return lastUsedFormat;
         }
 
-        public static void SaveLastUsedFormat(ViewData dataContext)
+        private static void SaveLastUsedFormat(ViewData dataContext)
         {
             string path = Path.Combine(appDir, String.Format(SETTING_FILE_TEMPLATE, "format"));
             string lastUsedFormat = dataContext.OutputFileFormat.Tag.ToString();
@@ -75,7 +75,7 @@ namespace USFMConverter.Core.Util
             File.WriteAllText(path, JsonConvert.SerializeObject(jsonObj, Formatting.Indented));
         }
 
-        public static void SaveConfigs(ViewData dataContext)
+        public static void SaveSettings(ViewData dataContext)
         {
             SaveOptionConfig(dataContext);
             SaveLastUsedFormat(dataContext);
