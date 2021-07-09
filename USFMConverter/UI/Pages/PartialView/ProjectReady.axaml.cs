@@ -74,6 +74,8 @@ namespace USFMConverter.UI.Pages.PartialView
                 ((ViewData)DataContext).OutputFileLocation = result;
                 RaiseEvent(new RoutedEventArgs(StartConvertEvent));
             }
+
+            this.Focus(); // remove focus from Convert button
         }
     }
 }
