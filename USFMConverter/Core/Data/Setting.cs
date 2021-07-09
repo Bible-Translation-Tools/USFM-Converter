@@ -18,9 +18,8 @@ namespace USFMConverter.Core.Data
         {
             
         }
-        public Setting(ViewData? dataContext)
+        public Setting(ViewData dataContext)
         {
-            if (dataContext == null) return;
             TextSizeIndex = dataContext.SelectedTextSizeIndex;
             LineSpacingIndex = dataContext.SelectedLineSpacingIndex;
             ColumnCountIndex = dataContext.ColumnCount;
