@@ -124,7 +124,13 @@ namespace USFMConverter.UI.Pages
 
         private void OnStartNewProject(object? sender, RoutedEventArgs e)
         {
-            ((Window) this.VisualRoot).DataContext = new ViewData();
+            // Only remove files, keep settings
+            var dataContext = (ViewData)DataContext;
+            dataContext.Files.Clear();
+
+            // reset assign data context to update UI automatically 
+            ((Window)this.VisualRoot).DataContext = null;
+            ((Window)this.VisualRoot).DataContext = dataContext;
             fileView.UpdateProjectStatus();
             fileView.UpdateCounter();
         }
