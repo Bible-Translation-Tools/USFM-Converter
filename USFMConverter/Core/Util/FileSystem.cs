@@ -17,15 +17,6 @@ namespace USFMConverter.Core.Util
 {
     public static class FileSystem
     {
-        private static string appDir;
-
-        static FileSystem()
-        {
-            string localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            appDir = Path.Combine(localAppData, Assembly.GetExecutingAssembly().GetName().Name);
-            Directory.CreateDirectory(appDir); // Create directory if doesn't exist. Ignore if it exists.
-        }
-        
         public static ICollection<FileInfo> GetFilesInDir(FileInfo dir, IEnumerable<string> extensions)
         {
             List<FileInfo> files = new();
@@ -143,60 +134,6 @@ namespace USFMConverter.Core.Util
             }
 
             return usfmDoc;
-        }
-
-        public static Setting? LoadOptionConfig(string OutputFileFormat)
-        {
-            string path = Path.Combine(appDir, $"appsettings_{OutputFileFormat}.json");
-            return File.Exists(path) ? JsonConvert.DeserializeObject<Setting>(File.ReadAllText(path)) : null;
-        }
-
-        public static void SaveOptionConfig(ViewData? dataContext)
-        {
-            Setting setting = new (dataContext);
-            string path = Path.Combine(appDir, $"appsettings_{dataContext?.OutputFileFormat.Tag}.json");
-
-            // If file doesn't exist, create the file
-            if (!File.Exists(path))
-            {
-                File.WriteAllText(path, "{}");
-            }
-            
-            File.WriteAllText(path, JsonConvert.SerializeObject(setting, Formatting.Indented));
-        }
-
-        public static string LoadLastUsedFormat()
-        {
-            string path = Path.Combine(appDir, "appsettings_format.json");
-            string lastUsedFormat = "";
-
-            if (!File.Exists(path))
-            {
-                string content = "{\"LastUsedFormat\": \"\"}";
-                File.WriteAllText(path, content);
-            }
-            else
-            {
-                string jsonFile = File.ReadAllText(path);
-                JObject jsonObj = JObject.Parse(jsonFile);
-
-                lastUsedFormat = (string) jsonObj["LastUsedFormat"];
-            }
-
-            return lastUsedFormat;
-        }
-
-        public static void SaveLastUsedFormat(ViewData? dataContext)
-        {
-            string path = Path.Combine(appDir, "appsettings_format.json");
-            string lastUsedFormat = dataContext.OutputFileFormat.Tag.ToString();
-            
-            string jsonFile = File.ReadAllText(path);
-            JObject jsonObj = JObject.Parse(jsonFile);
-
-            jsonObj["LastUsedFormat"] = lastUsedFormat;
-            
-            File.WriteAllText(path, JsonConvert.SerializeObject(jsonObj, Formatting.Indented));
         }
     }
 }

@@ -119,7 +119,7 @@ namespace USFMConverter.UI.Pages
             progressDialog.IsVisible = false;
             successDialog.IsVisible = true;
             
-            FileSystem.SaveLastUsedFormat((ViewData) DataContext);
+            SettingManager.SaveLastUsedFormat((ViewData) DataContext);
         }
 
         private void OnStartNewProject(object? sender, RoutedEventArgs e)

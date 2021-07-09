@@ -67,14 +67,14 @@ namespace USFMConverter.UI.Pages
         {
             // Save config files when option view is closed
             var dataContext = (ViewData) DataContext;
-            FileSystem.SaveOptionConfig(dataContext);
-            FileSystem.SaveLastUsedFormat((ViewData) DataContext);
+            SettingManager.SaveOptionConfig(dataContext);
+            SettingManager.SaveLastUsedFormat((ViewData) DataContext);
         }
 
         private void LoadOptions(string OutputFileFormat)
         {
             var dataContext = (ViewData) DataContext;
-            Setting? setting = FileSystem.LoadOptionConfig(OutputFileFormat);
+            Setting? setting = SettingManager.LoadOptionConfig(OutputFileFormat);
 
             // Don't load config if the config file does not exist
             if (setting != null)
@@ -97,7 +97,7 @@ namespace USFMConverter.UI.Pages
 
         private int GetLastUsedFormatIndex(int defaultIndex)
         {
-            string lastUsedFormat = FileSystem.LoadLastUsedFormat();
+            string lastUsedFormat = SettingManager.LoadLastUsedFormat();
             int lastUsedFormatIndex = defaultIndex; // default index is 0
 
             if (Enum.TryParse(lastUsedFormat, out FileFormat fileFormat))
