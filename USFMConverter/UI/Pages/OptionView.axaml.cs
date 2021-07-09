@@ -2,9 +2,7 @@ using System;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
-using NPOI.SS.Formula.Functions;
-using USFMConverter.Core.ConstantValue;
-using USFMConverter.Core.Data;
+using USFMConverter.Core.Data.Serializer;
 using USFMConverter.Core.Util;
 
 namespace USFMConverter.UI.Pages
@@ -28,7 +26,7 @@ namespace USFMConverter.UI.Pages
             blurredArea.AddHandler(PointerPressedEvent, OnCloseClick);
 
             outputFormatCb = this.FindControl<ComboBox>("OutputFormatSelector");
-            int lastUsedFormatIndex = SettingManager.LoadMostRecentFormatIndex();
+            int lastUsedFormatIndex = SettingManager.LoadMostRecentFormat()?.FormatIndex ?? 0;
             outputFormatCb.SelectedIndex = lastUsedFormatIndex;
             ShowFormatView();
             outputFormatCb.AddHandler(ComboBox.SelectionChangedEvent, OnOuputFormatSelect);

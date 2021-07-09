@@ -3,16 +3,17 @@ using System.IO;
 using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using USFMConverter.Core.Data;
+using USFMConverter.Core.Data.Serializer;
 using USFMConverter.UI;
 
 namespace USFMConverter.Core.Util
 {
     public static class SettingManager
     {
-        private static string appDir;
         private const string SETTING_FILE_TEMPLATE = "appsettings_{0}.json";
         private const string RECENT_FORMAT = "recent_format";
+
+        private static string appDir;
 
         static SettingManager()
         {
@@ -54,39 +55,17 @@ namespace USFMConverter.Core.Util
             SaveFormatSetting(formatName, setting);
         }
 
-        public static int LoadMostRecentFormatIndex()
+        public static RecentFormat? LoadMostRecentFormat()
         {
             string path = Path.Combine(appDir, String.Format(SETTING_FILE_TEMPLATE, RECENT_FORMAT));
-            int formatIndex = 0;
+            RecentFormat? format = null;
 
             if (File.Exists(path))
             {
                 try
                 {
                     string json = File.ReadAllText(path);
-                    var recentFormat = JsonConvert.DeserializeObject<RecentFormat>(json);
-
-                    formatIndex = (recentFormat != null) ? recentFormat.FormatIndex : 0;
-                }
-                catch { }
-            }
-
-            return formatIndex;
-        }
-
-        public static string? LoadMostRecentFormat()
-        {
-            string path = Path.Combine(appDir, String.Format(SETTING_FILE_TEMPLATE, RECENT_FORMAT));
-            string? format = null;
-
-            if (File.Exists(path))
-            {
-                try
-                {
-                    string json = File.ReadAllText(path);
-                    var recentFormat = JsonConvert.DeserializeObject<RecentFormat>(json);
-
-                    format = recentFormat?.FormatName;
+                    format = JsonConvert.DeserializeObject<RecentFormat>(json);
                 }
                 catch { }
             }
@@ -113,15 +92,6 @@ namespace USFMConverter.Core.Util
             }
 
             File.WriteAllText(path, JsonConvert.SerializeObject(setting, Formatting.Indented));
-        }
-
-        /// <summary>
-        /// Private json serializer class
-        /// </summary>
-        private class RecentFormat
-        {
-            public int FormatIndex { get; set; }
-            public string FormatName { get; set; }
         }
     }
 }

@@ -2,7 +2,7 @@ using System;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using USFMConverter.Core.Data;
+using USFMConverter.Core.Data.Serializer;
 using USFMConverter.Core.Util;
 using USFMConverter.UI;
 
@@ -19,10 +19,10 @@ namespace USFMConverter
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                string? recentFormat = SettingManager.LoadMostRecentFormat();
-                if (!string.IsNullOrEmpty(recentFormat))
+                var recentFormat = SettingManager.LoadMostRecentFormat();
+                if (recentFormat != null)
                 {
-                    Setting? setting = SettingManager.LoadSetting(recentFormat);
+                    Setting? setting = SettingManager.LoadSetting(recentFormat.FormatName);
                     // Load if there is saved setting
                     if (setting != null)
                     {

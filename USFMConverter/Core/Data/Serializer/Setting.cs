@@ -1,6 +1,6 @@
 using USFMConverter.UI;
 
-namespace USFMConverter.Core.Data
+namespace USFMConverter.Core.Data.Serializer
 {
     public class Setting
     {
