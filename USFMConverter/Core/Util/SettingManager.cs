@@ -17,20 +17,27 @@ namespace USFMConverter.Core.Util
         static SettingManager()
         {
             string localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            string appName = Assembly.GetExecutingAssembly().GetName().Name 
+            string appName = Assembly.GetExecutingAssembly().GetName().Name
                 ?? "USFMConverter";
 
             appDir = Path.Combine(localAppData, appName);
             Directory.CreateDirectory(appDir); // creates directory if doesn't exist; otherwise does nothing
         }
-        
+
         public static Setting? LoadSetting(string outputFileFormat)
         {
             string path = Path.Combine(appDir, string.Format(SETTING_FILE_TEMPLATE, outputFileFormat));
+            Setting? setting = null;
+            
+            try
+            {
+                setting = File.Exists(path)
+                    ? JsonConvert.DeserializeObject<Setting>(File.ReadAllText(path))
+                    : null;
+            }
+            catch { }
 
-            return File.Exists(path) 
-                ? JsonConvert.DeserializeObject<Setting>(File.ReadAllText(path)) 
-                : null;
+            return setting;
         }
 
         public static void SaveSetting(ViewData dataContext)
@@ -61,10 +68,7 @@ namespace USFMConverter.Core.Util
 
                     formatIndex = (recentFormat != null) ? recentFormat.FormatIndex : 0;
                 }
-                catch (Exception)
-                {
-
-                }
+                catch { }
             }
 
             return formatIndex;
@@ -84,10 +88,7 @@ namespace USFMConverter.Core.Util
 
                     format = recentFormat?.FormatName;
                 }
-                catch (Exception)
-                {
-
-                }
+                catch { }
             }
 
             return format;
