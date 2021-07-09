@@ -6,7 +6,7 @@ namespace USFMConverter.Core.Data
     {
         public int TextSizeIndex { get; set; }
         public int LineSpacingIndex { get; set; }
-        public int ColumnCountIndex { get; set; }
+        public int ColumnCount { get; set; }
         public bool Justified { get; set; }
         public bool LeftToRight { get; set; }
         public bool ChapterBreak { get; set; }
@@ -22,7 +22,7 @@ namespace USFMConverter.Core.Data
         {
             TextSizeIndex = dataContext.SelectedTextSizeIndex;
             LineSpacingIndex = dataContext.SelectedLineSpacingIndex;
-            ColumnCountIndex = dataContext.ColumnCount;
+            ColumnCount = dataContext.ColumnCount;
             Justified = dataContext.Justified;
             LeftToRight = dataContext.LeftToRight;
             ChapterBreak = dataContext.ChapterBreak;

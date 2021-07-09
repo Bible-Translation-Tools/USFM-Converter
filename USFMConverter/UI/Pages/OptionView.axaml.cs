@@ -83,7 +83,7 @@ namespace USFMConverter.UI.Pages
                     Files = dataContext.Files,
                     SelectedTextSizeIndex = setting.TextSizeIndex,
                     SelectedLineSpacingIndex = setting.LineSpacingIndex,
-                    ColumnCount = setting.ColumnCountIndex,
+                    ColumnCount = setting.ColumnCount,
                     Justified = setting.Justified,
                     LeftToRight = setting.LeftToRight,
                     ChapterBreak = setting.ChapterBreak,
