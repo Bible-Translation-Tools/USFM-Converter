@@ -19,8 +19,8 @@ namespace USFMConverter
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                string lastUsedFormat = SettingManager.LoadLastUsedFormat();
-                Setting? setting = SettingManager.LoadSettings(lastUsedFormat);
+                string lastUsedFormat = SettingManager.LoadMostRecentFormat();
+                Setting? setting = SettingManager.LoadSetting(lastUsedFormat);
                 
                 // Load if there is config file already
                 if (setting != null)

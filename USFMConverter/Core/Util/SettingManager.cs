@@ -12,38 +12,39 @@ namespace USFMConverter.Core.Util
     {
         private static string appDir;
         private const string SETTING_FILE_TEMPLATE = "appsettings_{0}.json";
+        private const string RECENT_FORMAT = "recent_format";
 
         static SettingManager()
         {
             string localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            appDir = Path.Combine(localAppData, Assembly.GetExecutingAssembly().GetName().Name);
-            Directory.CreateDirectory(appDir); // Create directory if doesn't exist. Ignore if it exists.
+            string appName = Assembly.GetExecutingAssembly().GetName().Name 
+                ?? "USFMConverter";
 
+            appDir = Path.Combine(localAppData, appName);
+            Directory.CreateDirectory(appDir); // creates directory if doesn't exist; otherwise does nothing
         }
         
-        public static Setting? LoadSettings(string OutputFileFormat)
+        public static Setting? LoadSetting(string outputFileFormat)
         {
-            string path = Path.Combine(appDir, String.Format(SETTING_FILE_TEMPLATE, OutputFileFormat));
-            return File.Exists(path) ? JsonConvert.DeserializeObject<Setting>(File.ReadAllText(path)) : null;
+            string path = Path.Combine(appDir, string.Format(SETTING_FILE_TEMPLATE, outputFileFormat));
+
+            return File.Exists(path) 
+                ? JsonConvert.DeserializeObject<Setting>(File.ReadAllText(path)) 
+                : null;
         }
 
-        private static void SaveOptionConfig(ViewData dataContext)
+        public static void SaveSetting(ViewData dataContext)
         {
-            Setting setting = new (dataContext);
-            string path = Path.Combine(appDir, String.Format(SETTING_FILE_TEMPLATE, dataContext.OutputFileFormat.Tag));
+            string formatName = dataContext.OutputFileFormat.Tag.ToString();
+            SaveMostRecentFormat(formatName);
 
-            // If file doesn't exist, create the file
-            if (!File.Exists(path))
-            {
-                File.WriteAllText(path, "{}");
-            }
-            
-            File.WriteAllText(path, JsonConvert.SerializeObject(setting, Formatting.Indented));
+            var setting = new Setting(dataContext);
+            SaveFormatSetting(formatName, setting);
         }
 
-        public static string LoadLastUsedFormat()
+        public static string LoadMostRecentFormat()
         {
-            string path = Path.Combine(appDir, String.Format(SETTING_FILE_TEMPLATE, "format"));
+            string path = Path.Combine(appDir, String.Format(SETTING_FILE_TEMPLATE, RECENT_FORMAT));
             string lastUsedFormat = "";
 
             if (!File.Exists(path))
@@ -62,23 +63,30 @@ namespace USFMConverter.Core.Util
             return lastUsedFormat;
         }
 
-        private static void SaveLastUsedFormat(ViewData dataContext)
+        private static void SaveMostRecentFormat(string formatName)
         {
-            string path = Path.Combine(appDir, String.Format(SETTING_FILE_TEMPLATE, "format"));
-            string lastUsedFormat = dataContext.OutputFileFormat.Tag.ToString();
+            string path = Path.Combine(appDir, String.Format(SETTING_FILE_TEMPLATE, RECENT_FORMAT));
             
             string jsonFile = File.ReadAllText(path);
             JObject jsonObj = JObject.Parse(jsonFile);
 
-            jsonObj["LastUsedFormat"] = lastUsedFormat;
+            jsonObj["LastUsedFormat"] = formatName;
             
             File.WriteAllText(path, JsonConvert.SerializeObject(jsonObj, Formatting.Indented));
         }
 
-        public static void SaveSettings(ViewData dataContext)
+        private static void SaveFormatSetting(string formatName, Setting setting)
         {
-            SaveOptionConfig(dataContext);
-            SaveLastUsedFormat(dataContext);
+            string settingFile = string.Format(SETTING_FILE_TEMPLATE, formatName);
+            string path = Path.Combine(appDir, settingFile);
+
+            // If file doesn't exist, create the file
+            if (!File.Exists(path))
+            {
+                File.WriteAllText(path, "{}");
+            }
+
+            File.WriteAllText(path, JsonConvert.SerializeObject(setting, Formatting.Indented));
         }
     }
 }
