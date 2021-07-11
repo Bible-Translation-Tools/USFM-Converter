@@ -85,12 +85,6 @@ namespace USFMConverter.Core.Util
             string settingFile = string.Format(SETTING_FILE_TEMPLATE, formatName);
             string path = Path.Combine(appDir, settingFile);
 
-            // If file doesn't exist, create the file
-            if (!File.Exists(path))
-            {
-                File.WriteAllText(path, "{}");
-            }
-
             File.WriteAllText(path, JsonConvert.SerializeObject(setting, Formatting.Indented));
         }
     }
