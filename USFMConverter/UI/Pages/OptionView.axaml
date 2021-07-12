@@ -52,7 +52,7 @@
     </UserControl.Styles>
 
     <Grid ColumnDefinitions="* 400">
-        <Border Name="BlurredArea" Grid.Column="0" Background="#000000" Opacity="0.6" />
+        <Border PointerPressed="OnCloseClick" Grid.Column="0" Background="#000000" Opacity="0.6" />
 
         <Border Grid.Column="1" Background="White">
 

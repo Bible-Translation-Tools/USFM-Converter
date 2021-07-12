@@ -1,5 +1,6 @@
 using System;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using USFMConverter.Core.Data.Serializer;
@@ -9,8 +10,6 @@ namespace USFMConverter.UI.Pages
 {
     public class OptionView : UserControl
     {
-        private Border blurredArea;
-        private UserControl optionView;
         private ComboBox outputFormatCb;
 
         public OptionView()
@@ -22,17 +21,11 @@ namespace USFMConverter.UI.Pages
         {
             AvaloniaXamlLoader.Load(this);
 
-            blurredArea = this.FindControl<Border>("BlurredArea");
-            blurredArea.AddHandler(PointerPressedEvent, OnCloseClick);
-
             outputFormatCb = this.FindControl<ComboBox>("OutputFormatSelector");
             int lastUsedFormatIndex = SettingManager.LoadMostRecentFormat()?.FormatIndex ?? 0;
             outputFormatCb.SelectedIndex = lastUsedFormatIndex; // pickup last used format
             ShowFormatView();
             outputFormatCb.AddHandler(ComboBox.SelectionChangedEvent, OnOuputFormatSelect);
-
-            
-            optionView = this.FindControl<UserControl>("OptionView");
         }
 
         private void OnOuputFormatSelect(object? sender, SelectionChangedEventArgs e)
@@ -57,7 +50,17 @@ namespace USFMConverter.UI.Pages
 
         private void OnCloseClick(object? sender, RoutedEventArgs e)
         {
-            optionView.IsVisible = false;
+            CloseDrawer();
+        }        
+        
+        private void OnCloseClick(object? sender, PointerPressedEventArgs e)
+        {
+            CloseDrawer();
+        }
+
+        private void CloseDrawer()
+        {
+            this.IsVisible = false;
             SaveOptions();
         }
 
