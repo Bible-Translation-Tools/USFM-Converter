@@ -31,9 +31,9 @@ namespace USFMConverter.UI.Pages
         private void OnOuputFormatSelect(object? sender, SelectionChangedEventArgs e)
         {
             string selectedFormat = ((ComboBoxItem) outputFormatCb.SelectedItem).Tag.ToString();
+            SaveCurrentSetting();
             ShowFormatView();
-            SettingManager.SaveSettings((ViewData)DataContext);
-            LoadOptions(selectedFormat);
+            LoadFormatPreference(selectedFormat);
         }
 
         private void ShowFormatView()
@@ -46,7 +46,14 @@ namespace USFMConverter.UI.Pages
                 this.FindControl<UserControl>(formatName).IsVisible = (formatName == selectedFormat);
             }
         }
-        
+
+        private void SaveCurrentSetting()
+        {
+            var dataContext = (ViewData)DataContext;
+            var formatName = dataContext.OutputFileFormat.Tag.ToString();
+            var setting = new Setting(dataContext);
+            SettingManager.SaveFormatSetting(formatName, setting);
+        }
 
         private void OnCloseClick(object? sender, RoutedEventArgs e)
         {
@@ -58,9 +65,23 @@ namespace USFMConverter.UI.Pages
             CloseDrawer();
         }
 
-        private void CloseDrawer() => this.IsVisible = false;
+        private void CloseDrawer()
+        {
+            this.IsVisible = false;
+            ViewData dataContext = (ViewData)DataContext;
+            string formatName = dataContext.OutputFileFormat.Tag.ToString();
+            
+            var currentFormat = new RecentFormat
+            {
+                FormatIndex = dataContext.SelectedFormatIndex,
+                FormatName = formatName
+            };
 
-        private void LoadOptions(string outputFormat)
+            SaveCurrentSetting();
+            SettingManager.SaveMostRecentFormat(currentFormat);
+        }
+
+        private void LoadFormatPreference(string outputFormat)
         {
             var dataContext = (ViewData) DataContext;
             Setting? setting = SettingManager.LoadSetting(outputFormat);

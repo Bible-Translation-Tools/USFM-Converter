@@ -43,7 +43,8 @@ namespace USFMConverter
                         };
                     }
                 }
-                else
+                
+                if (desktop.MainWindow == null)
                 {
                     desktop.MainWindow = new MainWindow
                     {

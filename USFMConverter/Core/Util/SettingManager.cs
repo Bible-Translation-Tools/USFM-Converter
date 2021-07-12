@@ -39,20 +39,6 @@ namespace USFMConverter.Core.Util
             return setting;
         }
 
-        public static void SaveSettings(ViewData dataContext)
-        {
-            var setting = new Setting(dataContext);
-            var formatName = dataContext.OutputFileFormat.Tag.ToString();
-            var recentFormat = new RecentFormat
-            {
-                FormatIndex = dataContext.SelectedFormatIndex,
-                FormatName = formatName
-            };
-
-            SaveMostRecentFormat(recentFormat);
-            SaveFormatSetting(formatName, setting);
-        }
-
         public static RecentFormat? LoadMostRecentFormat()
         {
             string path = Path.Combine(appDir, String.Format(SETTING_FILE_TEMPLATE, RECENT_FORMAT));
@@ -71,19 +57,19 @@ namespace USFMConverter.Core.Util
             return format;
         }
 
-        private static void SaveMostRecentFormat(RecentFormat recentFormat)
+        public static void SaveMostRecentFormat(RecentFormat recentFormat)
         {
             string path = Path.Combine(appDir, string.Format(SETTING_FILE_TEMPLATE, RECENT_FORMAT));
-            string json = JsonConvert.SerializeObject(recentFormat);
+            string json = JsonConvert.SerializeObject(recentFormat, Formatting.Indented);
             File.WriteAllText(path, json);
         }
 
-        private static void SaveFormatSetting(string formatName, Setting setting)
+        public static void SaveFormatSetting(string formatName, Setting setting)
         {
             string settingFile = string.Format(SETTING_FILE_TEMPLATE, formatName);
             string path = Path.Combine(appDir, settingFile);
 
-            File.WriteAllText(path, JsonConvert.SerializeObject(setting));
+            File.WriteAllText(path, JsonConvert.SerializeObject(setting, Formatting.Indented));
         }
     }
 }
