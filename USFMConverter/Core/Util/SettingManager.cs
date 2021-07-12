@@ -9,7 +9,7 @@ namespace USFMConverter.Core.Util
 {
     public static class SettingManager
     {
-        private const string SETTING_FILE_TEMPLATE = "appsettings_{0}.json";
+        private const string SETTING_FILE_TEMPLATE = "user_settings_{0}.json";
         private const string RECENT_FORMAT = "recent_format";
 
         private static string appDir;
@@ -17,8 +17,7 @@ namespace USFMConverter.Core.Util
         static SettingManager()
         {
             string localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            string appName = Assembly.GetExecutingAssembly().GetName().Name
-                ?? "USFMConverter";
+            string appName = "USFMConverter";
 
             appDir = Path.Combine(localAppData, appName);
             Directory.CreateDirectory(appDir); // creates directory if doesn't exist; otherwise does nothing
@@ -75,7 +74,7 @@ namespace USFMConverter.Core.Util
         private static void SaveMostRecentFormat(RecentFormat recentFormat)
         {
             string path = Path.Combine(appDir, string.Format(SETTING_FILE_TEMPLATE, RECENT_FORMAT));
-            string json = JsonConvert.SerializeObject(recentFormat, Formatting.Indented);
+            string json = JsonConvert.SerializeObject(recentFormat);
             File.WriteAllText(path, json);
         }
 
@@ -84,7 +83,7 @@ namespace USFMConverter.Core.Util
             string settingFile = string.Format(SETTING_FILE_TEMPLATE, formatName);
             string path = Path.Combine(appDir, settingFile);
 
-            File.WriteAllText(path, JsonConvert.SerializeObject(setting, Formatting.Indented));
+            File.WriteAllText(path, JsonConvert.SerializeObject(setting));
         }
     }
 }
