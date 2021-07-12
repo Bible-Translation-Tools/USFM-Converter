@@ -118,8 +118,6 @@ namespace USFMConverter.UI.Pages
             // show success dialog
             progressDialog.IsVisible = false;
             successDialog.IsVisible = true;
-            
-            SettingManager.SaveSetting((ViewData) DataContext);
         }
 
         private void OnStartNewProject(object? sender, RoutedEventArgs e)

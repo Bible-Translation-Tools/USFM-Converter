@@ -41,7 +41,7 @@ namespace USFMConverter.Core.Util
             return setting;
         }
 
-        public static void SaveSetting(ViewData dataContext)
+        public static void SaveSettings(ViewData dataContext)
         {
             var setting = new Setting(dataContext);
             var formatName = dataContext.OutputFileFormat.Tag.ToString();

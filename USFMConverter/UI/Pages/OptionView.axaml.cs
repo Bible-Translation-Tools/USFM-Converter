@@ -32,7 +32,7 @@ namespace USFMConverter.UI.Pages
         {
             string selectedFormat = ((ComboBoxItem) outputFormatCb.SelectedItem).Tag.ToString();
             ShowFormatView();
-            SaveOptions();
+            SettingManager.SaveSettings((ViewData)DataContext);
             LoadOptions(selectedFormat);
         }
 
@@ -58,18 +58,7 @@ namespace USFMConverter.UI.Pages
             CloseDrawer();
         }
 
-        private void CloseDrawer()
-        {
-            this.IsVisible = false;
-            SaveOptions();
-        }
-
-        private void SaveOptions()
-        {
-            // Save config files when option view is closed
-            var dataContext = (ViewData) DataContext;
-            SettingManager.SaveSetting(dataContext);
-        }
+        private void CloseDrawer() => this.IsVisible = false;
 
         private void LoadOptions(string outputFormat)
         {
