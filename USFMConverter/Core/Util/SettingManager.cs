@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using System.Reflection;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using USFMConverter.Core.Data.Serializer;
 using USFMConverter.UI;
 

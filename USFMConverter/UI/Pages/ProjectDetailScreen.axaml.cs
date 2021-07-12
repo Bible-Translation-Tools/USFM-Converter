@@ -6,7 +6,6 @@ using USFMConverter.Core;
 using USFMConverter.UI.Pages.PartialView;
 using USFMConverter.Core.Util;
 using System.Reflection;
-using USFMConverter.Core.Data;
 
 namespace USFMConverter.UI.Pages
 {
