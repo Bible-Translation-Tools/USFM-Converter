@@ -2,7 +2,6 @@ name: .NET
 
 on:
   push:
-    branches: [ all ]
   pull_request:
     branches: [ default ]
 
@@ -18,4 +17,4 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: build?
-      run: dotnet publish -c Release --self-contained true -o /output/dir -r [win-x64|osx-x64|linux-x64]
+      run: dotnet publish -c Release --self-contained true -o ./output -r win-x64
