@@ -45,7 +45,7 @@
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
         </Style>
         <Style Selector="Button.MoveBtn">
-            <Setter Property="Background" Value="#c7d7ff"/>
+            <Setter Property="Background" Value="WhiteSmoke"/>
         </Style>
     </UserControl.Styles>
 
