@@ -23,10 +23,6 @@ namespace USFMConverter.Core.Util
         {
             TOC3Marker? toc3X = x.Contents.FirstOrDefault(marker => marker is TOC3Marker) as TOC3Marker;
             TOC3Marker? toc3Y = y.Contents.FirstOrDefault(marker => marker is TOC3Marker) as TOC3Marker;
-            if (toc3X == null || toc3Y == null)
-            {
-                throw new MissingFieldException("Some USFM files have invalid toc3 field");
-            }
 
             return CompareBookNames(toc3X.BookAbbreviation.ToUpper(), toc3Y.BookAbbreviation.ToUpper());
         }

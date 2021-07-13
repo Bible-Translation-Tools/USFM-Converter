@@ -128,8 +128,15 @@ namespace USFMConverter.Core.Util
                 progressCallback(percent);
             }
 
-            // sort by biblical order of books
-            usfmList.Sort(new BooksComparison());
+            try
+            {
+                // sort by biblical order of books
+                usfmList.Sort(new BooksComparison());
+            }
+            catch (Exception ex)
+            {
+                throw new MissingFieldException("Some USFM files have invalid toc3 field");
+            }
 
             var usfmDoc = new USFMDocument();
             foreach (var usfm in usfmList)
