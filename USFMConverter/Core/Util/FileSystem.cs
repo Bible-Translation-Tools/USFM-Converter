@@ -110,7 +110,7 @@ namespace USFMConverter.Core.Util
             Action<double> progressCallback
         )
         {
-            var usfmDoc = new USFMDocument();
+            var usfmList = new List<USFMDocument>();
             List<string> fileList = files.ToList();
 
             var parser = new USFMParser(new List<string> { "s5" });
@@ -120,7 +120,7 @@ namespace USFMConverter.Core.Util
             {
                 await Task.Run(() => {
                     var text = File.ReadAllText(fileList[i]);
-                    usfmDoc.Insert(parser.ParseFromString(text));
+                    usfmList.Add(parser.ParseFromString(text));
                 });
 
                 // update progress bar
@@ -128,6 +128,14 @@ namespace USFMConverter.Core.Util
                 progressCallback(percent);
             }
 
+            // sort by biblical order of books
+            usfmList.Sort(new BooksComparison());
+
+            var usfmDoc = new USFMDocument();
+            foreach (var usfm in usfmList)
+            {
+                usfmDoc.Insert(usfm);
+            }
             return usfmDoc;
         }
     }
