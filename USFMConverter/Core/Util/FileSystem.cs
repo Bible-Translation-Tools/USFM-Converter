@@ -135,6 +135,7 @@ namespace USFMConverter.Core.Util
             }
             catch (Exception ex)
             {
+                // the outer exception message is not helpful ("Failed to compare two elements in the array.")
                 throw ex.InnerException;
             }
 
