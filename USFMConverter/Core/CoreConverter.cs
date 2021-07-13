@@ -13,7 +13,6 @@ namespace USFMConverter.Core
 {
     public class CoreConverter
     {
-
         public static ICollection<string> supportedExtensions = new List<string> {
             ".usfm", ".txt", ".sfm"
         };
