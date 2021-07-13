@@ -135,7 +135,7 @@ namespace USFMConverter.Core.Util
             }
             catch (Exception ex)
             {
-                throw new MissingFieldException("Some USFM files have invalid toc3 field");
+                throw ex.InnerException;
             }
 
             var usfmDoc = new USFMDocument();
