@@ -19,10 +19,10 @@ jobs:
         dotnet-version: 5.0.x
     - name: build win
       run: dotnet publish ./USFMConverter/USFMConverter.sln -c Release --self-contained true -o ./output -r win-x64
-    - name: build linux
-      run: dotnet publish ./USFMConverter/USFMConverter.sln -c Release --self-contained true -o ./output -r linux-x64
-    - name: build mac
-      run: dotnet publish ./USFMConverter/USFMConverter.sln -c Release --self-contained true -o ./output -r osx-x64
+#    - name: build linux
+#     run: dotnet publish ./USFMConverter/USFMConverter.sln -c Release --self-contained true -o ./output -r linux-x64
+#    - name: build mac
+#      run: dotnet publish ./USFMConverter/USFMConverter.sln -c Release --self-contained true -o ./output -r osx-x64
     - name: set s3 destination_dir
       run: echo "CURRENT_S3_DESTINATION=$CI_REPOSITORY_OWNER/$CI_REPOSITORY_NAME/$CI_REF_NAME_SLUG/$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
     - name: Upload file to bucket
