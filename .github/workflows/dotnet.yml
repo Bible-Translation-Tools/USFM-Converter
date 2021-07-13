@@ -16,5 +16,9 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-    - name: build?
-      run: dotnet publish -c Release --self-contained true -o ./output -r win-x64
+    - name: build win
+      run: dotnet publish ./USFMConverter/USFMConverter.sln -c Release --self-contained true -o ./output -r win-x64
+    - name: build linux
+      run: dotnet publish ./USFMConverter/USFMConverter.sln -c Release --self-contained true -o ./output -r linux-x64
+    - name: build mac
+      run: dotnet publish ./USFMConverter/USFMConverter.sln -c Release --self-contained true -o ./output -r osx-x64
