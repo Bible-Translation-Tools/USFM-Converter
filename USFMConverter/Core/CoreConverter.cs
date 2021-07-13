@@ -8,8 +8,6 @@ using USFMConverter.Core.Data;
 using USFMConverter.Core.Render;
 using USFMConverter.Core.Util;
 using USFMConverter.UI;
-using USFMToolsSharp;
-using USFMToolsSharp.Models.Markers;
 
 namespace USFMConverter.Core
 {

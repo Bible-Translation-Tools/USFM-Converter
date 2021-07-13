@@ -52,7 +52,7 @@
     </UserControl.Styles>
 
     <Grid ColumnDefinitions="* 400">
-        <Border Name="BlurredArea" Grid.Column="0" Background="#000000" Opacity="0.6" />
+        <Border PointerPressed="OnCloseClick" Grid.Column="0" Background="#000000" Opacity="0.6" />
 
         <Border Grid.Column="1" Background="White">
 
@@ -87,7 +87,7 @@
                             <TextBlock VerticalAlignment="Center" Margin="10 20">
                                 File Format
                             </TextBlock>
-                            <ComboBox SelectedIndex="0"
+                            <ComboBox SelectedIndex="{Binding SelectedFormatIndex, Mode=OneWayToSource}"
                                       SelectedItem="{Binding OutputFileFormat, Mode=OneWayToSource}"
                                       Name="OutputFormatSelector">
                                 <ComboBoxItem Tag="DOCX">Docx</ComboBoxItem>

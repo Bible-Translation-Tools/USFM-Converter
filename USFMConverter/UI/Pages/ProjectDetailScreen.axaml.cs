@@ -21,38 +21,20 @@ namespace USFMConverter.UI.Pages
 
         public event EventHandler<RoutedEventArgs> ShowBackgroundOverlay
         {
-            add
-            {
-                AddHandler(ShowBackgroundOverlayEvent, value);
-            }
-            remove
-            {
-                RemoveHandler(ShowBackgroundOverlayEvent, value);
-            }
+            add { AddHandler(ShowBackgroundOverlayEvent, value); }
+            remove { RemoveHandler(ShowBackgroundOverlayEvent, value); }
         }
 
         public event EventHandler<RoutedEventArgs> HideBackgroundOverlay
         {
-            add
-            {
-                AddHandler(HideBackgroundOverlayEvent, value);
-            }
-            remove
-            {
-                RemoveHandler(HideBackgroundOverlayEvent, value);
-            }
+            add { AddHandler(HideBackgroundOverlayEvent, value); }
+            remove { RemoveHandler(HideBackgroundOverlayEvent, value); }
         }
 
         public event EventHandler<RoutedEventArgs> StartNewProject
         {
-            add
-            {
-                AddHandler(StartNewProjectEvent, value);
-            }
-            remove
-            {
-                RemoveHandler(StartNewProjectEvent, value);
-            }
+            add { AddHandler(StartNewProjectEvent, value); }
+            remove { RemoveHandler(StartNewProjectEvent, value); }
         }
 
         public static readonly RoutedEvent<RoutedEventArgs> ShowBackgroundOverlayEvent =
@@ -102,7 +84,7 @@ namespace USFMConverter.UI.Pages
         private void SetAppVersion()
         {
             var version = Assembly.GetEntryAssembly().GetName().Version;
-            this.FindControl<TextBlock>("AppVersion").Text = 
+            this.FindControl<TextBlock>("AppVersion").Text =
                 $"(v{version.Major}.{version.Minor}.{version.Revision})";
         }
 
@@ -118,7 +100,7 @@ namespace USFMConverter.UI.Pages
             progressDialog.IsVisible = true;
             progressBar.Value = 0;
 
-            var context = (ViewData)DataContext;
+            var context = (ViewData) DataContext;
             try
             {
                 await new CoreConverter().ConvertAsync(context, UpdateProgressBar);
@@ -144,14 +126,20 @@ namespace USFMConverter.UI.Pages
 
         private void OnStartNewProject(object? sender, RoutedEventArgs e)
         {
-            ((Window)this.VisualRoot).DataContext = new ViewData();
+            // Only remove files, keep settings
+            var dataContext = (ViewData)DataContext;
+            dataContext.Files.Clear();
+
+            // reset assign data context to update UI automatically 
+            ((Window)this.VisualRoot).DataContext = null;
+            ((Window)this.VisualRoot).DataContext = dataContext;
             fileView.UpdateProjectStatus();
             fileView.UpdateCounter();
         }
 
         private void OnOpenFile(object? sender, RoutedEventArgs e)
         {
-            string path = ((ViewData)DataContext).OutputFileLocation;
+            string path = ((ViewData) DataContext).OutputFileLocation;
             try
             {
                 FileSystem.OpenFile(path);
@@ -168,7 +156,7 @@ namespace USFMConverter.UI.Pages
 
         private void OnOpenFolder(object? sender, RoutedEventArgs e)
         {
-            string path = ((ViewData)DataContext).OutputFileLocation;
+            string path = ((ViewData) DataContext).OutputFileLocation;
             try
             {
                 FileSystem.OpenFileLocation(path);
@@ -196,6 +184,7 @@ namespace USFMConverter.UI.Pages
         {
             ShowOverlay();
         }
+
         private void ShowOverlay()
         {
             backgroundOverlay.IsVisible = true;
