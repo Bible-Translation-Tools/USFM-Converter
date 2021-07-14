@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using USFMConverter.Core.ConstantValue;
 using USFMConverter.Core.Data;
 using USFMToolsSharp.Models.Markers;
@@ -11,6 +12,7 @@ namespace USFMConverter.Core.Render
 {
     public class HTMLRenderer : Renderable
     {
+        private const string cssFileName = "style.css";
         private List<string> TextDirectionClasses = new() { "", "rtl-direct" };
 
         private Dictionary<LineSpacing, string> LineSpacingClasses = new()
@@ -82,10 +84,13 @@ namespace USFMConverter.Core.Render
 
             File.WriteAllText(project.OutputFile.FullName, htmlString);
 
-            var cssFilename = Path.Combine(project.OutputFile.DirectoryName!, "style.css");
-            if (!File.Exists(cssFilename))
+            var outputCSSFile = Path.Combine(project.OutputFile.DirectoryName!, cssFileName);
+            if (!File.Exists(outputCSSFile))
             {
-                File.Copy("style.css", cssFilename);
+                string execPath = Assembly.GetExecutingAssembly().Location;
+                string execDir = new FileInfo(execPath).DirectoryName;
+                string cssSource = Path.Combine(execDir, cssFileName);
+                File.Copy(cssSource, outputCSSFile);
             }
         }
 
