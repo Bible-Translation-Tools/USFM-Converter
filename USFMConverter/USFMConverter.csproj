@@ -4,10 +4,8 @@
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ApplicationIcon>UI\Assets\converter_logo_inverted_icon.ico</ApplicationIcon>
-	<UseAppHost>true</UseAppHost>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="style.css" />
     <None Remove="UI\Assets\close.png" />
     <None Remove="UI\Assets\converter_logo_inverted_icon.ico" />
     <None Remove="UI\Assets\drag-and-drop.png" />
@@ -76,11 +74,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Remove="Core\Data\appsettings.json" />
+    <None Update="style.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="style.css">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <None Remove="Core\Data\appsettings.json" />
   </ItemGroup>
 </Project>
