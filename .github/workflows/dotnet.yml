@@ -27,8 +27,10 @@ jobs:
       run: dotnet publish ./USFMConverter/USFMConverter.sln -c Release --self-contained true -o ./output-nix -r linux-x64
     - name: zip nix
       run: zip -r ./artifacts/nix.zip ./output-nix
-#   - name: build mac
-#      run: dotnet publish ./USFMConverter/USFMConverter.sln -c Release --self-contained true -o ./output -r osx-x64
+    - name: build mac
+      run: dotnet publish ./USFMConverter/USFMConverter.sln -c Release --self-contained true -o ./output -r osx-x64
+    - name: zip mac
+      run: zip -r ./artifacts/mac.zip ./output-mac
     - name: set s3 destination_dir
       run: echo "CURRENT_S3_DESTINATION=$CI_REPOSITORY_OWNER/$CI_REPOSITORY_NAME/$CI_REF_NAME_SLUG/$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
     - name: Upload file to bucket
