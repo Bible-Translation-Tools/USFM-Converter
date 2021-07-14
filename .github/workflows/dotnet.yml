@@ -28,7 +28,7 @@ jobs:
     - name: zip nix
       run: zip -r ./artifacts/nix.zip ./output-nix
     - name: build mac
-      run: dotnet publish ./USFMConverter/USFMConverter.sln -c Release --self-contained true -o ./output -r osx-x64
+      run: dotnet publish ./USFMConverter/USFMConverter.sln -c Release --self-contained true -o ./output-mac -r osx-x64
     - name: zip mac
       run: zip -r ./artifacts/mac.zip ./output-mac
     - name: set s3 destination_dir
