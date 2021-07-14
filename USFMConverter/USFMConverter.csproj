@@ -4,6 +4,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ApplicationIcon>UI\Assets\converter_logo_inverted_icon.ico</ApplicationIcon>
+    <UseAppHost>true</UseAppHost>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="UI\Assets\close.png" />
