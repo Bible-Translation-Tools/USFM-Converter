@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using USFMToolsSharp;
@@ -145,6 +146,25 @@ namespace USFMConverter.Core.Util
                 usfmDoc.Insert(usfm);
             }
             return usfmDoc;
+        }
+
+        public static string? GetResourceAsString(string fileName)
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            var resourceName = $"{nameof(USFMConverter)}.{fileName}";
+
+            try
+            {
+                using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    return reader.ReadToEnd();
+                }
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }
