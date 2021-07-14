@@ -63,7 +63,7 @@
                     Columns
                 </TextBlock>
                 <NumericUpDown IsEnabled="False" Background="LightGray" 
-							   Minimum="1" Maximum="2" Increment="1"
+							   Minimum="1" Maximum="2" Increment="1" Value="1"
                                HorizontalContentAlignment="Center"/>
             </DockPanel>
 
@@ -72,7 +72,7 @@
                 <TextBlock VerticalAlignment="Center" Margin="10 20">
                     Justify Text
                 </TextBlock>
-                <ToggleSwitch IsEnabled="False" IsChecked="{Binding Justified, Mode=TwoWay}" />
+                <ToggleSwitch IsEnabled="False"/>
             </DockPanel>
         </StackPanel>
 
@@ -103,7 +103,7 @@
                 <TextBlock VerticalAlignment="Center" Margin="10 20">
                     Note Taking
                 </TextBlock>
-                <ToggleSwitch IsEnabled="False" IsChecked="{Binding NoteTaking, Mode=TwoWay}" />
+                <ToggleSwitch IsEnabled="False"/>
             </DockPanel>
 
             <DockPanel Margin="15 0 0 0">

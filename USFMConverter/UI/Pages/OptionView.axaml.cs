@@ -103,6 +103,13 @@ namespace USFMConverter.UI.Pages
                     TableOfContents = setting.TableOfContents
                 };
             }
+            else
+            {
+                ((Window)VisualRoot).DataContext = new ViewData
+                {
+                    Files = dataContext.Files
+                };
+            }
         }
     }
 }
