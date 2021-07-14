@@ -17,10 +17,16 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
+    - name: mkdir for artifacts
+      run: mkdir ./artifacts
     - name: build win
       run: dotnet publish ./USFMConverter/USFMConverter.sln -c Release --self-contained true -o ./output-win -r win-x64
+    - name: zip win
+      run: zip -r ./artifacts/win.zip ./output-win
     - name: build linux
       run: dotnet publish ./USFMConverter/USFMConverter.sln -c Release --self-contained true -o ./output-nix -r linux-x64
+    - name: zip nix
+      run: zip -r ./artifacts/nix.zip ./output-nix
 #   - name: build mac
 #      run: dotnet publish ./USFMConverter/USFMConverter.sln -c Release --self-contained true -o ./output -r osx-x64
     - name: set s3 destination_dir
@@ -31,5 +37,5 @@ jobs:
         aws_key_id: ${{ secrets.AWS_KEY_ID }}
         aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
         aws_bucket: ${{ secrets.AWS_BUCKET }}
-        source_dir: ./output-nix
-        destination_dir: ${{ env.CURRENT_S3_DESTINATION }}/output-nix
+        source_dir: ./artifacts
+        destination_dir: ${{ env.CURRENT_S3_DESTINATION }}
