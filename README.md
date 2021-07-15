@@ -19,7 +19,7 @@ Run the following command in the project directory where .csproj file is.
 
 
 **The command does not automatically put the icon in the `.app` directory.**
-**You must place the `converter_logo_inverted_icon.icns` file into `Resources` directory in the `.app` folder**
+**You must place the `converter_logo_inverted_icon.icns` file into `Resources` directory in the `.app` folder.**
 **`converter_logo_inverted_icon.icns` file can be found in `USFMConverter/UI/Assets`**
 
 
