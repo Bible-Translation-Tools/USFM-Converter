@@ -62,6 +62,7 @@
     <PackageReference Include="Avalonia" Version="0.10.4" />
     <PackageReference Include="Avalonia.Desktop" Version="0.10.4" />
     <PackageReference Include="Avalonia.Diagnostics" Version="0.10.4" />
+    <PackageReference Include="DotNet.Bundle" Version="0.9.13" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="USFMToolsSharp.Renderers.Docx" Version="0.10.2" />
     <PackageReference Include="USFMToolsSharp.Renderers.HTML" Version="0.3.0" />
