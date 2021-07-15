@@ -5,6 +5,18 @@
     <Nullable>enable</Nullable>
     <ApplicationIcon>UI\Assets\converter_logo_inverted_icon.ico</ApplicationIcon>
     <UseAppHost>true</UseAppHost>
+<!--    MacOS bundle information begin-->
+    <CFBundleName>USFMConverter</CFBundleName> <!-- Also defines .app file name -->
+    <CFBundleDisplayName>USFMConverter</CFBundleDisplayName>
+    <CFBundleIdentifier>org.wycliffeassociates</CFBundleIdentifier>
+    <CFBundleVersion>1.0.0</CFBundleVersion>
+    <CFBundleShortVersionString>1.0.0</CFBundleShortVersionString>
+    <CFBundlePackageType>APPL</CFBundlePackageType>
+    <CFBundleExecutable>USFMConverter</CFBundleExecutable>
+    <CFBundleIconFile>UI/Assets/converter_logo_inverted_icon.icns</CFBundleIconFile>
+    <NSPrincipalClass>NSApplication</NSPrincipalClass>
+    <NSHighResolutionCapable>true</NSHighResolutionCapable>
+<!--    MacOS bundle information end-->
   </PropertyGroup>
   <ItemGroup>
     <None Remove="UI\Assets\close.png" />
@@ -57,6 +69,10 @@
     <AvaloniaResource Include="UI\Assets\error.png" />
     <None Remove="UI\Assets\checked.png" />
     <AvaloniaResource Include="UI\Assets\checked.png" />
+    <None Remove="UI\Assets\converter_logo_inverted_icon.png" />
+    <AvaloniaResource Include="UI\Assets\converter_logo_inverted_icon.png" />
+    <None Remove="UI\Assets\converter_logo_inverted_icon.icns" />
+    <AvaloniaResource Include="UI\Assets\converter_logo_inverted_icon.icns" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.10.4" />
