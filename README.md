@@ -8,7 +8,7 @@ Tool for converting USFM to readable formats like HTML and DOCX
 
 #### Packaging the program with `.app` extension
 
-Run the following command in the project directory where .csproj file is. __
+Run the following command in the project directory where .csproj file is.  
 `dotnet msbuild -t:BundleApp -p:RuntimeIdentifier=osx-x64 -property:Configuration=Release`
 
 **The command does not automatically put the icon in the `.app` directory.**
