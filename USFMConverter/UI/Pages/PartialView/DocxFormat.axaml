@@ -2,6 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:i18n="clr-namespace:USFMConverter.UI.Localization"             
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="USFMConverter.UI.Pages.PartialView.DocxFormat">
 
@@ -18,49 +19,51 @@
     </UserControl.Styles>
 
     <StackPanel>
-        <TextBlock Classes="SubTitle">Content</TextBlock>
+        <TextBlock Classes="SubTitle"
+                   Text="{i18n:LocalizeExtension Key=content}">
+        </TextBlock>
 
         <StackPanel>
             <DockPanel Margin="15 0 0 0">
                 <Image Classes="Icon" Source="/UI/Assets/font.png" />
-                <TextBlock VerticalAlignment="Center" Margin="10 20">
-                    Font Size
+                <TextBlock VerticalAlignment="Center" Margin="10 20"
+                           Text="{i18n:LocalizeExtension Key=font_size}">
                 </TextBlock>
                 <ComboBox SelectedIndex="{Binding SelectedTextSizeIndex, Mode=TwoWay}"
                           SelectedItem="{Binding TextSize, Mode=OneWayToSource}">
-                    <ComboBoxItem Tag="SMALL">Small</ComboBoxItem>
-                    <ComboBoxItem Tag="MEDIUM">Normal</ComboBoxItem>
-                    <ComboBoxItem Tag="LARGE">Large</ComboBoxItem>
+                    <ComboBoxItem Tag="SMALL" Content="{i18n:LocalizeExtension Key=small}"></ComboBoxItem>
+                    <ComboBoxItem Tag="MEDIUM" Content="{i18n:LocalizeExtension Key=normal}"></ComboBoxItem>
+                    <ComboBoxItem Tag="LARGE" Content="{i18n:LocalizeExtension Key=large}"></ComboBoxItem>
                 </ComboBox>
             </DockPanel>
 
             <DockPanel Margin="15 0 0 0">
                 <Image Classes="Icon" Source="/UI/Assets/paragraph.png" />
-                <TextBlock VerticalAlignment="Center" Margin="10 20">
-                    Text Direction
+                <TextBlock VerticalAlignment="Center" Margin="10 20"
+                           Text="{i18n:LocalizeExtension Key=text_direction}">
                 </TextBlock>
                 <ComboBox SelectedIndex="{Binding !LeftToRight, Mode=TwoWay}">
-                    <ComboBoxItem>Left to Right</ComboBoxItem>
-                    <ComboBoxItem>Right to Left</ComboBoxItem>
+                    <ComboBoxItem Content="{i18n:LocalizeExtension Key=ltr}"></ComboBoxItem>
+                    <ComboBoxItem Content="{i18n:LocalizeExtension Key=rtl}"></ComboBoxItem>
                 </ComboBox>
             </DockPanel>
 
             <DockPanel Margin="15 0 0 0">
                 <Image Classes="Icon" Source="/UI/Assets/line_space.png" />
-                <TextBlock VerticalAlignment="Center" Margin="10 20">
-                    Line Spacing
+                <TextBlock VerticalAlignment="Center" Margin="10 20"
+                           Text="{i18n:LocalizeExtension Key=line_spacing}">
                 </TextBlock>
                 <ComboBox SelectedIndex="{Binding SelectedLineSpacingIndex, Mode=TwoWay}"
                           SelectedItem="{Binding LineSpacing, Mode=OneWayToSource}">
-                    <ComboBoxItem Tag="SINGLE">Single Space</ComboBoxItem>
-                    <ComboBoxItem Tag="DOUBLE">Double Space</ComboBoxItem>
+                    <ComboBoxItem Tag="SINGLE" Content="{i18n:LocalizeExtension Key=single_space}"></ComboBoxItem>
+                    <ComboBoxItem Tag="DOUBLE" Content="{i18n:LocalizeExtension Key=double_space}"></ComboBoxItem>
                 </ComboBox>
             </DockPanel>
 
             <DockPanel Margin="15 0 0 0">
                 <Image Classes="Icon" Source="/UI/Assets/column.png" />
-                <TextBlock VerticalAlignment="Center" Margin="10 20">
-                    Columns
+                <TextBlock VerticalAlignment="Center" Margin="10 20"
+                           Text="{i18n:LocalizeExtension Key=columns}">
                 </TextBlock>
                 <NumericUpDown Minimum="1" Maximum="2" Increment="1"
                                HorizontalContentAlignment="Center"
@@ -69,49 +72,49 @@
 
             <DockPanel Margin="15 0 0 0">
                 <Image Classes="Icon" Source="/UI/Assets/justify.png" />
-                <TextBlock VerticalAlignment="Center" Margin="10 20">
-                    Justify Text
+                <TextBlock VerticalAlignment="Center" Margin="10 20"
+                           Text="{i18n:LocalizeExtension Key=justify_text}">
                 </TextBlock>
                 <ToggleSwitch IsChecked="{Binding Justified, Mode=TwoWay}" />
             </DockPanel>
         </StackPanel>
 
-        <TextBlock Classes="SubTitle">Structure</TextBlock>
+        <TextBlock Classes="SubTitle" Text="{i18n:LocalizeExtension Key=structure}"></TextBlock>
 
         <StackPanel>
 
             <DockPanel Margin="15 0 0 0">
                 <Image Classes="Icon" Source="/UI/Assets/chapter.png" />
-                <TextBlock VerticalAlignment="Center" Margin="10 20">
-                    Chapter Break
+                <TextBlock VerticalAlignment="Center" Margin="10 20"
+                           Text="{i18n:LocalizeExtension Key=chapter_break}">
                 </TextBlock>
                 <ToggleSwitch IsChecked="{Binding ChapterBreak, Mode=TwoWay}" />
             </DockPanel>
 
             <DockPanel Margin="15 0 0 0">
                 <Image Classes="Icon" Source="/UI/Assets/verse.png" />
-                <TextBlock VerticalAlignment="Center" Margin="10 20">
-                    Verse Break
+                <TextBlock VerticalAlignment="Center" Margin="10 20"
+                           Text="{i18n:LocalizeExtension Key=verse_break}">
                 </TextBlock>
                 <ToggleSwitch IsChecked="{Binding VerseBreak, Mode=TwoWay}" />
             </DockPanel>
         </StackPanel>
 
-        <TextBlock Classes="SubTitle">Options</TextBlock>
+        <TextBlock Classes="SubTitle" Text="{i18n:LocalizeExtension Key=options}"></TextBlock>
 
         <StackPanel>
             <DockPanel Margin="15 0 0 0">
                 <Image Classes="Icon" Source="/UI/Assets/note.png" />
-                <TextBlock VerticalAlignment="Center" Margin="10 20">
-                    Note Taking
+                <TextBlock VerticalAlignment="Center" Margin="10 20"
+                           Text="{i18n:LocalizeExtension Key=note_taking}">
                 </TextBlock>
                 <ToggleSwitch IsChecked="{Binding NoteTaking, Mode=TwoWay}" />
             </DockPanel>
 
             <DockPanel Margin="15 0 0 0">
                 <Image Classes="Icon" Source="/UI/Assets/table_of_content.png" />
-                <TextBlock VerticalAlignment="Center" Margin="10 20">
-                    Table of Contents
+                <TextBlock VerticalAlignment="Center" Margin="10 20"
+                           Text="{i18n:LocalizeExtension Key=table_of_contents}">
                 </TextBlock>
                 <ToggleSwitch IsChecked="{Binding TableOfContents, Mode=TwoWay}" />
             </DockPanel>

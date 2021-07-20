@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using USFMConverter.UI.Localization;
 using USFMToolsSharp;
 using USFMToolsSharp.Models.Markers;
 
@@ -71,9 +72,9 @@ namespace USFMConverter.Core.Util
         {
             if (!File.Exists(path))
             {
-                throw new FileNotFoundException(
-                    "Could not find the specified file at: " + path
-                    );
+                var messageTemplate = Localizer.Instance["file_not_found_msg"];
+
+                throw new FileNotFoundException(string.Format(messageTemplate, path));
             }
 
             path = $"\"{path}\""; // preserve spaces with wrapping double quotes

@@ -1,10 +1,12 @@
 using System;
+using System.Globalization;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using USFMConverter.Core.Data.Serializer;
 using USFMConverter.Core.Util;
 using USFMConverter.UI;
+using USFMConverter.UI.Localization;
 
 namespace USFMConverter
 {
@@ -13,6 +15,18 @@ namespace USFMConverter
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
+            LoadLocalization();
+        }
+
+        private void LoadLocalization()
+        {
+            var language = CultureInfo.CurrentUICulture.Name.Split('-')[0]; // name format is <languagecode>-<region>
+
+            // default to English if not available
+            if (!Localizer.Instance.LoadLanguage(language))
+            {
+                Localizer.Instance.LoadLanguage();
+            }
         }
 
         public override void OnFrameworkInitializationCompleted()

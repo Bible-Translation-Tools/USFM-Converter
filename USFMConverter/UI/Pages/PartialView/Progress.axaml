@@ -2,6 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:i18n="clr-namespace:USFMConverter.UI.Localization"
              x:Class="USFMConverter.UI.Pages.PartialView.Progress">
 
     <Border CornerRadius="30" Background="White"
@@ -10,7 +11,9 @@
             <StackPanel Grid.Column="1" VerticalAlignment="Center">
                 <ProgressBar Name="ProgressBar" Width="{Binding $parent.Width}"
                              Height="30" Margin="20" />
-                <TextBlock HorizontalAlignment="Center">CONVERTING ... </TextBlock>
+                <TextBlock HorizontalAlignment="Center"
+                           Text="{i18n:LocalizeExtension Key=converting}">
+                </TextBlock>
             </StackPanel>
         </Grid>
     </Border>

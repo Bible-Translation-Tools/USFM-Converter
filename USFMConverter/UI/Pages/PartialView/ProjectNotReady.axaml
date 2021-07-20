@@ -2,22 +2,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:i18n="clr-namespace:USFMConverter.UI.Localization"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="USFMConverter.UI.Pages.PartialView.ProjectNotReady">
     <StackPanel HorizontalAlignment="Center">
         <TextBlock HorizontalAlignment="Center" FontWeight="Bold" FontSize="25" 
-                   Margin="10" TextWrapping="WrapWithOverflow">
-            Welcome!
+                   Margin="10" TextWrapping="WrapWithOverflow"
+                   Text="{i18n:LocalizeExtension Key=welcome}">
         </TextBlock>
         <TextBlock HorizontalAlignment="Center" Margin="10 5 10 5" 
-                   TextWrapping="WrapWithOverflow">
-            Please add files to start conversion.
+                   TextWrapping="WrapWithOverflow"
+                   Text="{i18n:LocalizeExtension Key=please_add_files}">
         </TextBlock>
         <Button HorizontalAlignment="Center" BorderBrush="Black" 
                 BorderThickness="0.5" Margin="15"
                 Padding="15" Background="#335cff" 
-                Foreground="White" IsEnabled="False">
-            Convert Now
+                Foreground="White" IsEnabled="False"
+                Content="{i18n:LocalizeExtension Key=convert_now}">
         </Button>
     </StackPanel>
 </UserControl>

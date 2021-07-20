@@ -1,8 +1,6 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
-using Avalonia.Platform;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,6 +10,7 @@ using USFMConverter.Core.Util;
 using USFMConverter.UI.Pages.PartialView;
 using System;
 using System.Runtime.InteropServices;
+using USFMConverter.UI.Localization;
 
 namespace USFMConverter.UI.Pages
 {
@@ -93,7 +92,7 @@ namespace USFMConverter.UI.Pages
         private async void OnBrowseFolderClick(object? sender, RoutedEventArgs e)
         {
             var dialog = new OpenFolderDialog();
-            dialog.Title = "Select a Folder";
+            dialog.Title = Localizer.Instance["select_folder"];
 
             string result = await dialog.ShowAsync((Window)this.VisualRoot);
 
@@ -144,7 +143,7 @@ namespace USFMConverter.UI.Pages
         {
             var dialog = new OpenFileDialog();
             dialog.AllowMultiple = true;
-            dialog.Title = "Select Files";
+            dialog.Title = Localizer.Instance["select_files"];
 
             var extensions = CoreConverter.supportedExtensions
                 .Select(ex => ex.Replace(".", ""))
@@ -268,7 +267,8 @@ namespace USFMConverter.UI.Pages
 
         public void UpdateCounter()
         {
-            selectedCount.Text = filesContainer.SelectedItems.Count.ToString();
+            var counterTemplate = Localizer.Instance["selected_count_template"];
+            selectedCount.Text = string.Format(counterTemplate, filesContainer.SelectedItems.Count);
         }
 
         public void UpdateSelectBtn()
