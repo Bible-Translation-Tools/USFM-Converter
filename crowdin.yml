@@ -1,0 +1,3 @@
+files:
+  - source: /USFMConverter/UI/Assets/i18n/en.json
+    translation: /USFMConverter/UI/Assets/i18n/%two_letters_code%.json
