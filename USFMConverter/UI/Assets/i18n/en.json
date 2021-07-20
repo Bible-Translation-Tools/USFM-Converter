@@ -15,6 +15,7 @@
     "selected_count_default": "0 Selected",
     "selected_count_template": "{0} Selected",
     "select_all": "Select All",
+    "unselect_all": "Unselect All",
     "remove_files": "Remove Files",
     "conversion_success": "Conversion Success!",
     "open_file": "Open File",
