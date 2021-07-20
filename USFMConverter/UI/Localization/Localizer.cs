@@ -67,7 +67,6 @@ namespace USFMConverter.UI.Localization
         public static Localizer Instance { get; set; } = new Localizer();
         public event PropertyChangedEventHandler PropertyChanged;
 
-        // new text will be applied as soon as language is loaded
         public void Invalidate()
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(IndexerName));

@@ -26,7 +26,7 @@ namespace USFMConverter.UI.Localization
             if (!string.IsNullOrWhiteSpace(Context))
                 keyToUse = $"{Context}/{Key}";
 
-            // this means Localizer.Instance[keyToUse] binding to xaml
+            // Localizer.Instance[keyToUse] binds to xaml
             var binding = new ReflectionBindingExtension($"[{keyToUse}]")
             {
                 Mode = BindingMode.Default,
