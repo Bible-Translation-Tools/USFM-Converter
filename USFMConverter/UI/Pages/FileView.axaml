@@ -140,6 +140,7 @@
                 </Button>
 
                 <Button Classes="RemoveButton MoveBtn" Click="OnRemoveClick"
+                        Margin="5,0,0,0"
                         IsEnabled="{Binding #FilesListBox.SelectedItems.Count}">
                     - Remove Files
                 </Button>

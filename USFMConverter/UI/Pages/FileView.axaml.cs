@@ -311,8 +311,7 @@ namespace USFMConverter.UI.Pages
         private void OnSortFiles(object sender, RoutedEventArgs e)
         {
             var files = filesContainer.Items.Cast<string>().ToList();
-            files.Sort();
-            filesContainer.Items = files;
+            filesContainer.Items = files.OrderBy(f => new FileInfo(f).Name).ToList();
         }
     }
 }
