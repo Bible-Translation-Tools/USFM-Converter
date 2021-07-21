@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading.Tasks;
 using USFMToolsSharp;
 using USFMToolsSharp.Models.Markers;
@@ -47,17 +46,17 @@ namespace USFMConverter.Core.Util
                     );
             }
 
-            var dir = file.DirectoryName;
-            dir = $"\"{dir}\""; // preserve spaces with wrapping double quotes
+            var filePath = $"\"{file.FullName}\""; // preserve spaces with wrapping double quotes
+            var dir = $"\"{file.DirectoryName}\"";
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                Process.Start("explorer.exe", @"/select," + dir);
+                Process.Start("explorer.exe", @"/select," + filePath);
             }
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
-                Process.Start("open", "-R " + dir);
+                Process.Start("open", "-R " + filePath);
             }
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
@@ -111,7 +110,7 @@ namespace USFMConverter.Core.Util
             Action<double> progressCallback
         )
         {
-            var usfmDoc = new USFMDocument();
+            var usfmList = new List<USFMDocument>();
             List<string> fileList = files.ToList();
 
             var parser = new USFMParser(new List<string> { "s5" });
@@ -121,7 +120,7 @@ namespace USFMConverter.Core.Util
             {
                 await Task.Run(() => {
                     var text = File.ReadAllText(fileList[i]);
-                    usfmDoc.Insert(parser.ParseFromString(text));
+                    usfmList.Add(parser.ParseFromString(text));
                 });
 
                 // update progress bar
@@ -129,6 +128,22 @@ namespace USFMConverter.Core.Util
                 progressCallback(percent);
             }
 
+            try
+            {
+                // sort by biblical order of books
+                usfmList.Sort(new BooksComparison());
+            }
+            catch (Exception ex)
+            {
+                // the outer exception message is not helpful ("Failed to compare two elements in the array.")
+                throw ex.InnerException;
+            }
+
+            var usfmDoc = new USFMDocument();
+            foreach (var usfm in usfmList)
+            {
+                usfmDoc.Insert(usfm);
+            }
             return usfmDoc;
         }
     }

@@ -5,7 +5,7 @@
              x:Class="USFMConverter.UI.Pages.PartialView.Progress">
 
     <Border CornerRadius="30" Background="White"
-            Width="600" Height="200" Padding="20">
+            Width="500" Height="200" Padding="20">
         <Grid ColumnDefinitions="1* 8* 1*" HorizontalAlignment="Stretch">
             <StackPanel Grid.Column="1" VerticalAlignment="Center">
                 <ProgressBar Name="ProgressBar" Width="{Binding $parent.Width}"

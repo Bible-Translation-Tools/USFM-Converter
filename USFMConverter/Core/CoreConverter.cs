@@ -8,14 +8,11 @@ using USFMConverter.Core.Data;
 using USFMConverter.Core.Render;
 using USFMConverter.Core.Util;
 using USFMConverter.UI;
-using USFMToolsSharp;
-using USFMToolsSharp.Models.Markers;
 
 namespace USFMConverter.Core
 {
     public class CoreConverter
     {
-
         public static ICollection<string> supportedExtensions = new List<string> {
             ".usfm", ".txt", ".sfm"
         };
