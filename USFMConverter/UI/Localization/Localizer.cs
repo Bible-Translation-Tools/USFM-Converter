@@ -17,11 +17,6 @@ namespace USFMConverter.UI.Localization
         private const string IndexerArrayName = "Item[]";
         private Dictionary<string, string> i18nMap = null;
 
-        public Localizer()
-        {
-
-        }
-
         public bool LoadLanguage(string language = "en")
         {
             Language = language;
