@@ -2,23 +2,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:i18n="clr-namespace:USFMConverter.UI.Localization"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="USFMConverter.UI.Pages.PartialView.ProjectReady">
     
     <StackPanel HorizontalAlignment="Center">
         <TextBlock HorizontalAlignment="Center" FontWeight="Bold" 
-                   FontSize="25" Margin="10" TextWrapping="WrapWithOverflow">
-            Project Ready!
+                   FontSize="25" Margin="10" TextWrapping="WrapWithOverflow"
+                   Text="{i18n:LocalizeExtension Key=project_ready}">
         </TextBlock>
         <TextBlock HorizontalAlignment="Center" Margin="10 5 10 5" 
-                   TextWrapping="WrapWithOverflow">
-            Your project is ready to be converted.
+                   TextWrapping="WrapWithOverflow"
+                   Text="{i18n:LocalizeExtension Key=project_ready_to_convert}">
         </TextBlock>
         <Button HorizontalAlignment="Center" BorderBrush="Black" 
                 BorderThickness="0.5" Margin="15"
                 Padding="15" Background="#335cff" Foreground="White"
-                Click="OnConvertClick">
-            Convert Now
+                Click="OnConvertClick" Content="{i18n:LocalizeExtension Key=convert_now}">
         </Button>
     </StackPanel>
 </UserControl>

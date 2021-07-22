@@ -2,6 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:i18n="clr-namespace:USFMConverter.UI.Localization"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:swappable="clr-namespace:USFMConverter.UI.Pages.PartialView"
              x:Class="USFMConverter.UI.Pages.FileView"
@@ -58,26 +59,26 @@
 
                     <StackPanel Margin="10 20 10 20">
                         <TextBlock VerticalAlignment="Center" FontWeight="Bold"
-                                   Margin="10" Foreground="#244f9d">
-                            Add Files Here
+                                   Margin="10" Foreground="#244f9d"
+                                   Text="{i18n:LocalizeExtension Key=add_files}">
                         </TextBlock>
                         <TextBlock Name="DragDropText" VerticalAlignment="Center"
-                                   Margin="10 0 10 10" TextWrapping="WrapWithOverflow">
-                            You can select files or a folder, or drag and drop from your computer into this area.
+                                   Margin="10 0 10 10" TextWrapping="WrapWithOverflow"
+                                   Text="{i18n:LocalizeExtension Key=add_files_description}">
                         </TextBlock>
 
                         <Grid Name="DragDropSection">
                             <WrapPanel>
                                 <Border Classes="BrowseBtnBorder">
                                     <Button Classes="BrowseBtn"
-                                            Click="OnBrowseFolderClick">
-                                        Select Folder
+                                            Click="OnBrowseFolderClick"
+                                            Content="{i18n:LocalizeExtension Key=select_folder}">
                                     </Button>
                                 </Border>
                                 <Border Classes="BrowseBtnBorder">
                                     <Button Classes="BrowseBtn"
-                                            Click="OnBrowseFilesClick">
-                                        Add Files
+                                            Click="OnBrowseFilesClick"
+                                            Content="{i18n:LocalizeExtension Key=add_files}">
                                     </Button>
                                 </Border>
                                 <Image Name="DragDropImage"
@@ -91,32 +92,27 @@
             </Grid>
         </StackPanel>
 
-        <TextBlock Grid.Row="1" Classes="Title" Margin="0 30 0 0">
-            Project Files
+        <TextBlock Grid.Row="1" Classes="Title" Margin="0 30 0 0"
+                   Text="{i18n:LocalizeExtension Key=project_files}">
         </TextBlock>
 
         <Grid Grid.Row="2">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Classes="SelectedText" Margin="0 10 0 5"
                            Background="White" VerticalAlignment="Center"
-                           HorizontalAlignment="Left" Name="SelectedCount">
-                    0
-                </TextBlock>
-                <TextBlock Classes="SelectedText" Margin="5 10 0 5"
-                           Background="White" VerticalAlignment="Center"
-                           HorizontalAlignment="Left">
-                    Selected
+                           HorizontalAlignment="Left" Name="SelectedCount"
+                           Text="{i18n:LocalizeExtension Key=selected_count_default}">
                 </TextBlock>
                 <Button Classes="SelectAllButton" Margin="10 10 0 5"
                         Name="SelectAllBtn" Click="OnSelectAllClick"
-                        IsEnabled="{Binding #FilesListBox.Items.Count}">
-                    Select All
+                        IsEnabled="{Binding #FilesListBox.Items.Count}"
+                        Content="{i18n:LocalizeExtension Key=select_all}">
                 </Button>
             </StackPanel>
             <Button Classes="RemoveButton" Margin="0 10 0 5"
                     HorizontalAlignment="Right" Click="OnRemoveClick"
-                    IsEnabled="{Binding #FilesListBox.SelectedItems.Count}">
-                - Remove Files
+                    IsEnabled="{Binding #FilesListBox.SelectedItems.Count}"
+                    Content="{i18n:LocalizeExtension Key=remove_files}">
             </Button>
         </Grid>
 

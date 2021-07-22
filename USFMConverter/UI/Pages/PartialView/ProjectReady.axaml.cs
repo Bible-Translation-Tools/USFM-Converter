@@ -4,6 +4,7 @@ using Avalonia.Markup.Xaml;
 using System;
 using System.Collections.Generic;
 using USFMConverter.Core.ConstantValue;
+using USFMConverter.UI.Localization;
 
 namespace USFMConverter.UI.Pages.PartialView
 {
@@ -63,7 +64,7 @@ namespace USFMConverter.UI.Pages.PartialView
             FileFormat fileFormat = Enum.Parse<FileFormat>(fileFormatName);
 
             var dialog = new SaveFileDialog();
-            dialog.Title = "Save Project As";
+            dialog.Title = Localizer.Instance["save_project_as"];
             dialog.InitialFileName = "out";
             dialog.Filters.Add(fileFilter[fileFormat]);
 

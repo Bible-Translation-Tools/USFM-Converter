@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:view="clr-namespace:USFMConverter.UI.Pages"
              xmlns:swappable="clr-namespace:USFMConverter.UI.Pages.PartialView"
+             xmlns:i18n="clr-namespace:USFMConverter.UI.Localization" 
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="USFMConverter.UI.Pages.ProjectDetailScreen"
              Name="ProjectDetailScreen"
@@ -40,8 +41,7 @@
             <DockPanel Classes="TopPanel">
                 <StackPanel Classes="LeftGroup" Orientation="Horizontal">
                     <TextBlock HorizontalAlignment="Left" Classes="AppTitle"
-                               FontSize="32">
-                        USFM Converter
+                               FontSize="32" Text="{i18n:LocalizeExtension Key=usfm_converter}">
                     </TextBlock>
                     <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"
                                Margin="10,0,0,0" FontSize="12"
@@ -57,8 +57,8 @@
                                 <Image Width="20" Height="20" Source="/UI/Assets/settings_inverted.png" />
                                 <TextBlock Margin="5" Foreground="White" 
                                            FontSize="14" HorizontalAlignment="Center"
-                                           VerticalAlignment="Center">
-                                    Settings
+                                           VerticalAlignment="Center"
+                                           Text="{i18n:LocalizeExtension Key=settings}">
                                 </TextBlock>
                             </StackPanel>
                         </Button>

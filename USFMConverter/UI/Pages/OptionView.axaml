@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:swappable="clr-namespace:USFMConverter.UI.Pages.PartialView"
+             xmlns:i18n="clr-namespace:USFMConverter.UI.Localization"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="USFMConverter.UI.Pages.OptionView"
              Name="OptionView">
@@ -62,8 +63,8 @@
 
                 <StackPanel Background="White" Margin="20">
                     <DockPanel>
-                        <TextBlock Classes="Title">
-                            Project Settings
+                        <TextBlock Classes="Title"
+                                   Text="{i18n:LocalizeExtension Key=project_settings}">
                         </TextBlock>
                         
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
@@ -77,15 +78,15 @@
                         </StackPanel>
                     </DockPanel>
 
-                    <TextBlock Classes="SubTitle">
-                        Output
+                    <TextBlock Classes="SubTitle"
+                               Text="{i18n:LocalizeExtension Key=output}">
                     </TextBlock>
 
                     <StackPanel>
                         <DockPanel Margin="15 0 0 0">
                             <Image Classes="Icon" Source="/UI/Assets/page.png" />
-                            <TextBlock VerticalAlignment="Center" Margin="10 20">
-                                File Format
+                            <TextBlock VerticalAlignment="Center" Margin="10 20"
+                                       Text="{i18n:LocalizeExtension Key=file_format}">
                             </TextBlock>
                             <ComboBox SelectedIndex="{Binding SelectedFormatIndex, Mode=OneWayToSource}"
                                       SelectedItem="{Binding OutputFileFormat, Mode=OneWayToSource}"

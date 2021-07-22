@@ -2,6 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:i18n="clr-namespace:USFMConverter.UI.Localization"
              x:Class="USFMConverter.UI.Pages.PartialView.Error">
     <UserControl.Styles>
         <Style Selector="Button.Close">
@@ -45,19 +46,18 @@
                     <Image Source="/UI/Assets/close.png"/>
                 </Button>
 
-                <TextBlock Grid.Row="1" Classes="MainText">
-                    Conversion Error!
+                <TextBlock Grid.Row="1" Classes="MainText"
+                           Text="{i18n:LocalizeExtension Key=error}">
                 </TextBlock>
                 <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
                     <TextBlock Margin="10" Text="{Binding, Mode=OneWay}"
                            Name="ErrorMessageText" TextWrapping="WrapWithOverflow">
-                        Error message here...
                     </TextBlock>
                 </ScrollViewer>
                 <Button Grid.Row="3" Margin="10,10,0,20"
                         Grid.Column="0" Classes="Action"
-                        Click="OnCloseDialogClick">
-                    Close
+                        Click="OnCloseDialogClick"
+                        Content="{i18n:LocalizeExtension Key=close}">
                 </Button>
             </Grid>
         </Grid>
