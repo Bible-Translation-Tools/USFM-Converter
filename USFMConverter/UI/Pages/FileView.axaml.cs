@@ -307,11 +307,5 @@ namespace USFMConverter.UI.Pages
             selectAllBtn.Content = anySelected ? "Unselect All" : "Select All";
             selected = anySelected;
         }
-
-        private void OnSortFiles(object sender, RoutedEventArgs e)
-        {
-            var files = filesContainer.Items.Cast<string>().ToList();
-            filesContainer.Items = files.OrderBy(f => new FileInfo(f).Name).ToList();
-        }
     }
 }
