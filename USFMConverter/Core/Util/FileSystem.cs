@@ -128,17 +128,6 @@ namespace USFMConverter.Core.Util
                 progressCallback(percent);
             }
 
-            try
-            {
-                // sort by biblical order of books
-                usfmList.Sort(new BooksComparison());
-            }
-            catch (Exception ex)
-            {
-                // the outer exception message is not helpful ("Failed to compare two elements in the array.")
-                throw ex.InnerException;
-            }
-
             var usfmDoc = new USFMDocument();
             foreach (var usfm in usfmList)
             {

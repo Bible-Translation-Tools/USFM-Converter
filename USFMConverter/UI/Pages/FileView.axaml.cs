@@ -78,7 +78,6 @@ namespace USFMConverter.UI.Pages
             projectNotReadySection = this.FindControl<ProjectNotReady>("ProjectNotReady");
 
             filesContainer = this.FindControl<ListBox>("FilesListBox");
-            filesContainer.AddHandler(ListBox.SelectionChangedEvent, OnFileSelect);
             filesContainer.AddHandler(DragDrop.DragOverEvent, OnDragOver);
             filesContainer.AddHandler(DragDrop.DropEvent, OnDrop);
 
@@ -182,7 +181,7 @@ namespace USFMConverter.UI.Pages
             UpdateSelectBtn();
         }
 
-        private void OnFileSelect(object? sender, SelectionChangedEventArgs e)
+        private void OnListItemSelect(object? sender, SelectionChangedEventArgs e)
         {
             UpdateCounter();
             UpdateSelectBtn();
@@ -238,6 +237,37 @@ namespace USFMConverter.UI.Pages
             }
         }
 
+        private void OnMoveUp(object? sender, RoutedEventArgs e)
+        {
+            var index = filesContainer.SelectedIndex;
+            if (index <= 0) return;
+
+            var selectedFile = filesContainer.SelectedItem;
+            var list = filesContainer.Items.Cast<string>().ToList();
+            list.RemoveAt(index);
+            list.Insert(--index, selectedFile.ToString());
+            filesContainer.Items = list;
+            filesContainer.SelectedItem = list[index]; // untoggle others
+            filesContainer.SelectedIndex = index;
+        }
+
+        private void OnMoveDown(object? sender, RoutedEventArgs e)
+        {
+            var index = filesContainer.SelectedIndex;
+            if (index < 0 || index >= (filesContainer.ItemCount - 1))
+            {
+                return;
+            }
+
+            var selectedFile = filesContainer.SelectedItem;
+            var list = filesContainer.Items.Cast<string>().ToList();
+            list.RemoveAt(index);
+            list.Insert(++index, selectedFile.ToString());
+            filesContainer.Items = list;
+            filesContainer.SelectedItem = list[index]; // untoggle others
+            filesContainer.SelectedIndex = index;
+        }
+
         private void OnConvertStart(object? sender, RoutedEventArgs e)
         {
             RaiseEvent(new RoutedEventArgs(StartConvertEvent));
@@ -276,6 +306,12 @@ namespace USFMConverter.UI.Pages
             bool anySelected = (filesContainer.SelectedItems.Count > 0);
             selectAllBtn.Content = anySelected ? "Unselect All" : "Select All";
             selected = anySelected;
+        }
+
+        private void OnSortFiles(object sender, RoutedEventArgs e)
+        {
+            var files = filesContainer.Items.Cast<string>().ToList();
+            filesContainer.Items = files.OrderBy(f => new FileInfo(f).Name).ToList();
         }
     }
 }
