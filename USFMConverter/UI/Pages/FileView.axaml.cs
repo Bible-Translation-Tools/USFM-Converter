@@ -24,6 +24,8 @@ namespace USFMConverter.UI.Pages
         private ListBox filesContainer;
         private TextBlock selectedCount;
         private Button selectAllBtn;
+        private Button moveUpBtn;
+        private Button moveDownBtn;
         private bool selected = false;
 
         public event EventHandler<RoutedEventArgs> ConvertStart
@@ -87,6 +89,8 @@ namespace USFMConverter.UI.Pages
 
             selectedCount = this.FindControl<TextBlock>("SelectedCount");
             selectAllBtn = this.FindControl<Button>("SelectAllBtn");
+            moveUpBtn = this.FindControl<Button>("MoveUpBtn");
+            moveDownBtn = this.FindControl<Button>("MoveDownBtn");
         }
 
         private async void OnBrowseFolderClick(object? sender, RoutedEventArgs e)
@@ -185,6 +189,7 @@ namespace USFMConverter.UI.Pages
         {
             UpdateCounter();
             UpdateSelectBtn();
+            UpdateMoveBtn();
         }
 
         private void OnDragOver(object? sender, DragEventArgs e)
@@ -306,6 +311,20 @@ namespace USFMConverter.UI.Pages
             bool anySelected = (filesContainer.SelectedItems.Count > 0);
             selectAllBtn.Content = anySelected ? "Unselect All" : "Select All";
             selected = anySelected;
+        }
+
+        private void UpdateMoveBtn()
+        {
+            if (filesContainer.SelectedItems.Count == 1)
+            {
+                moveUpBtn.IsEnabled = true;
+                moveDownBtn.IsEnabled = true;
+            }
+            else
+            {
+                moveUpBtn.IsEnabled = false;
+                moveDownBtn.IsEnabled = false;
+            }
         }
 
         private void OnSortFiles(object sender, RoutedEventArgs e)
