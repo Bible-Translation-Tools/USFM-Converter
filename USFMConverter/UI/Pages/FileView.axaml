@@ -134,6 +134,11 @@
             </WrapPanel>
             
             <WrapPanel Grid.Column="2" HorizontalAlignment="Right">
+                <Button Classes="MoveBtn" Click="OnSortFiles"
+                        IsEnabled="{Binding #FilesListBox.Items.Count}">
+                    Sort by Name
+                </Button>
+
                 <Button Classes="RemoveButton MoveBtn" Click="OnRemoveClick"
                         Margin="5,0,0,0"
                         IsEnabled="{Binding #FilesListBox.SelectedItems.Count}">
