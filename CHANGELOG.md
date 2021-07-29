@@ -3,6 +3,7 @@
 ## 1.0.0
 
 ### Features:
+ - Cross-platform support: Windows/Linux/MacOS
  - Preserve settings after closing/opening the app.
  - Add multiple files to convert.
  - Reorder (arrange) files.
