@@ -386,3 +386,6 @@ Desktop.ini
 .DS_Store
 .idea/
 **/.idea/
+
+output-*/
+installers/
