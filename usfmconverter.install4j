@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <install4j version="9.0.4" transformSequenceNumber="9">
-  <directoryPresets config="/home/dan/repos/USFM-Converter/usfmicon.png" />
+  <directoryPresets config="./usfmicon.png" />
   <application name="USFM Converter" applicationId="4998-7743-4425-4963" mediaDir="installers" shortName="usfmconverter" version="0.1" macVolumeId="25a1f2d58abf6574">
     <jreBundles jdkProviderId="AdoptOpenJDK" release="11/latest">
       <modules />
@@ -30,8 +30,8 @@
         </exclude>
       </dirEntry>
       <fileEntry mountPoint="31" file="./output-nix/USFMConverter" fileMode="755" overrideFileMode="true" />
-      <fileEntry mountPoint="31" file="/home/dan/repos/USFM-Converter/usfmconverter.desktop" />
-      <fileEntry mountPoint="31" file="/home/dan/repos/USFM-Converter/usfmicon.png" />
+      <fileEntry mountPoint="31" file="./usfmconverter.desktop" />
+      <fileEntry mountPoint="31" file="./usfmicon.png" />
       <dirEntry mountPoint="32" file="./output-mac" />
     </entries>
   </files>
@@ -206,7 +206,7 @@ return console.askOkCancel(message, true);
                   </property>
                   <property name="winIconFile">
                     <object class="com.install4j.api.beans.ExternalFile">
-                      <string>/home/dan/repos/USFM-Converter/USFMConverter/UI/Assets/converter_logo_inverted_icon.ico</string>
+                      <string>./USFMConverter/UI/Assets/converter_logo_inverted_icon.ico</string>
                     </object>
                   </property>
                 </serializedBean>
