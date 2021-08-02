@@ -15,5 +15,4 @@
 	 - Table of Contents
  
 ### Known Issue:
-- Convert error when adding BTT Writer files: `\c 1` prefix in content caused the error.
 - Notetaking enabled with two columns layout will render unfriendly-hidden overflow text.
