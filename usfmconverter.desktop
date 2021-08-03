@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
 Name=USFM Converter
-Comment=USFM Converter is app to convert USFM into other formats 
+Comment=USFM Converter is an app to convert USFM into other formats 
 Exec=/opt/usfmconverter/USFMConverter
 Path=/opt/usfmconverter/
 Icon=/opt/usfmconverter/usfmicon.png
