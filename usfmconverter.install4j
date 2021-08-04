@@ -576,16 +576,23 @@ return console.askYesNo(message, true);
       <jreBundle jreBundleSource="none" />
       <postInstallScript>cp /opt/usfmconverter/usfmconverter.desktop /usr/share/applications/</postInstallScript>
     </linuxDeb>
-    <macosFolder name="macOS Folder" id="58">
+    <macosFolderArchive name="macOS Folder Archive" id="68">
       <excludedLaunchers>
         <launcher id="35" />
         <launcher id="36" />
       </excludedLaunchers>
+      <exclude>
+        <entry defaultFileset="true" />
+        <entry filesetId="24" />
+        <entry filesetId="26" />
+      </exclude>
       <jreBundle jreBundleSource="none" />
-    </macosFolder>
+    </macosFolderArchive>
   </mediaSets>
-  <buildIds buildAll="false">
+  <buildIds>
+    <mediaSet refId="38" />
     <mediaSet refId="39" />
+    <mediaSet refId="68" />
   </buildIds>
   <buildOptions verbose="true" />
 </install4j>
