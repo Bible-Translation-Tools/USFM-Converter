@@ -13,11 +13,14 @@
     <CFBundleShortVersionString>1.0.0</CFBundleShortVersionString>
     <CFBundlePackageType>APPL</CFBundlePackageType>
     <CFBundleExecutable>USFMConverter</CFBundleExecutable>
-    <CFBundleIconFile>UI/Assets/converter_logo_inverted_icon.icns</CFBundleIconFile>
+    <CFBundleIconFile>UI/Assets/usfmconverter.icns</CFBundleIconFile>
     <NSPrincipalClass>NSApplication</NSPrincipalClass>
     <NSHighResolutionCapable>true</NSHighResolutionCapable>
 <!--    MacOS bundle information end-->
   </PropertyGroup>
+  <ItemGroup>
+    <None Update="UI/Assets/usfmconverter.icns" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
   <ItemGroup>
     <None Remove="UI\Assets\close.png" />
     <None Remove="UI\Assets\converter_logo_inverted_icon.ico" />
