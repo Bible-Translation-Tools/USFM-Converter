@@ -17,6 +17,7 @@
     <NSPrincipalClass>NSApplication</NSPrincipalClass>
     <NSHighResolutionCapable>true</NSHighResolutionCapable>
 <!--    MacOS bundle information end-->
+    <RuntimeIdentifiers>osx-x64;linux-x64;win-x64</RuntimeIdentifiers>
   </PropertyGroup>
   <ItemGroup>
     <None Update="UI/Assets/usfmconverter.icns" CopyToOutputDirectory="PreserveNewest" />
