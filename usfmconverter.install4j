@@ -10,17 +10,14 @@
     <filesets>
       <fileset name="Windows fileset" id="24" />
       <fileset name="Linux fileset" id="26" />
-      <fileset name="Mac fileset" id="28" />
     </filesets>
     <roots>
       <root id="25" fileset="24" />
       <root id="27" fileset="26" />
-      <root id="29" fileset="28" />
     </roots>
     <mountPoints>
       <mountPoint id="30" root="25" />
       <mountPoint id="31" root="27" />
-      <mountPoint id="32" root="29" />
     </mountPoints>
     <entries>
       <dirEntry mountPoint="30" file="./output-win" overwriteMode="1" />
@@ -32,13 +29,11 @@
       <fileEntry mountPoint="31" file="./output-nix/USFMConverter" fileMode="755" overrideFileMode="true" />
       <fileEntry mountPoint="31" file="./usfmconverter.desktop" />
       <fileEntry mountPoint="31" file="./usfmicon.png" />
-      <dirEntry mountPoint="32" file="./output-mac" />
     </entries>
   </files>
   <launchers>
     <launcher name="USFMConverter.exe" id="35" external="true" externalFile="USFMConverter.exe" />
     <launcher name="USFMConverter (nix)" id="36" external="true" externalFile="USFMConverter" />
-    <launcher name="USFMConverter" id="37" external="true" externalFile="USFMConverter" />
   </launchers>
   <installerGui>
     <applications>
@@ -554,7 +549,6 @@ return console.askYesNo(message, true);
     <windows name="Windows" id="38">
       <excludedLaunchers>
         <launcher id="36" />
-        <launcher id="37" />
       </excludedLaunchers>
       <exclude>
         <entry defaultFileset="true" />
@@ -566,7 +560,6 @@ return console.askYesNo(message, true);
     <linuxDeb name="Linux Deb Archive" id="39">
       <excludedLaunchers>
         <launcher id="35" />
-        <launcher id="37" />
       </excludedLaunchers>
       <exclude>
         <entry defaultFileset="true" />
@@ -576,16 +569,11 @@ return console.askYesNo(message, true);
       <jreBundle jreBundleSource="none" />
       <postInstallScript>cp /opt/usfmconverter/usfmconverter.desktop /usr/share/applications/</postInstallScript>
     </linuxDeb>
-    <macosFolder name="macOS Folder" id="58">
-      <excludedLaunchers>
-        <launcher id="35" />
-        <launcher id="36" />
-      </excludedLaunchers>
-      <jreBundle jreBundleSource="none" />
-    </macosFolder>
   </mediaSets>
-  <buildIds buildAll="false">
+  <buildIds>
+    <mediaSet refId="38" />
     <mediaSet refId="39" />
+    <mediaSet refId="68" />
   </buildIds>
   <buildOptions verbose="true" />
 </install4j>
