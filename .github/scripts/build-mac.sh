@@ -14,5 +14,5 @@ create-dmg \
   --app-drop-link 440 230 \
   "USFMConverter.dmg" \
   "dmg-source/"
-mkdir installers
-cp USFMConverter.dmg ./installers/USFMConverter.dmg
+mkdir dmg
+cp USFMConverter.dmg ./dmg/USFMConverter.dmg
