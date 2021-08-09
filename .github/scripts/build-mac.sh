@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -o xtrace
+
 dotnet restore -r osx-x64
 dotnet msbuild ./USFMConverter/USFMConverter.sln -t:BundleApp -p:RuntimeIdentifier=osx-x64 -property:Configuration=Release -p:OutputPath=../output-mac/
 mkdir ./dmg-source

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -o xtrace
+
 export INSTALL4J_LICENSE
 
 dotnet publish ./USFMConverter/USFMConverter.sln -c Release --self-contained true -o ./output-win -r win-x64
