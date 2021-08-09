@@ -3,6 +3,7 @@
 dotnet msbuild ./USFMConverter/USFMConverter.sln -t:BundleApp -p:RuntimeIdentifier=osx-x64 -property:Configuration=Release -p:OutputPath=../output-mac/
 mkdir ./dmg-source
 cp -r ./output-mac/publish/USFMConverter.app ./dmg-source/USFMConverter.app
+
 create-dmg \
   --volname "USFM Converter" \
   --background "usfm-dmg-bg.png" \
@@ -14,5 +15,6 @@ create-dmg \
   --app-drop-link 440 230 \
   "USFMConverter.dmg" \
   "dmg-source/"
+
 mkdir dmg
 cp USFMConverter.dmg ./dmg/USFMConverter.dmg
