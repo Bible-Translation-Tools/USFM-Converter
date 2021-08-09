@@ -13,10 +13,10 @@ create-dmg \
   --background "usfm-dmg-bg.png" \
   --window-pos 200 120 \
   --window-size 640 360 \
-  --icon-size 128 \
-  --icon "USFMConverter.app" 200 190 \
+  --icon-size 100 \
+  --icon "USFMConverter.app" 190 230 \
   --hide-extension "USFMConverter.app" \
-  --app-drop-link 440 230 \
+  --app-drop-link 445 230 \
   "USFMConverter.dmg" \
   "dmg-source/"
 
