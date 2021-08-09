@@ -14,7 +14,7 @@ create-dmg \
   --window-pos 200 120 \
   --window-size 640 360 \
   --icon-size 100 \
-  --icon "USFMConverter.app" 190 230 \
+  --icon "USFMConverter.app" 200 230 \
   --hide-extension "USFMConverter.app" \
   --app-drop-link 445 230 \
   "USFMConverter.dmg" \
