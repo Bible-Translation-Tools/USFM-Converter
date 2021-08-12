@@ -16,10 +16,10 @@ namespace USFMConverter.Core.Util
 
         static SettingManager()
         {
-            string localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            string userDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
             string appName = "USFMConverter";
-
-            appDir = Path.Combine(localAppData, appName);
+            
+            appDir = Path.Combine(userDir, appName);
             Directory.CreateDirectory(appDir); // creates directory if doesn't exist; otherwise does nothing
         }
 
