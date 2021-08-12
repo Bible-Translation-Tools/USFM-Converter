@@ -555,7 +555,7 @@ return console.askYesNo(message, true);
         <entry filesetId="26" />
         <entry filesetId="28" />
       </exclude>
-      <jreBundle jreBundleSource="none" />
+      <jreBundle usePack200="false" />
     </windows>
     <linuxDeb name="Linux Deb Archive" id="39">
       <excludedLaunchers>
@@ -566,7 +566,6 @@ return console.askYesNo(message, true);
         <entry filesetId="24" />
         <entry filesetId="28" />
       </exclude>
-      <jreBundle jreBundleSource="none" />
       <postInstallScript>cp /opt/usfmconverter/usfmconverter.desktop /usr/share/applications/</postInstallScript>
     </linuxDeb>
   </mediaSets>
