@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using Newtonsoft.Json;
 using USFMConverter.Core.Data.Serializer;
 using USFMConverter.UI;
@@ -11,15 +12,20 @@ namespace USFMConverter.Core.Util
     {
         private const string SETTING_FILE_TEMPLATE = "user_settings_{0}.json";
         private const string RECENT_FORMAT = "recent_format";
-
+        private const string appName = "USFMConverter";
         private static string appDir;
 
         static SettingManager()
         {
-            string userDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            string appName = "USFMConverter";
+            string localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                string userHomeDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+                localAppData = Path.Combine(userHomeDir, "Library", "Application Support");
+            }
             
-            appDir = Path.Combine(userDir, appName);
+            appDir = Path.Combine(localAppData, appName);
+
             Directory.CreateDirectory(appDir); // creates directory if doesn't exist; otherwise does nothing
         }
 
