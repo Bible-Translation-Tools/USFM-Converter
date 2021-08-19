@@ -4,7 +4,7 @@
 #define MyAppName "USFM Converter"
 #define MyAppVersion "1.0.0"
 #define MyAppPublisher "Wycliffe Associates"
-#define MyAppURL "https://wycliffeassociates.org"
+#define MyAppURL "https://bibletranslationtools.org"
 #define MyAppExeName "USFMConverter.exe"
 
 [Setup]
