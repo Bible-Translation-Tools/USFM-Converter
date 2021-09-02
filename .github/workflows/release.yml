@@ -4,25 +4,6 @@ on:
       - "v*"
 
 jobs:
-  tagged-release-nix:
-    name: "Tagged Release"
-    runs-on: "ubuntu-latest"
-
-    steps:
-      # ...
-      - name: "Build & test"
-        run: |
-          echo "done!"
-
-      - uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          prerelease: false
-          files: |
-            LICENSE.txt
-            *.jar
-
-jobs:
   build-release-nix:
     name: build-release windows and ubuntu
     runs-on: ubuntu-latest
