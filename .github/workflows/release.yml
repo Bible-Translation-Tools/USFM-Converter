@@ -1,0 +1,83 @@
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  tagged-release-nix:
+    name: "Tagged Release"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      # ...
+      - name: "Build & test"
+        run: |
+          echo "done!"
+
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          files: |
+            LICENSE.txt
+            *.jar
+
+jobs:
+  build-release-nix:
+    name: build-release windows and ubuntu
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: FranzDiebold/github-env-vars-action@v2.1.0
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Windows and Linux buildscript
+      run: ./.github/scripts/build-nix.sh
+      env:
+        INSTALL4J_LICENSE: ${{ secrets.INSTALL4J_LICENSE_9 }}
+    - uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        prerelease: false
+        files: |
+          ./installers/*.deb
+  build-release-mac:
+    name: build-release macos
+    runs-on: macos-10.15
+    steps:
+    - uses: actions/checkout@v2
+    - uses: FranzDiebold/github-env-vars-action@v2.1.0
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: install create-dmg to bundle the app into a dmg
+      run: brew install create-dmg
+    - name: MacOS buildscript
+      run: ./.github/scripts/build-mac.sh
+    - uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        prerelease: false
+        files: |
+          ./dmg/*.dmg
+  build-release-win:
+    name: build-release windows installer with innosetup
+    runs-on: windows-2019
+    steps:
+    - uses: actions/checkout@v2
+    - uses: FranzDiebold/github-env-vars-action@v2.1.0
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: win buildscript
+      run: ./.github/scripts/build-win.bat
+    - uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        prerelease: false
+        files: |
+          ./output/*.exe
