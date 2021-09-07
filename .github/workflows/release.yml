@@ -5,7 +5,7 @@ on:
 
 jobs:
   build-release-nix:
-    name: build-release windows and ubuntu
+    name: build-release ubuntu
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -18,12 +18,11 @@ jobs:
       run: ./.github/scripts/build-nix.sh
       env:
         INSTALL4J_LICENSE: ${{ secrets.INSTALL4J_LICENSE_9 }}
-    - uses: "marvinpinto/action-automatic-releases@latest"
+    - name: Save artifact for nix
+      uses: actions/upload-artifact@v2
       with:
-        repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        prerelease: false
-        files: |
-          ./installers/*.deb
+        name: dotdeb
+        path: ./installers/*.deb
   build-release-mac:
     name: build-release macos
     runs-on: macos-10.15
@@ -38,12 +37,11 @@ jobs:
       run: brew install create-dmg
     - name: MacOS buildscript
       run: ./.github/scripts/build-mac.sh
-    - uses: "marvinpinto/action-automatic-releases@latest"
+    - name: Save artifact for mac
+      uses: actions/upload-artifact@v2
       with:
-        repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        prerelease: false
-        files: |
-          ./dmg/*.dmg
+        name: dotdmg
+        path: ./dmg/*.dmg
   build-release-win:
     name: build-release windows installer with innosetup
     runs-on: windows-2019
@@ -56,9 +54,15 @@ jobs:
         dotnet-version: 5.0.x
     - name: win buildscript
       run: ./.github/scripts/build-win.bat
+    - name: download win and nix artifacts
+      uses: actions/download-artifact@v2
+      with:
+        path: ./artifacts
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         prerelease: false
         files: |
           ./output/*.exe
+          ./artifacts/*.deb
+          ./artifacts/*.dmg
