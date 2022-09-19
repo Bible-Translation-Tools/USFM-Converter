@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using BTTWriterLib;
+using USFMConverter.Core.Data;
 using USFMToolsSharp;
 using USFMToolsSharp.Models.Markers;
 
@@ -105,35 +107,36 @@ namespace USFMConverter.Core.Util
         /// <param name="files">Text files with USFM format.</param>
         /// <param name="progressCallback">Call back for progress bar update.</param>
         /// <returns>A USFM Document</returns>
-        public static async Task<USFMDocument> LoadUSFMsAsync(
-            IEnumerable<string> files,
+        public static async Task<List<(string path, USFMDocument document)>> LoadUSFMsAsync(
+            IEnumerable<IProjectItem> files,
             Action<double> progressCallback
         )
         {
+            var output = new List<(string path, USFMDocument document)>(files.Count());
             var usfmList = new List<USFMDocument>();
-            List<string> fileList = files.ToList();
+            var fileList = files.ToList();
 
             var parser = new USFMParser(new List<string> { "s5" });
             int totalFiles = fileList.Count;
 
             for (int i = 0; i < totalFiles; i++)
             {
-                await Task.Run(() => {
-                    var text = File.ReadAllText(fileList[i]);
-                    usfmList.Add(parser.ParseFromString(text));
-                });
+                if (fileList[i] is FileItem)
+                {
+                    var text = await File.ReadAllTextAsync(fileList[i].Path);
+                    output.Add((fileList[i].Path, parser.ParseFromString(text)));
+                }
+                else if (fileList[i] is WriterProjectItem)
+                {
+                    var container = new FileSystemResourceContainer(Path.GetDirectoryName(fileList[i].Path));
+                    output.Add((fileList[i].Path, BTTWriterLoader.CreateUSFMDocumentFromContainer(container, false)));
+                }
 
                 // update progress bar
                 var percent = (double)i / totalFiles * 100;
                 progressCallback(percent);
             }
-
-            var usfmDoc = new USFMDocument();
-            foreach (var usfm in usfmList)
-            {
-                usfmDoc.Insert(usfm);
-            }
-            return usfmDoc;
+            return output;
         }
     }
 }

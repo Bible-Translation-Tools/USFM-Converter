@@ -2,12 +2,13 @@
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using USFMConverter.Core.Data;
 
 namespace USFMConverter.UI
 {
     public class ViewData
     {
-        public List<string> Files { get; set; } = new();
+        public List<IProjectItem> Files { get; set; } = new();
 
         public int SelectedFormatIndex { get; set; } = 0;
         public ComboBoxItem OutputFileFormat { get; set; }
@@ -25,7 +26,8 @@ namespace USFMConverter.UI
         public bool VerseBreak { get; set; } = false;
         public bool NoteTaking { get; set; } = false;
         public bool TableOfContents { get; set; } = false;
-        public string OutputFileLocation { get; set; } = "";
+        public string OutputPath { get; set; } = "";
+        public bool IndividualFiles { get; set; }
 
         public Exception Error { get; set; }
     }

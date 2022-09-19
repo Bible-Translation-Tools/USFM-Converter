@@ -2,29 +2,36 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
+using Microsoft.CodeAnalysis;
 using USFMConverter.Core.ConstantValue;
 using USFMConverter.Core.Data;
 using USFMConverter.Core.Render;
 using USFMConverter.Core.Util;
 using USFMConverter.UI;
+using USFMToolsSharp.Models.Markers;
 
 namespace USFMConverter.Core
 {
     public class CoreConverter
     {
         public static ICollection<string> supportedExtensions = new List<string> {
-            ".usfm", ".txt", ".sfm"
+            ".usfm", ".sfm"
         };
 
         public async Task ConvertAsync(ViewData viewData, Action<double> progressCallback)
         {
-            FileSystem.CheckWritePermission(viewData.OutputFileLocation);
+            if (!viewData.IndividualFiles)
+            {
+                FileSystem.CheckWritePermission(viewData.OutputPath);
+            }
 
-            string fileFormatName = viewData.OutputFileFormat.Tag.ToString();
+            var fileFormatName = viewData.OutputFileFormat.Tag.ToString();
             var fileFormat = Enum.Parse<FileFormat>(fileFormatName);
 
-            Project project = BuildProject(viewData);
+            var project = BuildProject(viewData);
             Renderable renderer;
             switch (fileFormat)
             {
@@ -34,12 +41,42 @@ namespace USFMConverter.Core
                 case FileFormat.HTML:
                     renderer = new HTMLRenderer();
                     break;
+                case FileFormat.USFM:
+                    renderer = new USFMRenderer();
+                    break;
                 default:
                     throw new ArgumentException("Output file format is not supported");
             }
 
-            var usfmDocument = await FileSystem.LoadUSFMsAsync(project.Files, progressCallback);
-            renderer.Render(project, usfmDocument);
+            var usfmDocuments = await FileSystem.LoadUSFMsAsync(project.Files, progressCallback);
+            if (viewData.IndividualFiles)
+            {
+                var extension = viewData.OutputFileFormat.Tag.ToString().ToLower();
+                foreach (var (path,document) in usfmDocuments)
+                {
+                    var fileName = $"{Path.GetFileNameWithoutExtension(path)}.{extension}";
+                    var tocs = document.GetChildMarkers<TOC3Marker>();
+                    if (tocs.Count != 0)
+                    {
+                        fileName = $"{tocs[0].BookAbbreviation.ToLower()}.{extension}";
+                    }
+                    renderer.Render(project, Path.Join(viewData.OutputPath, fileName), document );
+                }
+
+                return;
+            }
+            renderer.Render(project, viewData.OutputPath, MergeUSFM(usfmDocuments.Select(i => i.document)));
+        }
+
+        private USFMDocument MergeUSFM(IEnumerable<USFMDocument> input)
+        {
+            var output = new USFMDocument();
+            foreach (var file in input)
+            {
+                output.Insert(file);
+            }
+
+            return output;
         }
 
         private Project BuildProject(ViewData viewData)
@@ -72,7 +109,6 @@ namespace USFMConverter.Core
                     NoteTaking = viewData.NoteTaking,
                     TableOfContents = viewData.TableOfContents,
                 },
-                OutputFile = new FileInfo(viewData.OutputFileLocation),
             };
 
             project.Files.AddRange(viewData.Files);

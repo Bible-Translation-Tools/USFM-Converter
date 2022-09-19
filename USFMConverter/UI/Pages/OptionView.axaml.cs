@@ -55,14 +55,14 @@ namespace USFMConverter.UI.Pages
             SettingManager.SaveFormatSetting(formatName, setting);
         }
 
-        private void OnCloseClick(object? sender, RoutedEventArgs e)
+        private void OnCloseButtonClick(object? sender, RoutedEventArgs e)
         {
             CloseDrawer();
         }        
         
-        private void OnCloseClick(object? sender, PointerPressedEventArgs e)
+        private void OnEmptyAreaClick(object? sender, PointerPressedEventArgs e)
         {
-            CloseDrawer();
+            CloseDrawer(); 
         }
 
         private void CloseDrawer()

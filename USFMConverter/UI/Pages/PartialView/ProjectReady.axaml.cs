@@ -20,6 +20,11 @@ namespace USFMConverter.UI.Pages.PartialView
             {
                 Name = "HTML Document",
                 Extensions = new() { "html" }
+            },
+            [FileFormat.USFM] = new FileDialogFilter
+            {
+                Name = "USFM Document",
+                Extensions = new() { "usfm" }
             }
         };
 
@@ -60,18 +65,32 @@ namespace USFMConverter.UI.Pages.PartialView
                 return; // invalid output format
             }
 
-            FileFormat fileFormat = Enum.Parse<FileFormat>(fileFormatName);
+            var fileFormat = Enum.Parse<FileFormat>(fileFormatName);
 
-            var dialog = new SaveFileDialog();
-            dialog.Title = "Save Project As";
-            dialog.InitialFileName = "out";
-            dialog.Filters.Add(fileFilter[fileFormat]);
+            var context = ((ViewData)DataContext);
+            string result;
+            if (context.IndividualFiles)
+            {
+                var dialog = new OpenFolderDialog()
+                {
+                    Title = "Save Project Where"
+                };
+                
+                result = await dialog.ShowAsync((Window)this.VisualRoot);
+            }
+            else
+            {
+                var dialog = new SaveFileDialog();
+                dialog.Title = "Save Project As";
+                dialog.InitialFileName = "out";
+                dialog.Filters.Add(fileFilter[fileFormat]);
 
-            var result = await dialog.ShowAsync((Window)this.VisualRoot);
+                result = await dialog.ShowAsync((Window)this.VisualRoot);
+            }
             if (!string.IsNullOrEmpty(result))
             {
                 // propagate event to parent
-                ((ViewData)DataContext).OutputFileLocation = result;
+                context.OutputPath = result;
                 RaiseEvent(new RoutedEventArgs(StartConvertEvent));
             }
 

@@ -12,6 +12,7 @@ using USFMConverter.Core.Util;
 using USFMConverter.UI.Pages.PartialView;
 using System;
 using System.Runtime.InteropServices;
+using USFMConverter.Core.Data;
 
 namespace USFMConverter.UI.Pages
 {
@@ -98,31 +99,37 @@ namespace USFMConverter.UI.Pages
             var dialog = new OpenFolderDialog();
             dialog.Title = "Select a Folder";
 
-            string result = await dialog.ShowAsync((Window)this.VisualRoot);
+            var result = await dialog.ShowAsync((Window)this.VisualRoot);
 
-            if (!string.IsNullOrEmpty(result))
+            if (string.IsNullOrEmpty(result))
             {
-                var dir = new FileInfo(result);
-                IEnumerable<string> filesInDir;
-                try
-                {
-                    filesInDir = FileSystem.GetFilesInDir(
-                        dir, CoreConverter.supportedExtensions
-                    ).Select(f => f.FullName);
-                }
-                catch (Exception ex)
-                {
-                    ((ViewData)DataContext).Error = ex;
-                    RaiseEvent(new RoutedEventArgs(BrowseErrorEvent));
-                    return;
-                }
-                
-                var currentFileList = filesContainer.Items.Cast<string>();
-                var newList = currentFileList.Concat(filesInDir).ToList();
-
-                filesContainer.Items = newList; // changes to the UI will bind to DataContext
-                UpdateProjectStatus();
+                return;
             }
+            
+            var dir = new FileInfo(result);
+            List<IProjectItem> filesInDir = new List<IProjectItem>();
+            try
+            {
+                filesInDir.AddRange(FileSystem.GetFilesInDir(
+                    dir, CoreConverter.supportedExtensions
+                ).Select(  f => new FileItem(f.FullName)));
+                foreach (var file in Directory.EnumerateFiles(result, "manifest.json", SearchOption.AllDirectories))
+                {
+                    filesInDir.Add(new WriterProjectItem() { Path = file });
+                }
+            }
+            catch (Exception ex)
+            {
+                ((ViewData)DataContext).Error = ex;
+                RaiseEvent(new RoutedEventArgs(BrowseErrorEvent));
+                return;
+            }
+                
+            var currentFileList = filesContainer.Items.Cast<IProjectItem>();
+            var newList = currentFileList.Concat(filesInDir).ToList();
+
+            filesContainer.Items = newList; // changes to the UI will bind to DataContext
+            UpdateProjectStatus();
         }
 
 
@@ -162,8 +169,8 @@ namespace USFMConverter.UI.Pages
             var paths = await dialog.ShowAsync((Window)this.VisualRoot);
             if (paths == null || paths.Length == 0) return;
 
-            var currentFileList = filesContainer.Items.Cast<string>();
-            var newList = currentFileList.Concat(paths).ToList(); ;
+            var currentFileList = filesContainer.Items.Cast<IProjectItem>();
+            var newList = currentFileList.Concat(paths.Select(i => new FileItem(i))).ToList(); ;
 
             filesContainer.Items = newList; // changes to the UI will bind to DataContext
             UpdateProjectStatus();
@@ -171,11 +178,11 @@ namespace USFMConverter.UI.Pages
 
         private void OnRemoveClick(object? sender, RoutedEventArgs e)
         {
-            var list = filesContainer.Items.Cast<string>().ToList();
+            var list = filesContainer.Items.Cast<IProjectItem>().ToList();
 
             foreach (var item in filesContainer.SelectedItems)
             {
-                list.Remove(item.ToString());
+                list.Remove(item as IProjectItem);
             }
 
             filesContainer.Items = list;
@@ -204,7 +211,7 @@ namespace USFMConverter.UI.Pages
         {
             if (e.Data.Contains(DataFormats.FileNames))
             {
-                var filesToAdd = new List<string>();
+                var filesToAdd = new List<IProjectItem>();
                 var selectedFiles = e.Data.GetFileNames()
                         .Select(name => new FileInfo(name));
 
@@ -216,7 +223,7 @@ namespace USFMConverter.UI.Pages
                         {
                             var filesInDir = FileSystem.GetFilesInDir(
                                 file, CoreConverter.supportedExtensions
-                            ).Select(f => f.FullName);
+                            ).Select(f => new FileItem(f.FullName));
 
                             filesToAdd.AddRange(filesInDir);
                         } 
@@ -230,11 +237,11 @@ namespace USFMConverter.UI.Pages
                     }
                     else if (CoreConverter.supportedExtensions.Contains(file.Extension))
                     {
-                        filesToAdd.Add(file.FullName);
+                        filesToAdd.Add(new FileItem(file.FullName));
                     }
                 }
 
-                var currentFileList = filesContainer.Items.Cast<string>();
+                var currentFileList = filesContainer.Items.Cast<IProjectItem>();
                 var newList = currentFileList.Concat(filesToAdd).ToList();
 
                 filesContainer.Items = newList; // changes to the UI will bind to DataContext
@@ -247,10 +254,10 @@ namespace USFMConverter.UI.Pages
             var index = filesContainer.SelectedIndex;
             if (index <= 0) return;
 
-            var selectedFile = filesContainer.SelectedItem;
-            var list = filesContainer.Items.Cast<string>().ToList();
+            var selectedFile = filesContainer.SelectedItem as IProjectItem;
+            var list = filesContainer.Items.Cast<IProjectItem>().ToList();
             list.RemoveAt(index);
-            list.Insert(--index, selectedFile.ToString());
+            list.Insert(--index, selectedFile);
             filesContainer.Items = list;
             filesContainer.SelectedItem = list[index]; // untoggle others
             filesContainer.SelectedIndex = index;
@@ -264,10 +271,10 @@ namespace USFMConverter.UI.Pages
                 return;
             }
 
-            var selectedFile = filesContainer.SelectedItem;
-            var list = filesContainer.Items.Cast<string>().ToList();
+            var selectedFile = filesContainer.SelectedItem as IProjectItem;
+            var list = filesContainer.Items.Cast<IProjectItem>().ToList();
             list.RemoveAt(index);
-            list.Insert(++index, selectedFile.ToString());
+            list.Insert(++index, selectedFile);
             filesContainer.Items = list;
             filesContainer.SelectedItem = list[index]; // untoggle others
             filesContainer.SelectedIndex = index;
@@ -329,8 +336,8 @@ namespace USFMConverter.UI.Pages
 
         private void OnSortFiles(object sender, RoutedEventArgs e)
         {
-            var files = filesContainer.Items.Cast<string>().ToList();
-            filesContainer.Items = files.OrderBy(f => new FileInfo(f).Name).ToList();
+            var files = filesContainer.Items.Cast<IProjectItem>().ToList();
+            filesContainer.Items = files.OrderBy(f => Path.GetFileName(f.Label)).ToList();
         }
     }
 }

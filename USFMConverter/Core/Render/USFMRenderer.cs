@@ -6,10 +6,10 @@ namespace USFMConverter.Core.Render;
 
 public class USFMRenderer: Renderable
 {
-    public void Render(Project project, USFMDocument usfmDoc)
+    public void Render(Project project, string outputPath, USFMDocument usfmDoc)
     {
         var renderer = new USFMToolsSharp.Renderers.USFM.USFMRenderer();
         var usfm = renderer.Render(usfmDoc);
-        File.WriteAllText(project.OutputFile.FullName, usfm);
+        File.WriteAllText(outputPath, usfm);
     }
 }

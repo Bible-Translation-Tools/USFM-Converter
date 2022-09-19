@@ -139,7 +139,7 @@ namespace USFMConverter.UI.Pages
 
         private void OnOpenFile(object? sender, RoutedEventArgs e)
         {
-            string path = ((ViewData) DataContext).OutputFileLocation;
+            string path = ((ViewData) DataContext).OutputPath;
             try
             {
                 FileSystem.OpenFile(path);
@@ -156,7 +156,7 @@ namespace USFMConverter.UI.Pages
 
         private void OnOpenFolder(object? sender, RoutedEventArgs e)
         {
-            string path = ((ViewData) DataContext).OutputFileLocation;
+            string path = ((ViewData) DataContext).OutputPath;
             try
             {
                 FileSystem.OpenFileLocation(path);

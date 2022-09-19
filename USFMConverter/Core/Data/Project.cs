@@ -7,13 +7,12 @@ namespace USFMConverter.Core.Data
     {
         public Project()
         {
-            Files = new List<string>();
+            Files = new List<IProjectItem>();
             FormatOptions = new RenderFormat();
         }
 
         public string Name { get; set; } = "";
-        public List<string> Files { get; }
-        public FileInfo OutputFile { get; set; }
+        public List<IProjectItem> Files { get; }
         public RenderFormat FormatOptions { get; set; }
     }
 }
