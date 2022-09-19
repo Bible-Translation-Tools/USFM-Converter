@@ -92,12 +92,14 @@
                                       Name="OutputFormatSelector">
                                 <ComboBoxItem Tag="DOCX">Docx</ComboBoxItem>
                                 <ComboBoxItem Tag="HTML">HTML</ComboBoxItem>
+                                <ComboBoxItem Tag="USFM">USFM</ComboBoxItem>
                             </ComboBox>
                         </DockPanel>
                     </StackPanel>
                     
                     <swappable:DocxFormat Name="DOCX" IsVisible="True"/>
                     <swappable:HtmlFormat Name="HTML" IsVisible="False"/>
+                    <swappable:USFMFormat Name="USFM" IsVisible="False"/>
                     
                 </StackPanel>
             </ScrollViewer>
