@@ -112,7 +112,7 @@ namespace USFMConverter.Core.Util
             var usfmList = new List<USFMDocument>();
             var fileList = files.ToList();
 
-            var parser = new USFMParser(new List<string> { "s5" });
+            var parser = new USFMParser(ignoreUnknownMarkers:true);
             int totalFiles = fileList.Count;
 
             for (int i = 0; i < totalFiles; i++)
