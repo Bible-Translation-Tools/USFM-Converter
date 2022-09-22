@@ -53,8 +53,8 @@
                                 HorizontalAlignment="Stretch">
                         <StackPanel Orientation="Horizontal" Spacing="25"
                                     HorizontalAlignment="Center">
-                            <Button Classes="Action" HorizontalAlignment="Center"
-                                    Background="#335cff" IsVisible="{Binding !IndividualFiles}" Foreground="White"
+                            <Button Name="OpenFileButton" Classes="Action" HorizontalAlignment="Center"
+                                    Background="#335cff" Foreground="White"
                                     Click="OnOpenFileClick">
                                 Open File
                             </Button>

@@ -13,6 +13,7 @@ namespace USFMConverter.UI.Pages.PartialView
         public Success()
         {
             InitializeComponent();
+            this.OpenFileButton = this.FindControl<Button>("OpenFileButton");
         }
 
         public event EventHandler<RoutedEventArgs> OpenFile
@@ -50,6 +51,20 @@ namespace USFMConverter.UI.Pages.PartialView
                 nameof(OpenFolder),
                 RoutingStrategies.Bubble
             );
+
+
+        private bool _hideOpenFileButton;
+        public bool HideOpenFileButton
+        {
+            get => _hideOpenFileButton;
+            set
+            {
+                _hideOpenFileButton = value;
+                this.OpenFileButton.IsVisible = !value;
+            }
+        }
+
+        private Button OpenFileButton;
 
         private void InitializeComponent()
         {

@@ -40,30 +40,26 @@ namespace USFMConverter.Core.Util
 
         public static void OpenFileLocation(string path)
         {
-            var file = new FileInfo(path);
-            if (!file.Exists)
+            if (!Directory.Exists(path))
             {
                 throw new FileNotFoundException(
-                    "Could not find the specified path: " + path
+                    $"Could not find the specified directory: {path}"
                     );
             }
 
-            var filePath = $"\"{file.FullName}\""; // preserve spaces with wrapping double quotes
-            var dir = $"\"{file.DirectoryName}\"";
-
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                Process.Start("explorer.exe", @"/select," + filePath);
+                Process.Start("explorer.exe", @$"/select, {path}");
             }
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
-                Process.Start("open", "-R " + filePath);
+                Process.Start("open", $"-R {path}");
             }
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                var processInfo = new ProcessStartInfo("xdg-open", dir);
+                var processInfo = new ProcessStartInfo("xdg-open", path);
                 var process = new Process { StartInfo = processInfo };
                 process.Start();
             }
