@@ -25,7 +25,7 @@ jobs:
         path: ./installers/*.deb
   build-release-mac:
     name: build-release macos
-    runs-on: macos-10.15
+    runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
     - uses: FranzDiebold/github-env-vars-action@v2.1.0
