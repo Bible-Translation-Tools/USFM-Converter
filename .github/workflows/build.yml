@@ -15,7 +15,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 6.0.x
     - name: Windows and Linux buildscript
       run: ./.github/scripts/build-nix.sh
       env:
@@ -39,7 +39,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 6.0.x
     - name: install create-dmg to bundle the app into a dmg
       run: brew install create-dmg
     - name: MacOS buildscript
@@ -63,7 +63,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 6.0.x
     - name: win buildscript
       run: ./.github/scripts/build-win.bat
     - name: set s3 destination_dir
