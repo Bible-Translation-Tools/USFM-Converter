@@ -88,7 +88,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="USFMToolsSharp.Renderers.Docx" Version="0.10.2" />
     <PackageReference Include="USFMToolsSharp.Renderers.HTML" Version="0.3.0" />
-    <PackageReference Include="USFMToolsSharp.Renderers.USFM" Version="0.0.1" />
+    <PackageReference Include="USFMToolsSharp.Renderers.USFM" Version="0.0.2" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="UI\Pages\PartialView\DocxFormat.axaml.cs">
