@@ -52,14 +52,14 @@ namespace USFMConverter.Core.Render
             return config;
         }
 
-        public void Render(Project project, USFMDocument usfm)
+        public void Render(Project project, string outputPath, USFMDocument usfm)
         {
             var config = BuildDocxConfig(project.FormatOptions);
             var renderer = new USFMToolsSharp.Renderers.Docx.DocxRenderer(config);
 
             var document = renderer.Render(usfm);
 
-            using (Stream outputStream = File.Create(project.OutputFile.FullName))
+            using (Stream outputStream = File.Create(outputPath))
             {
                 document.Write(outputStream);
             }

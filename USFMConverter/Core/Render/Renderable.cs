@@ -7,6 +7,6 @@ namespace USFMConverter.Core.Render
 {
     public interface Renderable
     {
-        public void Render(Project project, USFMDocument usfmDoc);
+        public void Render(Project project, string outputPath, USFMDocument usfmDoc);
     }
 }

@@ -72,7 +72,7 @@ namespace USFMConverter.Core.Render
             return config;
         }
 
-        public void Render(Project project, USFMDocument usfmDoc)
+        public void Render(Project project, string outputPath, USFMDocument usfmDoc)
         {
             var config = BuildHTMLConfig(project.FormatOptions);
             var renderer = new HtmlRenderer(config);
@@ -82,9 +82,9 @@ namespace USFMConverter.Core.Render
 
             var htmlString = renderer.Render(usfmDoc);
 
-            File.WriteAllText(project.OutputFile.FullName, htmlString);
+            File.WriteAllText(outputPath, htmlString);
 
-            var outputCSSFile = Path.Combine(project.OutputFile.DirectoryName!, cssFileName);
+            var outputCSSFile = Path.Combine(Path.GetDirectoryName(outputPath), cssFileName);
             if (!File.Exists(outputCSSFile))
             {
                 string execPath = Assembly.GetExecutingAssembly().Location;

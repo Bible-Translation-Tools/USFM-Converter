@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Interactivity;
@@ -115,6 +116,7 @@ namespace USFMConverter.UI.Pages
 
             // show success dialog
             progressDialog.IsVisible = false;
+            successDialog.HideOpenFileButton = context.IndividualFiles;
             successDialog.IsVisible = true;
         }
 
@@ -139,7 +141,7 @@ namespace USFMConverter.UI.Pages
 
         private void OnOpenFile(object? sender, RoutedEventArgs e)
         {
-            string path = ((ViewData) DataContext).OutputFileLocation;
+            var path = ((ViewData) DataContext).OutputPath;
             try
             {
                 FileSystem.OpenFile(path);
@@ -149,14 +151,19 @@ namespace USFMConverter.UI.Pages
                 // show error dialog
                 successDialog.IsVisible = false;
                 errorDialog.IsVisible = true;
-                errorDialog.DataContext = string.Format("{0}\n({1})", ex.Message, ex.GetType());
+                errorDialog.DataContext = $"{ex.Message}\n({ex.GetType()})";
                 return;
             }
         }
 
         private void OnOpenFolder(object? sender, RoutedEventArgs e)
         {
-            string path = ((ViewData) DataContext).OutputFileLocation;
+            var viewData = ((ViewData)DataContext);
+            var path = viewData.OutputPath;
+            if (!viewData.IndividualFiles)
+            {
+                path = Path.GetDirectoryName(path);
+            }
             try
             {
                 FileSystem.OpenFileLocation(path);
@@ -166,7 +173,7 @@ namespace USFMConverter.UI.Pages
                 // show error dialog
                 successDialog.IsVisible = false;
                 errorDialog.IsVisible = true;
-                errorDialog.DataContext = string.Format("{0}\n({1})", ex.Message, ex.GetType());
+                errorDialog.DataContext = $"{ex.Message}\n({ex.GetType()})";
                 return;
             }
         }

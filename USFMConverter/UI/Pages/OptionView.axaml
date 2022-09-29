@@ -52,7 +52,7 @@
     </UserControl.Styles>
 
     <Grid ColumnDefinitions="* 400">
-        <Border PointerPressed="OnCloseClick" Grid.Column="0" Background="#000000" Opacity="0.6" />
+        <Border PointerPressed="OnEmptyAreaClick" Grid.Column="0" Background="#000000" Opacity="0.6" />
 
         <Border Grid.Column="1" Background="White">
 
@@ -70,7 +70,7 @@
                             <Border BorderThickness="1" 
                                     BorderBrush="LightGray" CornerRadius="5">
                                 <Button Classes="Cancel" Padding="10 5"
-                                        Click="OnCloseClick">
+                                        Click="OnCloseButtonClick">
                                     <Image Width="16" Height="16" Source="/UI/Assets/close.png" />
                                 </Button>
                             </Border>
@@ -92,12 +92,14 @@
                                       Name="OutputFormatSelector">
                                 <ComboBoxItem Tag="DOCX">Docx</ComboBoxItem>
                                 <ComboBoxItem Tag="HTML">HTML</ComboBoxItem>
+                                <ComboBoxItem Tag="USFM">USFM</ComboBoxItem>
                             </ComboBox>
                         </DockPanel>
                     </StackPanel>
                     
                     <swappable:DocxFormat Name="DOCX" IsVisible="True"/>
                     <swappable:HtmlFormat Name="HTML" IsVisible="False"/>
+                    <swappable:USFMFormat Name="USFM" IsVisible="False"/>
                     
                 </StackPanel>
             </ScrollViewer>

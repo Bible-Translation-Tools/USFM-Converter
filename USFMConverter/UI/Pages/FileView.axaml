@@ -151,6 +151,12 @@
                  SelectionChanged="OnListItemSelect"
                  ScrollViewer.VerticalScrollBarVisibility="Visible"
                  SelectionMode="Multiple,Toggle" DragDrop.AllowDrop="True"
-                 Items="{Binding Files, Mode=TwoWay}" />
+                 Items="{Binding Files, Mode=TwoWay}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Label}"></TextBlock>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </UserControl>
