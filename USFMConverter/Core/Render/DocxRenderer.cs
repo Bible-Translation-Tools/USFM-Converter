@@ -38,8 +38,8 @@ namespace USFMConverter.Core.Render
                 renderTableOfContents = format.TableOfContents
             };
             
-            if (format.TextAlign == TextAlignment.JUSTIFIED) {
-                config.textAlign = NPOI.XWPF.UserModel.ParagraphAlignment.BOTH;
+            if (format.TextAlign == ConstantValue.TextAlignment.JUSTIFIED) {
+                config.textAlign = USFMToolsSharp.Renderers.Docx.TextAlignment.BOTH;
             }
 
             if (format.NoteTaking)
@@ -55,13 +55,14 @@ namespace USFMConverter.Core.Render
         public void Render(Project project, string outputPath, USFMDocument usfm)
         {
             var config = BuildDocxConfig(project.FormatOptions);
-            var renderer = new USFMToolsSharp.Renderers.Docx.DocxRenderer(config);
+            var renderer = new USFMToolsSharp.Renderers.Docx.OOXMLDocxRenderer(config);
 
-            var document = renderer.Render(usfm);
+            var documentStream = renderer.Render(usfm);
 
             using (Stream outputStream = File.Create(outputPath))
             {
-                document.Write(outputStream);
+                documentStream.Position = 0;
+                documentStream.CopyTo(outputStream);
             }
         }
 

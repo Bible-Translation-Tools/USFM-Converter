@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
@@ -86,8 +86,8 @@
     <PackageReference Include="BTTWriterLib" Version="0.6.0" />
     <PackageReference Include="DotNet.Bundle" Version="0.9.13" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="USFMToolsSharp.Renderers.Docx" Version="0.10.2" />
-    <PackageReference Include="USFMToolsSharp.Renderers.HTML" Version="0.3.0" />
+    <PackageReference Include="USFMToolsSharp.Renderers.Docx" Version="1.0.1" />
+    <PackageReference Include="USFMToolsSharp.Renderers.HTML" Version="0.4.0" />
     <PackageReference Include="USFMToolsSharp.Renderers.USFM" Version="0.0.2" />
   </ItemGroup>
   <ItemGroup>
