@@ -46,7 +46,7 @@
                     <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"
                                Margin="10,0,0,0" FontSize="12"
                                Name="AppVersion" Classes="VersionNumber">
-                        (v1.0.0)
+                        (1.1.1)
                     </TextBlock>
                 </StackPanel>
                 <StackPanel Margin="0 0 10 0" 

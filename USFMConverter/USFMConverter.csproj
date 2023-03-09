@@ -9,8 +9,8 @@
     <CFBundleName>USFMConverter</CFBundleName> <!-- Also defines .app file name -->
     <CFBundleDisplayName>USFMConverter</CFBundleDisplayName>
     <CFBundleIdentifier>org.wycliffeassociates</CFBundleIdentifier>
-    <CFBundleVersion>1.0.0</CFBundleVersion>
-    <CFBundleShortVersionString>1.0.0</CFBundleShortVersionString>
+    <CFBundleVersion>1.1.1</CFBundleVersion>
+    <CFBundleShortVersionString>1.1.1</CFBundleShortVersionString>
     <CFBundlePackageType>APPL</CFBundlePackageType>
     <CFBundleExecutable>USFMConverter</CFBundleExecutable>
     <CFBundleIconFile>UI/Assets/usfmconverter.icns</CFBundleIconFile>

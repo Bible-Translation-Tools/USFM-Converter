@@ -1,5 +1,5 @@
 [Desktop Entry]
-Version=1.0
+Version=1.1.1
 Name=USFM Converter
 Comment=USFM Converter is an app to convert USFM into other formats 
 Exec=/opt/usfmconverter/USFMConverter
