@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "USFM Converter"
-#define MyAppVersion "1.0.0"
+#define MyAppVersion "1.1.1"
 #define MyAppPublisher "Wycliffe Associates"
 #define MyAppURL "https://bibletranslationtools.org"
 #define MyAppExeName "USFMConverter.exe"
