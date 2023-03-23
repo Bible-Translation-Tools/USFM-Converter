@@ -7,6 +7,22 @@ dotnet msbuild ./USFMConverter/USFMConverter.sln -t:BundleApp -p:RuntimeIdentifi
 mkdir ./dmg-source
 cp -r ./output-mac/publish/USFMConverter.app ./dmg-source/USFMConverter.app
 
+#!/bin/bash
+APP_NAME="./dmg-source/USFMConverter.app"
+ENTITLEMENTS="./usfmconverter.entitlements"
+SIGNING_IDENTITY="wait" # matches Keychain Access certificate name
+
+find "$APP_NAME/Contents/MacOS/"|while read fname; do
+    if [[ -f $fname ]]; then
+        echo "[INFO] Signing $fname"
+        codesign --force --timestamp --options=runtime --entitlements "$ENTITLEMENTS" --sign "$SIGNING_IDENTITY" "$fname"
+    fi
+done
+
+echo "[INFO] Signing app file"
+
+codesign --force --timestamp --options=runtime --entitlements "$ENTITLEMENTS" --sign "$SIGNING_IDENTITY" "$APP_NAME"
+
 create-dmg \
   --volname "USFM Converter" \
   --volicon "usfmconverter.icns" \
