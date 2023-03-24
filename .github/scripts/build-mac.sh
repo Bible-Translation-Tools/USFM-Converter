@@ -7,7 +7,6 @@ dotnet msbuild ./USFMConverter/USFMConverter.sln -t:BundleApp -p:RuntimeIdentifi
 mkdir ./dmg-source
 cp -r ./output-mac/publish/USFMConverter.app ./dmg-source/USFMConverter.app
 
-#!/bin/bash
 APP_NAME="./dmg-source/USFMConverter.app"
 ENTITLEMENTS="./usfmconverter.entitlements"
 SIGNING_IDENTITY="wait" # matches Keychain Access certificate name
@@ -28,11 +27,12 @@ create-dmg \
   --volicon "usfmconverter.icns" \
   --background "usfm-dmg-bg.png" \
   --window-pos 200 120 \
-  --window-size 640 360 \
+  --window-size 640 400 \
   --icon-size 80 \
   --icon "USFMConverter.app" 176 248 \
   --hide-extension "USFMConverter.app" \
   --app-drop-link 473 248 \
+  --codesign "$SIGNING_IDENTITY" \
   "USFMConverter.dmg" \
   "dmg-source/"
 

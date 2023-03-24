@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
@@ -6,9 +6,10 @@
     <ApplicationIcon>UI\Assets\converter_logo_inverted_icon.ico</ApplicationIcon>
     <UseAppHost>true</UseAppHost>
 <!--    MacOS bundle information begin-->
+    <CFBundleSignature>????</CFBundleSignature>
     <CFBundleName>USFMConverter</CFBundleName> <!-- Also defines .app file name -->
     <CFBundleDisplayName>USFMConverter</CFBundleDisplayName>
-    <CFBundleIdentifier>org.wycliffeassociates</CFBundleIdentifier>
+    <CFBundleIdentifier>org.wycliffeassociates.USFMconverter</CFBundleIdentifier>
     <CFBundleVersion>1.1.1</CFBundleVersion>
     <CFBundleShortVersionString>1.1.1</CFBundleShortVersionString>
     <CFBundlePackageType>APPL</CFBundlePackageType>
