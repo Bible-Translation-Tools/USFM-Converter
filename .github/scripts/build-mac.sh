@@ -34,6 +34,8 @@ done
 
 echo "[INFO] Signing app file"
 
+codesign --force --timestamp --options=runtime --entitlements "$ENTITLEMENTS" --sign "$SIGNING_IDENTITY" "$APP_NAME/Contents/MacOS/USFMConverter"
+
 codesign --force --timestamp --options=runtime --entitlements "$ENTITLEMENTS" --sign "$SIGNING_IDENTITY" "$APP_NAME"
 
 create-dmg \
