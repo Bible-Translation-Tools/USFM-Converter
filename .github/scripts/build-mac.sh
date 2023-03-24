@@ -7,6 +7,20 @@ dotnet msbuild ./USFMConverter/USFMConverter.sln -t:BundleApp -p:RuntimeIdentifi
 mkdir ./dmg-source
 cp -r ./output-mac/publish/USFMConverter.app ./dmg-source/USFMConverter.app
 
+# Create a new keychain
+security create-keychain -p "$KEYCHAIN_PASSWORD" build.keychain
+# Set it as the default keychain
+security default-keychain -s build.keychain
+# Unlock the keychain so it can be used without an authorisation prompt
+security unlock-keychain -p "$KEYCHAIN_PASSWORD" build.keychain
+
+# Decode certificate to file
+echo "$MACOS_CERTIFICATE" | base64 --decode > certificate.p12
+# Import into keychain
+security import certificate.p12 -k build.keychain -P "$MACOS_CERTIFICATE_PWD" -T /usr/bin/codesign
+# Allow codesign to access keychain
+security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" build.keychain
+
 APP_NAME="./dmg-source/USFMConverter.app"
 ENTITLEMENTS="./usfmconverter.entitlements"
 SIGNING_IDENTITY="wait" # matches Keychain Access certificate name
