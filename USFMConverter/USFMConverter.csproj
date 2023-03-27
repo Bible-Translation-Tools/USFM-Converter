@@ -20,6 +20,7 @@
 <!--    MacOS bundle information end-->
     <RuntimeIdentifiers>osx-x64;linux-x64;win-x64</RuntimeIdentifiers>
     <LangVersion>10</LangVersion>
+    <AssemblyVersion>1.1.1</AssemblyVersion>
   </PropertyGroup>
   <ItemGroup>
     <None Update="UI/Assets/usfmconverter.icns" CopyToOutputDirectory="PreserveNewest" />
