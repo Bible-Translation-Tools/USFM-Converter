@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <install4j version="9.0.4" transformSequenceNumber="9">
   <directoryPresets config="./usfmicon.png" />
-  <application name="USFM Converter" applicationId="4998-7743-4425-4963" mediaDir="installers" shortName="usfmconverter" version="1.1.0" macVolumeId="25a1f2d58abf6574">
+  <application name="USFM Converter" applicationId="4998-7743-4425-4963" mediaDir="installers" shortName="usfmconverter" version="1.1.1" macVolumeId="25a1f2d58abf6574">
     <jreBundles jdkProviderId="AdoptOpenJDK" release="11/latest">
       <modules />
     </jreBundles>

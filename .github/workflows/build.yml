@@ -44,6 +44,10 @@ jobs:
       run: brew install create-dmg
     - name: MacOS buildscript
       run: ./.github/scripts/build-mac.sh
+      env:
+        KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+        MACOS_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE }}
+        MACOS_CERTIFICATE_PWD: ${{ secrets.MACOS_CERTIFICATE_PWD }}
     - name: set s3 destination_dir
       run: echo "CURRENT_S3_DESTINATION=$CI_REPOSITORY_OWNER/$CI_REPOSITORY_NAME/$CI_REF_NAME_SLUG/$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
     - name: Upload file to bucket
