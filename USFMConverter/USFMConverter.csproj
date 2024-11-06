@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ApplicationIcon>UI\Assets\converter_logo_inverted_icon.ico</ApplicationIcon>
     <UseAppHost>true</UseAppHost>
@@ -88,8 +88,8 @@
     <PackageReference Include="BTTWriterLib" Version="0.6.0" />
     <PackageReference Include="DotNet.Bundle" Version="0.9.13" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="USFMToolsSharp.Renderers.Docx" Version="1.0.1" />
-    <PackageReference Include="USFMToolsSharp.Renderers.HTML" Version="0.4.0" />
+    <PackageReference Include="USFMToolsSharp.Renderers.Docx" Version="1.1.1" />
+    <PackageReference Include="USFMToolsSharp.Renderers.HTML" Version="0.5.1" />
     <PackageReference Include="USFMToolsSharp.Renderers.USFM" Version="0.0.2" />
   </ItemGroup>
   <ItemGroup>
