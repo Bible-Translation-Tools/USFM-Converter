@@ -1,8 +1,6 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
-using Avalonia.Platform;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,6 +11,7 @@ using USFMConverter.UI.Pages.PartialView;
 using System;
 using System.Runtime.InteropServices;
 using USFMConverter.Core.Data;
+using USFMToolsSharp;
 
 namespace USFMConverter.UI.Pages
 {
@@ -301,6 +300,54 @@ namespace USFMConverter.UI.Pages
             }
         }
 
+        private static readonly string[] CanonicalBookOrder = new string[] {
+            "GEN", "EXO", "LEV", "NUM", "DEU", "JOS", "JDG", "RUT", "1SA", "2SA", "1KI", "2KI", "1CH", "2CH", "EZR", "NEH", "EST", "JOB", "PSA", "PRO", "ECC", "SNG", "ISA", "JER", "LAM", "EZK", "DAN", "HOS", "JOL", "AMO", "OBA", "JON", "MIC", "NAM", "HAB", "ZEP", "HAG", "ZEC", "MAL", "MAT", "MRK", "LUK", "JHN", "ACT", "ROM", "1CO", "2CO", "GAL", "EPH", "PHP", "COL", "1TH", "2TH", "1TI", "2TI", "TIT", "PHM", "HEB", "JAS", "1PE", "2PE", "1JN", "2JN", "3JN", "JUD", "REV"
+        };
+
+        private void OnSortFiles(object sender, RoutedEventArgs e)
+        {
+            var files = filesContainer.Items.Cast<IProjectItem>().ToList();
+            filesContainer.Items = files.OrderBy(f => GetCanonicalIndex(f.Label)).ToList();
+        }
+
+        private int GetCanonicalIndex(string label)
+        {
+            // Try to extract book code from filename (handles cases like 01-GEN.usfm)
+            var fileName = Path.GetFileNameWithoutExtension(label);
+            string code = null;
+            if (fileName.Contains("-"))
+            {
+                var parts = fileName.Split('-');
+                code = parts.Last().ToUpper();
+            }
+            else
+            {
+                code = fileName.Length >= 3 ? fileName.Substring(0, 3).ToUpper() : fileName.ToUpper();
+            }
+            var idx = Array.IndexOf(CanonicalBookOrder, code);
+            if (idx >= 0)
+                return idx;
+
+            // Try to parse the file for toc3 if code not found
+            try
+            {
+                var filePath = label;
+                if (File.Exists(filePath))
+                {
+                    var usfm = System.IO.File.ReadAllText(filePath);
+                    var toc3Code = new USFMParser().ParseFromString(usfm)
+                        .GetChildMarkers<USFMToolsSharp.Models.Markers.TOC3Marker>().FirstOrDefault()?.BookAbbreviation;
+                    var tocIdx = Array.IndexOf(CanonicalBookOrder, toc3Code);
+                    return tocIdx >= 0 ? tocIdx : int.MaxValue;
+                }
+            }
+            catch
+            {
+                // If we can't read the file, just return max value to put it at the end
+            }
+            return int.MaxValue;
+        }
+
         public void UpdateProjectStatus()
         {
             bool isReady = (filesContainer.ItemCount > 0);
@@ -332,12 +379,6 @@ namespace USFMConverter.UI.Pages
                 moveUpBtn.IsEnabled = false;
                 moveDownBtn.IsEnabled = false;
             }
-        }
-
-        private void OnSortFiles(object sender, RoutedEventArgs e)
-        {
-            var files = filesContainer.Items.Cast<IProjectItem>().ToList();
-            filesContainer.Items = files.OrderBy(f => Path.GetFileName(f.Label)).ToList();
         }
     }
 }
