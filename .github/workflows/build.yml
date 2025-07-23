@@ -60,7 +60,7 @@ jobs:
         destination_dir: ${{ env.CURRENT_S3_DESTINATION }}
   build-win:
     name: build windows installer with innosetup
-    runs-on: windows-2019
+    runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
     - uses: FranzDiebold/github-env-vars-action@v2.1.0
